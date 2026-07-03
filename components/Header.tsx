@@ -38,7 +38,7 @@ const NAV_ITEMS = [
       { label: 'Traditional Rulers',         href: '/about/traditional-rulers' },
     ],
   },
-  { label: 'Housing & Tourism', href: '/housing-tourism' },
+  { label: 'Opportunities', href: '/resources/careers' },
   { label: 'News & Events', href: '/news' },
   {
     label: 'Resources',

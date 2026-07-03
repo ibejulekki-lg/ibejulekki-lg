@@ -1,8 +1,11 @@
-const DIRECT: { role: string; note?: string; sub?: string; highlight?: boolean }[] = [
-  { role: 'Vice Chairman' },
-  { role: 'Council Manager', note: 'Oversees all departments & units', highlight: true },
-  { role: 'SLG', sub: 'Supervisors' },
-  { role: 'Legislative Arm', sub: 'Clerk of the House' },
+import Link from 'next/link'
+
+// Senior roles, all on ONE level below the Chairman. Each links to its page.
+const DIRECT: { role: string; note?: string; href: string }[] = [
+  { role: 'Vice Chairman', href: '/government/executive-council' },
+  { role: 'Council Manager', note: 'Oversees all departments & units', href: '/government/management-team' },
+  { role: 'Supervisors', href: '/government/executive-council' },
+  { role: 'Clerk of the House', note: 'Legislative Arm', href: '/government/legislative-council' },
 ]
 
 const DEPARTMENTS = [
@@ -19,6 +22,9 @@ const DEPARTMENTS = [
 
 const UNITS = ['Audit', 'Legal Service', 'Public Affairs', 'Tourism', 'ICT', 'Procurement']
 
+// Departments and units report to the Council Manager, so they link there.
+const DEPT_HREF = '/government/management-team'
+
 function Connector() {
   return <div className="mx-auto w-px h-7 sm:h-9 bg-black/15" aria-hidden="true" />
 }
@@ -26,7 +32,7 @@ function Connector() {
 export default function Organogram() {
   return (
     <section
-      className="bg-[#FAFAFA] py-16 sm:py-20 lg:py-24 border-t border-black/06"
+      className="bg-[#FAFAFA] py-16 sm:py-20 lg:py-24 border-t border-black/[0.06]"
       aria-labelledby="org-heading"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
@@ -48,49 +54,41 @@ export default function Organogram() {
           </h2>
           <p className="mt-3 text-[14px] text-black/55 leading-[1.8]">
             How Ibeju-Lekki Local Government is organised, from the Executive Chairman
-            to the departments and units that deliver services to residents.
+            to the departments and units that deliver services to residents. Tap any role to learn more.
           </p>
         </div>
 
         {/* Tier 0, Executive Chairman */}
         <div className="flex justify-center">
-          <div className="w-full max-w-xs text-center rounded-2xl bg-[#111111] text-white px-6 py-5 shadow-sm">
+          <Link
+            href="/government/chairman"
+            className="group w-full max-w-xs text-center rounded-2xl bg-[#111111] text-white px-6 py-5 shadow-sm transition-colors hover:bg-[#1c1c1c]"
+          >
             <div className="text-[10px] font-bold uppercase tracking-[0.22em] text-brand-yellow mb-1">
               Executive Chairman
             </div>
             <div className="text-[15px] font-bold leading-tight">Hon. Abdullahi Sesan Olowa</div>
-          </div>
+          </Link>
         </div>
 
         <Connector />
 
-        {/* Tier 1, Reports to the Chairman */}
+        {/* Tier 1, senior roles, all on one level */}
         <div className="text-center text-[10px] font-bold uppercase tracking-[0.2em] text-black/40 mb-4">
-          Reports to the Executive Chairman
+          Reporting to the Executive Chairman
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 max-w-4xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 max-w-4xl mx-auto items-stretch">
           {DIRECT.map((d) => (
-            <div key={d.role} className="flex flex-col">
-              <div
-                className={`rounded-xl border px-4 py-4 text-center ${
-                  d.highlight ? 'border-brand-yellow bg-brand-yellow/10' : 'border-black/12 bg-white'
-                }`}
-              >
-                <div className="text-[13px] font-bold text-[#111111] leading-tight">{d.role}</div>
-                {d.note && <div className="mt-1 text-[10.5px] text-black/50 leading-snug">{d.note}</div>}
+            <Link
+              key={d.role}
+              href={d.href}
+              className="group flex flex-col justify-center rounded-xl border border-black/12 bg-white px-4 py-4 text-center transition-colors hover:border-brand-yellow hover:bg-brand-yellow/5"
+            >
+              <div className="text-[13px] font-bold text-[#111111] leading-tight group-hover:text-[#B26B00] transition-colors">
+                {d.role}
               </div>
-              {d.sub && (
-                <>
-                  <div className="mx-auto w-px h-4 bg-black/12" aria-hidden="true" />
-                  <div className="rounded-lg border border-black/10 bg-white px-3 py-2 text-center">
-                    <div className="text-[9px] font-semibold uppercase tracking-[0.16em] text-black/40">
-                      Reports
-                    </div>
-                    <div className="text-[11.5px] font-semibold text-[#111111]">{d.sub}</div>
-                  </div>
-                </>
-              )}
-            </div>
+              {d.note && <div className="mt-1 text-[10.5px] text-black/50 leading-snug">{d.note}</div>}
+            </Link>
           ))}
         </div>
 
@@ -106,50 +104,55 @@ export default function Organogram() {
 
           {/* Departments */}
           <div className="flex items-center gap-3 mb-4">
-            <span className="h-px flex-1 bg-black/08" aria-hidden="true" />
+            <span className="h-px flex-1 bg-black/[0.08]" aria-hidden="true" />
             <span className="text-[10.5px] font-bold uppercase tracking-[0.2em] text-[#111111]">Departments</span>
-            <span className="h-px flex-1 bg-black/08" aria-hidden="true" />
+            <span className="h-px flex-1 bg-black/[0.08]" aria-hidden="true" />
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-8">
             {DEPARTMENTS.map((name) => (
-              <div
+              <Link
                 key={name}
-                className="flex items-start gap-3 rounded-xl border border-black/10 bg-white px-4 py-3 hover:border-brand-yellow/50 transition-colors"
+                href={DEPT_HREF}
+                className="group flex items-start gap-3 rounded-xl border border-black/10 bg-white px-4 py-3 hover:border-brand-yellow/50 transition-colors"
               >
                 <span className="mt-1 w-1.5 h-1.5 rounded-full bg-brand-yellow flex-shrink-0" aria-hidden="true" />
                 <div>
                   <div className="text-[9px] font-bold uppercase tracking-[0.16em] text-black/40">Head</div>
-                  <div className="text-[12.5px] font-semibold text-[#111111] leading-snug">{name}</div>
+                  <div className="text-[12.5px] font-semibold text-[#111111] leading-snug group-hover:text-[#B26B00] transition-colors">{name}</div>
                   <div className="text-[10px] text-black/40">Department</div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
 
           {/* Units */}
           <div className="flex items-center gap-3 mb-4">
-            <span className="h-px flex-1 bg-black/08" aria-hidden="true" />
+            <span className="h-px flex-1 bg-black/[0.08]" aria-hidden="true" />
             <span className="text-[10.5px] font-bold uppercase tracking-[0.2em] text-[#111111]">Units</span>
-            <span className="h-px flex-1 bg-black/08" aria-hidden="true" />
+            <span className="h-px flex-1 bg-black/[0.08]" aria-hidden="true" />
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mb-6">
             {UNITS.map((name) => (
-              <div
+              <Link
                 key={name}
-                className="rounded-xl border border-black/10 bg-white px-3 py-3 text-center hover:border-brand-yellow/50 transition-colors"
+                href={DEPT_HREF}
+                className="group rounded-xl border border-black/10 bg-white px-3 py-3 text-center hover:border-brand-yellow/50 transition-colors"
               >
                 <div className="text-[9px] font-bold uppercase tracking-[0.16em] text-black/40 mb-0.5">Head</div>
-                <div className="text-[12px] font-semibold text-[#111111] leading-tight">{name}</div>
+                <div className="text-[12px] font-semibold text-[#111111] leading-tight group-hover:text-[#B26B00] transition-colors">{name}</div>
                 <div className="text-[9.5px] text-black/40 mt-0.5">Unit</div>
-              </div>
+              </Link>
             ))}
           </div>
 
           {/* Area Officers */}
-          <div className="rounded-xl border border-dashed border-black/20 bg-[#FAFAFA] px-4 py-3 text-center">
+          <Link
+            href={DEPT_HREF}
+            className="group flex items-center justify-center rounded-xl border border-dashed border-black/20 bg-[#FAFAFA] px-4 py-3 text-center hover:border-brand-yellow/60 transition-colors"
+          >
             <span className="text-[9px] font-bold uppercase tracking-[0.16em] text-black/40">Field</span>
-            <span className="ml-2 text-[12.5px] font-semibold text-[#111111]">Area Officers</span>
-          </div>
+            <span className="ml-2 text-[12.5px] font-semibold text-[#111111] group-hover:text-[#B26B00] transition-colors">Area Officers</span>
+          </Link>
         </div>
       </div>
     </section>
