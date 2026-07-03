@@ -126,7 +126,11 @@ export default function Page() {
                 <div className="mt-5 grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 gap-x-6 gap-y-2.5 max-w-md">
                   {FACTS.map((f) => (
                     <div key={f.label} className="flex items-center gap-2">
-                      <FactIcon kind={f.icon} />
+                      {f.label === 'Party' ? (
+                        <Image src="/apc-logo.webp" alt="All Progressives Congress logo" width={16} height={16} className="flex-shrink-0" />
+                      ) : (
+                        <FactIcon kind={f.icon} />
+                      )}
                       <span className="text-[12px] text-black/45">{f.label}:</span>
                       <span className="text-[12.5px] font-semibold text-[#111111]">{f.value}</span>
                     </div>
