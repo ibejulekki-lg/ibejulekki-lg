@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
+import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { groq } from 'next-sanity'
 import { client, urlFor } from '@/lib/sanity'
@@ -27,6 +28,41 @@ const PLACEHOLDER_POSTS: Record<string, any> = {
   },
 }
 
+async function getPost(slug: string) {
+  let post = null
+  try {
+    post = await client.fetch(newsPostBySlugQuery, { slug })
+  } catch {}
+  if (!post) post = PLACEHOLDER_POSTS[slug] ?? null
+  return post
+}
+
+// Per-article metadata so shared links show the real headline, summary and
+// cover image on WhatsApp, X, Facebook and in search results.
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+  const post = await getPost(params.slug)
+  if (!post) return { title: 'Article Not Found | Ibeju-Lekki Local Government' }
+  const ogImage = post.coverImage?.asset
+    ? urlFor(post.coverImage).width(1200).height(630).fit('crop').auto('format').url()
+    : undefined
+  return {
+    title: `${post.title} | Ibeju-Lekki Local Government`,
+    description: post.summary,
+    openGraph: {
+      type: 'article',
+      title: post.title,
+      description: post.summary,
+      publishedTime: post.publishedAt,
+      ...(ogImage ? { images: [{ url: ogImage, width: 1200, height: 630 }] } : {}),
+    },
+    twitter: {
+      card: ogImage ? 'summary_large_image' : 'summary',
+      title: post.title,
+      description: post.summary,
+    },
+  }
+}
+
 // Pre-build only the 30 newest articles; the rest render on demand and cache
 // (keeps the Vercel build fast even with hundreds of posts).
 export async function generateStaticParams() {
@@ -42,12 +78,7 @@ const formatDate = (iso: string) =>
   new Date(iso).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
 
 export default async function NewsPost({ params }: { params: { slug: string } }) {
-  let post = null
-  try {
-    post = await client.fetch(newsPostBySlugQuery, { slug: params.slug })
-  } catch {}
-
-  if (!post) post = PLACEHOLDER_POSTS[params.slug] ?? null
+  const post = await getPost(params.slug)
   if (!post) notFound()
 
   const hasBody = Array.isArray(post.body) && post.body.length > 0

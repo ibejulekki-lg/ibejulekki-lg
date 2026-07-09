@@ -18,14 +18,14 @@ import StudioDashboard     from './studio/StudioDashboard'
 export default defineConfig({
   name:    'ibeju-lekki-lga',
   title:   'Ibeju-Lekki LGA',
-  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!,
-  dataset:   process.env.NEXT_PUBLIC_SANITY_DATASET!,
+  // Guarded so a missing environment variable degrades gracefully in the
+  // studio UI instead of crashing the whole /studio route.
+  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || 'missing-project-id',
+  dataset:   process.env.NEXT_PUBLIC_SANITY_DATASET || 'production',
   basePath:  '/studio',
 
-  // ── Brand theme ─────────────────────────────────────────────────────────────
   theme,
 
-  // ── Custom studio components ─────────────────────────────────────────────────
   studio: {
     components: {
       logo:    StudioLogo,
@@ -35,23 +35,20 @@ export default defineConfig({
 
   plugins: [
     structureTool({
-      // ── Custom sidebar structure ─────────────────────────────────────────────
       structure: (S) =>
         S.list()
           .title('Ibeju-Lekki CMS')
           .items([
-            // Dashboard / Home
             S.listItem()
               .title('Dashboard')
               .icon(HomeIcon)
               .child(
                 S.component(StudioDashboard)
-                  .title('Welcome — Ibeju-Lekki Content Studio')
+                  .title('Welcome - Ibeju-Lekki Content Studio')
               ),
 
             S.divider(),
 
-            // News & Events
             S.listItem()
               .title('News & Events')
               .icon(DocumentTextIcon)
@@ -63,7 +60,6 @@ export default defineConfig({
 
             S.divider(),
 
-            // Quick Services
             S.listItem()
               .title('Quick Services')
               .icon(BellIcon)
@@ -73,7 +69,6 @@ export default defineConfig({
                   .defaultOrdering([{ field: 'order', direction: 'asc' }])
               ),
 
-            // Chairman's Message
             S.listItem()
               .title("Chairman's Message")
               .icon(UserIcon)
@@ -86,7 +81,6 @@ export default defineConfig({
 
             S.divider(),
 
-            // Site Settings
             S.listItem()
               .title('Site Settings')
               .icon(CogIcon)
@@ -98,7 +92,6 @@ export default defineConfig({
               ),
           ]),
 
-      // ── Default document node (clean editor view) ──────────────────────────
       defaultDocumentNode: (S, { schemaType }) => {
         return S.document().views([S.view.form()])
       },
@@ -111,7 +104,6 @@ export default defineConfig({
 
   schema: { types: schemaTypes },
 
-  // ── Friendly field titles override ────────────────────────────────────────
   document: {
     productionUrl: async (prev, { document }) => {
       const slug = (document as any)?.slug?.current

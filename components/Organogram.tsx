@@ -82,7 +82,7 @@ export default function Organogram() {
             <Link
               key={d.role}
               href={d.href}
-              className="group flex flex-col justify-center rounded-xl border border-black/12 bg-white px-4 py-4 text-center transition-colors hover:border-brand-yellow hover:bg-brand-yellow/5"
+              className="group flex flex-col justify-center rounded-xl border border-black/[0.12] bg-white px-4 py-4 text-center transition-colors hover:border-brand-yellow hover:bg-brand-yellow/5"
             >
               <div className="text-[13px] font-bold text-[#111111] leading-tight group-hover:text-[#B26B00] transition-colors">
                 {d.role}

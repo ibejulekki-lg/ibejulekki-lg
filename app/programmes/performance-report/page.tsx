@@ -70,7 +70,7 @@ export default function Page() {
         </section>
 
         {/* Pillars */}
-        <section className="bg-[#FAFAFA] border-y border-black/06 py-12 sm:py-16">
+        <section className="bg-[#FAFAFA] border-y border-black/[0.06] py-12 sm:py-16">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-10">
             <div className="flex items-center gap-3 mb-6">
               <span className="h-px w-8 bg-brand-yellow" aria-hidden="true" />

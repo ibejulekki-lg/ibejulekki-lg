@@ -1,24 +1,37 @@
 'use client'
 
-import { Share2 } from 'lucide-react'
+import { useState } from 'react'
+import { Share2, Check } from 'lucide-react'
 
 export default function ShareButton({ title }: { title: string }) {
-  function handleShare() {
+  const [copied, setCopied] = useState(false)
+
+  async function handleShare() {
+    const url = window.location.href
     if (navigator.share) {
-      navigator.share({ title, url: window.location.href })
-    } else {
-      navigator.clipboard.writeText(window.location.href)
-      alert('Link copied to clipboard')
+      try {
+        await navigator.share({ title, url })
+      } catch {
+        /* user closed the share sheet, nothing to do */
+      }
+      return
+    }
+    try {
+      await navigator.clipboard.writeText(url)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    } catch {
+      /* clipboard unavailable (very old browser or http) */
     }
   }
 
   return (
     <button
       onClick={handleShare}
-      className="inline-flex items-center gap-2 text-[12px] font-semibold text-[#0A1F14]/50 hover:text-[#0F3D2E] transition-colors"
+      className="inline-flex items-center gap-2 text-[12px] font-semibold text-[#111111]/50 hover:text-[#B26B00] transition-colors"
     >
-      <Share2 size={13} strokeWidth={2} />
-      Share this article
+      {copied ? <Check size={13} strokeWidth={2} /> : <Share2 size={13} strokeWidth={2} />}
+      {copied ? 'Link copied' : 'Share this article'}
     </button>
   )
 }

@@ -77,7 +77,7 @@ export default function Hero() {
           aria-hidden="true"
           className="absolute inset-0 opacity-[0.035]"
           style={{
-            backgroundImage: 'radial-gradient(circle at 1px 1px, #0F3D2E 1px, transparent 0)',
+            backgroundImage: 'radial-gradient(circle at 1px 1px, #111111 1px, transparent 0)',
             backgroundSize: '32px 32px',
           }}
         />
@@ -88,7 +88,7 @@ export default function Hero() {
           className="absolute top-0 right-0 w-1/2 h-full pointer-events-none"
           style={{
             background:
-              'radial-gradient(ellipse at 90% 20%, rgba(200,155,60,0.07) 0%, transparent 60%)',
+              'radial-gradient(ellipse at 90% 20%, rgba(245,166,35,0.07) 0%, transparent 60%)',
           }}
         />
 
@@ -123,8 +123,8 @@ export default function Hero() {
                 `}
                 style={{ transitionDelay: '80ms' }}
               >
-                Making Ibeju <br />
-                <span className="text-[#111111]">Lekki Great.</span>
+                Making Ibeju-Lekki <br />
+                <span className="text-[#111111]">Great Again.</span>
               </h1>
 
               {/* Sub */}
@@ -213,7 +213,7 @@ export default function Hero() {
             >
               {/* Chairman card */}
               <div className="
-                border border-[#111111]/12 rounded-2xl p-5 sm:p-6
+                border border-[#111111]/[0.12] rounded-2xl p-5 sm:p-6
                 hover:border-brand-yellow/40 transition-colors duration-300
               ">
                 <div className="flex items-center gap-4 mb-4">
@@ -248,7 +248,7 @@ export default function Hero() {
               </div>
 
               {/* SHIEELD tiles */}
-              <div className="border border-[#111111]/12 rounded-2xl p-4 sm:p-5">
+              <div className="border border-[#111111]/[0.12] rounded-2xl p-4 sm:p-5">
                 <div className="text-[9.5px] font-bold uppercase tracking-[0.24em] text-[#111111]/35 mb-3">
                   The SHIEELD Agenda, 7 Pillars
                 </div>
@@ -266,7 +266,7 @@ export default function Hero() {
                           py-2.5 px-1 border transition-all duration-300 cursor-pointer
                           ${isActive
                             ? 'bg-brand-yellow border-brand-yellow scale-105 shadow-md shadow-brand-yellow/25'
-                            : 'bg-white border-[#111111]/12 hover:border-[#111111]/30 hover:bg-brand-yellow/10'
+                            : 'bg-white border-[#111111]/[0.12] hover:border-[#111111]/30 hover:bg-brand-yellow/10'
                           }
                         `}
                       >
@@ -293,8 +293,8 @@ export default function Hero() {
                 </div>
 
                 {/* Active pillar info */}
-                <div className="mt-3 pt-3 border-t border-[#111111]/08 flex items-center gap-3 min-h-[40px]">
-                  <div className="w-8 h-8 rounded-lg bg-brand-yellow/12 flex items-center justify-center flex-shrink-0">
+                <div className="mt-3 pt-3 border-t border-[#111111]/[0.08] flex items-center gap-3 min-h-[40px]">
+                  <div className="w-8 h-8 rounded-lg bg-brand-yellow/[0.12] flex items-center justify-center flex-shrink-0">
                     <ActiveIcon size={15} strokeWidth={2} className="text-[#111111]" />
                   </div>
                   <div>
@@ -318,9 +318,9 @@ export default function Hero() {
               <div className="
                 flex items-start gap-3
                 border border-[#BE1E2D]/20 rounded-xl px-4 py-3
-                bg-[#BE1E2D]/03
+                bg-[#BE1E2D]/[0.03]
               ">
-                <div className="w-7 h-7 rounded-lg bg-[#BE1E2D]/08 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <div className="w-7 h-7 rounded-lg bg-[#BE1E2D]/[0.08] flex items-center justify-center flex-shrink-0 mt-0.5">
                   <Megaphone size={14} strokeWidth={2} className="text-[#BE1E2D]" />
                 </div>
                 <div className="flex-1 min-w-0">
@@ -345,7 +345,7 @@ export default function Hero() {
 
       {/* ── TICKER ─────────────────────────────────────────────────────────── */}
       <div
-        className="border-y border-[#111111]/08 overflow-hidden bg-white"
+        className="border-y border-[#111111]/[0.08] overflow-hidden bg-white"
         aria-label="Key investments in Ibeju-Lekki"
       >
         <div className="flex">

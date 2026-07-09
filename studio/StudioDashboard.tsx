@@ -5,29 +5,29 @@ const QUICK_LINKS = [
     label: '+ New Article',
     desc: 'Publish a news or event post',
     href: '/studio/intent/create/template=news;type=news/',
-    color: '#0F3D2E',
+    color: '#111111',
     text: '#FFFFFF',
   },
   {
     label: 'Update Chairman Quote',
     desc: "Edit the chairman's message and stats",
     href: '/studio/intent/edit/id=chairmanMessage;type=chairmanMessage/',
-    color: '#C89B3C',
-    text: '#0A1F14',
+    color: '#F5A623',
+    text: '#111111',
   },
   {
     label: 'Manage Services',
     desc: 'Add or edit quick service links',
     href: '/studio/intent/create/template=quickService;type=quickService/',
     color: '#FFFFFF',
-    text: '#0F3D2E',
+    text: '#111111',
   },
   {
     label: 'Site Settings',
     desc: 'Update contact details and socials',
     href: '/studio/intent/edit/id=siteSettings;type=siteSettings/',
     color: '#FFFFFF',
-    text: '#0F3D2E',
+    text: '#111111',
   },
 ]
 
@@ -60,7 +60,7 @@ export default function StudioDashboard() {
             fontWeight: 700,
             textTransform: 'uppercase',
             letterSpacing: '0.22em',
-            color: '#C89B3C',
+            color: '#F5A623',
             marginBottom: '8px',
           }}>
             Ibeju-Lekki LGA · Content Studio
@@ -68,7 +68,7 @@ export default function StudioDashboard() {
           <h1 style={{
             fontSize: '28px',
             fontWeight: 800,
-            color: '#0A1F14',
+            color: '#111111',
             margin: 0,
             letterSpacing: '-0.02em',
           }}>
@@ -146,7 +146,7 @@ export default function StudioDashboard() {
             fontWeight: 700,
             textTransform: 'uppercase',
             letterSpacing: '0.2em',
-            color: '#C89B3C',
+            color: '#F5A623',
             marginBottom: '16px',
           }}>
             How to publish a news article
@@ -169,8 +169,8 @@ export default function StudioDashboard() {
                 width: '22px',
                 height: '22px',
                 borderRadius: '50%',
-                background: '#0F3D2E',
-                color: '#C89B3C',
+                background: '#111111',
+                color: '#F5A623',
                 fontSize: '10px',
                 fontWeight: 800,
                 display: 'flex',
@@ -209,7 +209,7 @@ export default function StudioDashboard() {
               fontWeight: 700,
               textTransform: 'uppercase',
               letterSpacing: '0.18em',
-              color: '#C89B3C',
+              color: '#F5A623',
               marginBottom: '4px',
             }}>
               Tip of the day

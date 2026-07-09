@@ -15,7 +15,11 @@ const PLACEHOLDER_SERVICES = [
 interface Service { _id:string; label:string; description:string; icon:string; href:string; external:boolean }
 interface Props { services?: Service[] }
 
-export default function QuickServices({ services = PLACEHOLDER_SERVICES }: Props) {
+export default function QuickServices({ services }: Props) {
+  // Fall back to placeholders when Sanity is disconnected OR returns an
+  // empty list (no active quickService documents published yet).
+  const data = services && services.length > 0 ? services : PLACEHOLDER_SERVICES
+
   return (
     <section className="bg-white py-14 sm:py-16 lg:py-20" aria-labelledby="services-heading">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
@@ -32,7 +36,7 @@ export default function QuickServices({ services = PLACEHOLDER_SERVICES }: Props
           </p>
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
-          {services.map((svc) => {
+          {data.map((svc) => {
             const Icon = ICON_MAP[svc.icon] ?? FileText
             const Wrapper = svc.external ? 'a' : Link
             const props = svc.external ? { href:svc.href, target:'_blank', rel:'noopener noreferrer' } : { href:svc.href }
@@ -40,7 +44,7 @@ export default function QuickServices({ services = PLACEHOLDER_SERVICES }: Props
               <Wrapper key={svc._id} {...(props as any)}
                 className="group relative flex flex-col items-center text-center border border-[#111111]/10 rounded-2xl p-5 sm:p-6 hover:border-brand-yellow/50 hover:shadow-md hover:-translate-y-1 active:scale-95 transition-all duration-200 cursor-pointer bg-white"
               >
-                <div className="w-11 h-11 rounded-xl mb-3 bg-brand-yellow/12 flex items-center justify-center group-hover:bg-brand-yellow transition-colors duration-200">
+                <div className="w-11 h-11 rounded-xl mb-3 bg-brand-yellow/[0.12] flex items-center justify-center group-hover:bg-brand-yellow transition-colors duration-200">
                   <Icon size={20} strokeWidth={1.8} className="text-[#111111] group-hover:text-black transition-colors duration-200" />
                 </div>
                 <span className="text-[12.5px] font-bold text-[#111111] leading-tight mb-1 group-hover:text-[#B26B00] transition-colors">{svc.label}</span>

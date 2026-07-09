@@ -3,12 +3,12 @@
 @tailwind utilities;
 
 /* ── Typography ─────────────────────────────────── */
-/* Poppins loaded via layout.tsx head link tag      */
+/* Poppins is self-hosted via next/font in layout.tsx */
 
 body {
   background: #FFFFFF;
   color: #111111;
-  font-family: 'Poppins', system-ui, sans-serif;
+  font-family: var(--font-poppins), 'Poppins', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 

@@ -20,7 +20,7 @@ export default function SubscribeSection() {
   }
 
   return (
-    <section className="bg-[#111111] py-16 sm:py-20 border-t border-white/05" aria-labelledby="subscribe-heading">
+    <section className="bg-[#111111] py-16 sm:py-20 border-t border-white/[0.05]" aria-labelledby="subscribe-heading">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-center">
           <div>
@@ -48,7 +48,7 @@ export default function SubscribeSection() {
                   <div className="relative flex-1">
                     <Mail size={15} strokeWidth={2} className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30 pointer-events-none" />
                     <input id="sub-email" type="email" value={email} onChange={(e)=>setEmail(e.target.value)} placeholder="your@email.com" required
-                      className="w-full pl-10 pr-4 py-3.5 rounded-full bg-white/06 border border-white/12 text-white text-[13px] placeholder:text-white/30 focus:outline-none focus:border-brand-yellow/60 transition-colors font-medium"
+                      className="w-full pl-10 pr-4 py-3.5 rounded-full bg-white/[0.06] border border-white/[0.12] text-white text-[13px] placeholder:text-white/30 focus:outline-none focus:border-brand-yellow/60 transition-colors font-medium"
                     />
                   </div>
                   <button type="submit" className="flex-shrink-0 inline-flex items-center gap-2 px-6 py-3.5 bg-brand-yellow text-black text-[13px] font-bold rounded-full hover:bg-[#E08E0B] active:scale-95 transition-all duration-200">
@@ -66,7 +66,7 @@ export default function SubscribeSection() {
               </div>
             )}
             <button onClick={handlePush} disabled={pushGranted}
-              className={`w-full flex items-center justify-center gap-2.5 py-3.5 border rounded-full text-[13px] font-semibold transition-all duration-200 active:scale-95 ${pushGranted ? 'border-brand-yellow/30 text-brand-yellow cursor-default' : 'border-white/12 text-white/60 hover:border-white/30 hover:text-white'}`}
+              className={`w-full flex items-center justify-center gap-2.5 py-3.5 border rounded-full text-[13px] font-semibold transition-all duration-200 active:scale-95 ${pushGranted ? 'border-brand-yellow/30 text-brand-yellow cursor-default' : 'border-white/[0.12] text-white/60 hover:border-white/30 hover:text-white'}`}
             >
               <Bell size={15} strokeWidth={2} />
               {pushGranted ? 'Push notifications enabled' : 'Enable Push Notifications'}

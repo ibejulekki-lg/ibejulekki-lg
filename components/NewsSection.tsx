@@ -80,7 +80,7 @@ export default function NewsSection({ posts }: Props) {
 
   return (
     <section
-      className="bg-white py-16 sm:py-20 lg:py-24 border-t border-[#111111]/06"
+      className="bg-white py-16 sm:py-20 lg:py-24 border-t border-[#111111]/[0.06]"
       aria-labelledby="news-heading"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
@@ -151,7 +151,7 @@ export default function NewsSection({ posts }: Props) {
                 href={`/news/${post.slug.current}`}
                 className="group flex gap-4 border border-[#111111]/10 rounded-2xl p-4 sm:p-5 hover:border-brand-yellow/40 hover:shadow-md transition-all duration-200"
               >
-                <div className="relative flex-shrink-0 w-14 h-14 rounded-xl overflow-hidden bg-brand-yellow/12 flex items-center justify-center">
+                <div className="relative flex-shrink-0 w-14 h-14 rounded-xl overflow-hidden bg-brand-yellow/[0.12] flex items-center justify-center">
                   {post.coverImage?.asset ? (
                     <Image src={urlFor(post.coverImage).width(120).height(120).fit('crop').auto('format').url()} alt={post.coverImage.alt || post.title} fill className="object-cover" sizes="56px" />
                   ) : (

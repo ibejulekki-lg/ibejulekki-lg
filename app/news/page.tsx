@@ -21,6 +21,8 @@ const cardProjection = `{
 const countQuery = groq`count(*[_type == "news"])`
 const heroQuery  = groq`*[_type == "news"] | order(publishedAt desc)[0] ${cardProjection}`
 const pageQuery  = groq`*[_type == "news"] | order(publishedAt desc)[$start...$end] ${cardProjection}`
+const searchCountQuery = groq`count(*[_type == "news" && (title match $q || summary match $q)])`
+const searchPageQuery  = groq`*[_type == "news" && (title match $q || summary match $q)] | order(publishedAt desc)[$start...$end] ${cardProjection}`
 
 const PLACEHOLDER_NEWS = [
   { _id: 'n1', title: 'LASG Set To Drive Local Government Development Plan Across All 57 LGAs', slug: { current: 'lasg-local-government-development-plan' }, category: 'governance', publishedAt: '2026-04-17T09:00:00Z', featured: true, summary: 'Conference 57 Chairman Hon. Abdullahi Sesan Olowa appreciates a unified Lagos State plan for accelerated growth and service delivery across all 57 local government areas.', coverImage: null },
@@ -57,18 +59,28 @@ function pageList(current: number, total: number): (number | string)[] {
   return out
 }
 
-export default async function NewsPage({ searchParams }: { searchParams?: { page?: string } }) {
+export default async function NewsPage({ searchParams }: { searchParams?: { page?: string; q?: string } }) {
   const page = Math.max(1, parseInt(searchParams?.page || '1', 10) || 1)
+  const q = (searchParams?.q ?? '').trim().slice(0, 80)
+  const searching = q.length > 0
+  const hrefFor = (n: number) => searching ? `/news?q=${encodeURIComponent(q)}&page=${n}` : `/news?page=${n}`
+
+  let connected = false
+  try { connected = ((await client.fetch(countQuery)) ?? 0) > 0 } catch {}
 
   let total = 0
-  try { total = await client.fetch(countQuery) } catch {}
-  const useSanity = total > 0
-
   let hero: any = null
   let grid: any[] = []
   let totalPages = 1
 
-  if (useSanity) {
+  if (connected && searching) {
+    const params = { q: `${q}*` }
+    try { total = (await client.fetch(searchCountQuery, params)) ?? 0 } catch {}
+    totalPages = Math.max(1, Math.ceil(total / PER_PAGE))
+    const start = (page - 1) * PER_PAGE
+    try { grid = (await client.fetch(searchPageQuery, { ...params, start, end: start + PER_PAGE })) || [] } catch {}
+  } else if (connected) {
+    try { total = (await client.fetch(countQuery)) ?? 0 } catch {}
     const start = page === 1 ? 1 : 1 + (page - 1) * PER_PAGE
     const end = start + PER_PAGE
     totalPages = Math.max(1, Math.ceil((total - 1) / PER_PAGE))
@@ -77,8 +89,12 @@ export default async function NewsPage({ searchParams }: { searchParams?: { page
       grid = (await client.fetch(pageQuery, { start, end })) || []
     } catch {}
   } else {
-    hero = page === 1 ? (PLACEHOLDER_NEWS.find((p) => p.featured) ?? PLACEHOLDER_NEWS[0]) : null
-    grid = PLACEHOLDER_NEWS.filter((p) => !hero || p._id !== hero._id)
+    const pool = searching
+      ? PLACEHOLDER_NEWS.filter((p) => (p.title + ' ' + p.summary).toLowerCase().includes(q.toLowerCase()))
+      : PLACEHOLDER_NEWS
+    total = pool.length
+    hero = !searching && page === 1 ? (pool.find((p) => p.featured) ?? pool[0]) : null
+    grid = pool.filter((p) => !hero || p._id !== hero._id)
     totalPages = 1
   }
 
@@ -95,16 +111,16 @@ export default async function NewsPage({ searchParams }: { searchParams?: { page
             </div>
             <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
               <h1 className="text-[clamp(1.8rem,4vw,2.8rem)] font-extrabold text-[#111111] tracking-tight leading-tight">News &amp; Events</h1>
-              <div className="relative max-w-xs w-full">
+              <form action="/news" method="get" className="relative max-w-xs w-full" role="search">
                 <Search size={14} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#111111]/35" strokeWidth={2} />
-                <input type="search" placeholder="Search articles..." className="w-full pl-9 pr-4 py-2.5 text-[13px] border border-[#111111]/15 rounded-full focus:outline-none focus:border-brand-yellow/50 transition-colors" />
-              </div>
+                <input type="search" name="q" defaultValue={q} placeholder="Search articles..." aria-label="Search articles" className="w-full pl-9 pr-4 py-2.5 text-[13px] border border-[#111111]/15 rounded-full focus:outline-none focus:border-brand-yellow/50 transition-colors" />
+              </form>
             </div>
           </div>
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 py-12 sm:py-16">
-          {/* Featured (page 1 only) */}
+          {/* Featured (page 1 only, hidden while searching) */}
           {hero ? (
             <div className="mb-12">
               <div className="text-[10.5px] font-bold uppercase tracking-[0.25em] text-[#111111]/35 mb-5">Featured Story</div>
@@ -131,9 +147,27 @@ export default async function NewsPage({ searchParams }: { searchParams?: { page
 
           {/* Grid */}
           <div>
-            <div className="text-[10.5px] font-bold uppercase tracking-[0.25em] text-[#111111]/35 mb-5">
-              {useSanity ? `All Articles (${total})` : `All Articles (${grid.length})`}{totalPages > 1 ? ` - Page ${page} of ${totalPages}` : ''}
+            <div className="flex items-center justify-between gap-3 flex-wrap mb-5">
+              <div className="text-[10.5px] font-bold uppercase tracking-[0.25em] text-[#111111]/35">
+                {searching ? (
+                  <>Results for &ldquo;{q}&rdquo; ({total})</>
+                ) : (
+                  <>All Articles ({total || grid.length})</>
+                )}
+                {totalPages > 1 ? <> - Page {page} of {totalPages}</> : null}
+              </div>
+              {searching ? (
+                <Link href="/news" className="text-[11px] font-bold text-[#B26B00] hover:text-[#111111] transition-colors">Clear search</Link>
+              ) : null}
             </div>
+
+            {grid.length === 0 ? (
+              <div className="bg-[#FAFAFA] border border-[#111111]/10 rounded-2xl p-10 text-center">
+                <div className="text-[14px] font-bold text-[#111111] mb-1.5">No articles found</div>
+                <div className="text-[12.5px] text-[#111111]/45 mb-4">Try a different search term or browse all articles.</div>
+                <Link href="/news" className="inline-flex items-center gap-1.5 text-[12.5px] font-bold text-[#B26B00] hover:text-[#111111] transition-colors">View all news <ArrowRight size={13} strokeWidth={2.5} /></Link>
+              </div>
+            ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
               {grid.map((post: any) => {
                 const c = coverUrl(post.coverImage, 600, 338)
@@ -143,7 +177,7 @@ export default async function NewsPage({ searchParams }: { searchParams?: { page
                       {c ? (
                         <Image src={c} alt={post.coverImage?.alt || post.title} fill className="object-cover" sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" />
                       ) : (
-                        <div className="absolute inset-0 bg-gradient-to-br from-brand-yellow/12 to-brand-yellow/10 flex items-center justify-center"><Tag size={28} strokeWidth={1} className="text-[#111111]/20" /></div>
+                        <div className="absolute inset-0 bg-gradient-to-br from-brand-yellow/[0.12] to-brand-yellow/10 flex items-center justify-center"><Tag size={28} strokeWidth={1} className="text-[#111111]/20" /></div>
                       )}
                       <span className={`absolute top-3 left-3 text-[9.5px] font-bold uppercase tracking-[0.12em] px-2.5 py-1 rounded-full ${CATEGORY_COLORS[post.category] ?? 'bg-[#111111] text-white'}`}>{CATEGORY_LABELS[post.category] ?? post.category}</span>
                     </div>
@@ -157,12 +191,13 @@ export default async function NewsPage({ searchParams }: { searchParams?: { page
                 )
               })}
             </div>
+            )}
 
             {/* Pagination */}
             {totalPages > 1 ? (
               <nav className="mt-12 flex items-center justify-center gap-1.5 flex-wrap" aria-label="Pagination">
                 {page > 1 ? (
-                  <Link href={`/news?page=${page - 1}`} className="inline-flex items-center gap-1 px-3.5 py-2 text-[12.5px] font-semibold rounded-full border border-[#111111]/15 text-[#111111] hover:border-brand-yellow transition-colors"><ArrowLeft size={13} strokeWidth={2.5} /> Prev</Link>
+                  <Link href={hrefFor(page - 1)} className="inline-flex items-center gap-1 px-3.5 py-2 text-[12.5px] font-semibold rounded-full border border-[#111111]/15 text-[#111111] hover:border-brand-yellow transition-colors"><ArrowLeft size={13} strokeWidth={2.5} /> Prev</Link>
                 ) : (
                   <span className="inline-flex items-center gap-1 px-3.5 py-2 text-[12.5px] font-semibold rounded-full border border-[#111111]/10 text-[#111111]/25"><ArrowLeft size={13} strokeWidth={2.5} /> Prev</span>
                 )}
@@ -170,11 +205,11 @@ export default async function NewsPage({ searchParams }: { searchParams?: { page
                   n === '...' ? (
                     <span key={`d${i}`} className="px-2 text-[12.5px] text-[#111111]/35">...</span>
                   ) : (
-                    <Link key={n} href={`/news?page=${n}`} className={`min-w-[36px] text-center px-3 py-2 text-[12.5px] font-bold rounded-full border transition-colors ${n === page ? 'bg-brand-yellow border-brand-yellow text-black' : 'border-[#111111]/15 text-[#111111] hover:border-brand-yellow'}`}>{n}</Link>
+                    <Link key={n} href={hrefFor(n as number)} className={`min-w-[36px] text-center px-3 py-2 text-[12.5px] font-bold rounded-full border transition-colors ${n === page ? 'bg-brand-yellow border-brand-yellow text-black' : 'border-[#111111]/15 text-[#111111] hover:border-brand-yellow'}`}>{n}</Link>
                   )
                 )}
                 {page < totalPages ? (
-                  <Link href={`/news?page=${page + 1}`} className="inline-flex items-center gap-1 px-3.5 py-2 text-[12.5px] font-semibold rounded-full border border-[#111111]/15 text-[#111111] hover:border-brand-yellow transition-colors">Next <ArrowRight size={13} strokeWidth={2.5} /></Link>
+                  <Link href={hrefFor(page + 1)} className="inline-flex items-center gap-1 px-3.5 py-2 text-[12.5px] font-semibold rounded-full border border-[#111111]/15 text-[#111111] hover:border-brand-yellow transition-colors">Next <ArrowRight size={13} strokeWidth={2.5} /></Link>
                 ) : (
                   <span className="inline-flex items-center gap-1 px-3.5 py-2 text-[12.5px] font-semibold rounded-full border border-[#111111]/10 text-[#111111]/25">Next <ArrowRight size={13} strokeWidth={2.5} /></span>
                 )}

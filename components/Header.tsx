@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useState, useRef, useEffect } from 'react';
 import { ChevronDown, Phone, Mail, Clock, Circle, CreditCard } from 'lucide-react';
 import BrandStripe from '@/components/BrandStripe';
@@ -38,6 +39,7 @@ const NAV_ITEMS = [
       { label: 'Traditional Rulers',         href: '/about/traditional-rulers' },
     ],
   },
+  { label: 'Housing & Tourism', href: '/housing-tourism' },
   { label: 'Opportunities', href: '/resources/careers' },
   { label: 'News & Events', href: '/news' },
   {
@@ -111,7 +113,15 @@ function DesktopNavItem({ item }: { item: (typeof NAV_ITEMS)[number] }) {
   );
 }
 
-export default function Header() {
+interface HeaderProps {
+  email?: string;
+  officeHours?: string;
+}
+
+export default function Header({
+  email = 'info@ibejulekki.lg.gov.ng',
+  officeHours = 'Mon - Fri, 8am - 4pm',
+}: HeaderProps) {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -129,11 +139,11 @@ export default function Header() {
       <div className="hidden md:block bg-[#111111] text-white">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 lg:px-8 py-1.5 text-[11px]">
           <div className="flex items-center gap-5">
+            <a href={`mailto:${email}`} className="flex items-center gap-1.5 text-white/70 transition-colors hover:text-brand-yellow">
+              <Mail size={12} /> {email}
+            </a>
             <span className="flex items-center gap-1.5 text-white/70">
-              <Mail size={12} /> info@ibejulekkilg.gov.ng
-            </span>
-            <span className="flex items-center gap-1.5 text-white/70">
-              <Clock size={12} /> Mon &ndash; Fri, 8am &ndash; 4pm
+              <Clock size={12} /> {officeHours}
             </span>
           </div>
           <div className="flex items-center gap-4">
@@ -154,9 +164,11 @@ export default function Header() {
       <div className={`w-full bg-white transition-shadow duration-300 ${scrolled ? 'shadow-md' : 'shadow-sm'}`}>
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 lg:px-8 py-3">
           <Link href="/" className="flex items-center gap-3">
-            <img
+            <Image
               src="/ibeju-lekki-logo-sm.webp"
               alt="IBEJU LEKKI"
+              width={44}
+              height={44}
               className="h-11 w-11 flex-shrink-0 object-contain"
             />
             <span className="leading-tight">
