@@ -11,9 +11,9 @@ export default function Page() {
   return (
     <TeamPage
       group="Management Team"
-      eyebrow="Government &middot; Management"
+      eyebrow="Government · Management"
       title="Management Team"
-      intro="The management team is the career civil service that delivers council services day to day, led by the Head of Local Government Administration and the directors of each department."
+      intro="The management team is the career civil service that delivers council services day to day, from environment and health to education, budget and revenue."
       members={MANAGEMENT}
     />
   )

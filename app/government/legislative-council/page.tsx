@@ -11,7 +11,7 @@ export default function Page() {
   return (
     <TeamPage
       group="Legislative Council"
-      eyebrow="Government &middot; Legislative"
+      eyebrow="Government · Legislative"
       title="Legislative Council"
       intro="The legislative arm makes local laws, approves the budget and provides oversight. It is made up of councillors elected to represent the wards of Ibeju-Lekki, with the leadership of the house."
       members={LEGISLATIVE}
