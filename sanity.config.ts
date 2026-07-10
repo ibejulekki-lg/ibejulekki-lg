@@ -6,6 +6,8 @@ import {
   DocumentTextIcon,
   CogIcon,
   UserIcon,
+  UsersIcon,
+  EnvelopeIcon,
   HomeIcon,
 } from '@sanity/icons'
 
@@ -77,6 +79,34 @@ export default defineConfig({
                   .schemaType('chairmanMessage')
                   .documentId('chairmanMessage')
                   .title("Chairman's Message")
+              ),
+
+            S.divider(),
+
+            S.listItem()
+              .title('Audience')
+              .icon(UsersIcon)
+              .child(
+                S.list()
+                  .title('Audience')
+                  .items([
+                    S.listItem()
+                      .title('Newsletter Subscribers')
+                      .icon(EnvelopeIcon)
+                      .child(
+                        S.documentTypeList('subscriber')
+                          .title('Newsletter Subscribers')
+                          .defaultOrdering([{ field: 'subscribedAt', direction: 'desc' }])
+                      ),
+                    S.listItem()
+                      .title('Push Subscriptions')
+                      .icon(BellIcon)
+                      .child(
+                        S.documentTypeList('pushSubscription')
+                          .title('Push Subscriptions')
+                          .defaultOrdering([{ field: 'subscribedAt', direction: 'desc' }])
+                      ),
+                  ])
               ),
 
             S.divider(),

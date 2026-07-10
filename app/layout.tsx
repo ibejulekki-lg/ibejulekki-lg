@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
@@ -14,6 +14,10 @@ const poppins = Poppins({
 
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ?? "https://ibejulekki-demo.vercel.app";
+
+export const viewport: Viewport = {
+  themeColor: "#F5A623",
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
