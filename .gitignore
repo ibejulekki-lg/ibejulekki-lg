@@ -45,3 +45,6 @@ next-env.d.ts
 *.txt
 posts.json
 import-wp-news.cjs
+
+# local Sanity export archives (backups run in CI)
+ibejulekki-production-*.tar.gz

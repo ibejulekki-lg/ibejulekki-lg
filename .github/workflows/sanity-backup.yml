@@ -1,0 +1,91 @@
+name: Weekly Sanity Backup
+
+# Exports the entire production dataset (all documents plus image assets)
+# every Sunday around 02:00 Lagos time, keeps the archive on GitHub for 90
+# days, and, when the CPANEL_FTP_* secrets are set, uploads a copy to the
+# cPanel server and keeps the newest 8 there.
+#
+# Restore command (destructive, replaces documents with the same ids):
+#   npx sanity dataset import ibejulekki-production-YYYY-MM-DD.tar.gz production --replace
+
+on:
+  schedule:
+    - cron: '0 1 * * 0'   # 01:00 UTC Sunday = 02:00 Lagos (WAT)
+  workflow_dispatch: {}    # allows manual runs from the Actions tab
+
+permissions:
+  contents: read
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      FTP_HOST: ${{ secrets.CPANEL_FTP_HOST }}
+      FTP_USER: ${{ secrets.CPANEL_FTP_USER }}
+      FTP_PASS: ${{ secrets.CPANEL_FTP_PASS }}
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci --legacy-peer-deps
+
+      - name: Export the production dataset (documents and assets)
+        env:
+          SANITY_AUTH_TOKEN: ${{ secrets.SANITY_BACKUP_TOKEN }}
+          DO_NOT_TRACK: '1'
+        run: |
+          if [ -z "$SANITY_AUTH_TOKEN" ]; then
+            echo "ERROR: the SANITY_BACKUP_TOKEN repository secret is not set." >&2
+            echo "Create a Viewer token at sanity.io/manage and add it under Settings > Secrets and variables > Actions." >&2
+            exit 1
+          fi
+          FILE="ibejulekki-production-$(date -u +%F).tar.gz"
+          echo "FILE=$FILE" >> "$GITHUB_ENV"
+          npx sanity dataset export production "$FILE" --overwrite
+          ls -lh "$FILE"
+
+      - name: Keep a copy on GitHub for 90 days
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.FILE }}
+          path: ${{ env.FILE }}
+          retention-days: 90
+          if-no-files-found: error
+
+      - name: Upload to cPanel over FTPS
+        if: env.FTP_HOST != '' && env.FTP_USER != '' && env.FTP_PASS != ''
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq lftp
+          LOPEN="set net:timeout 20; set net:max-retries 2; set ftp:ssl-force true; set ssl:verify-certificate no; open -u \"$FTP_USER\",\"$FTP_PASS\" \"$FTP_HOST\""
+          # The mkdir prints a "550 File exists" warning from the second run
+          # onward; that is expected and harmless.
+          lftp -e "$LOPEN; set cmd:fail-exit false; mkdir -p sanity; set cmd:fail-exit true; cd sanity; put \"$FILE\"; bye"
+          echo "Uploaded $FILE to the sanity/ folder of the FTP account."
+
+      - name: Rotate cPanel copies (keep the newest 8)
+        if: env.FTP_HOST != '' && env.FTP_USER != '' && env.FTP_PASS != ''
+        run: |
+          LOPEN="set net:timeout 20; set net:max-retries 2; set ftp:ssl-force true; set ssl:verify-certificate no; open -u \"$FTP_USER\",\"$FTP_PASS\" \"$FTP_HOST\""
+          OLD=$(lftp -e "$LOPEN; cls -1 sanity/; bye" | sort | head -n -8 || true)
+          if [ -n "$OLD" ]; then
+            while IFS= read -r f; do
+              [ -n "$f" ] && lftp -e "$LOPEN; rm \"$f\"; bye" && echo "Removed old backup: $f"
+            done <<< "$OLD"
+          else
+            echo "Nothing to rotate yet."
+          fi
+
+      - name: Note when the cPanel copy is skipped
+        if: env.FTP_HOST == '' || env.FTP_USER == '' || env.FTP_PASS == ''
+        run: |
+          echo "cPanel FTP secrets are not set, so this backup is stored on GitHub only."
+          echo "Add CPANEL_FTP_HOST, CPANEL_FTP_USER and CPANEL_FTP_PASS to enable the cPanel copy."
