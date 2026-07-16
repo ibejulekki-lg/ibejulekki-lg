@@ -58,7 +58,7 @@ export const PILLARS: Pillar[] = [
   {
     slug: 'infrastructure',
     letter: 'I',
-    title: 'Infrastructure',
+    title: 'Infrastructural Development',
     tagline: 'Deepening infrastructure renewal.',
     icon: 'infrastructure',
     cover: '/shieeld/shieeld-infrastructure.webp',

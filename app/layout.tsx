@@ -16,7 +16,7 @@ const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ?? "https://ibejulekki-demo.vercel.app";
 
 export const viewport: Viewport = {
-  themeColor: "#F5A623",
+  themeColor: "#FFBA26",
 };
 
 export const metadata: Metadata = {

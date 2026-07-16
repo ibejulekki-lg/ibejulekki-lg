@@ -10,7 +10,7 @@ const PLACEHOLDER = {
   stats: [
     { value:'20,000+',  label:'People Reached',  detail:'Food Palliative Programme' },
     { value:'400',   label:'Free JAMB Forms Annually',    detail:'Student Admission Support' },
-    { value:'No. 57', label:'Conference Chairman',  detail:'League of LG Chairmen, Lagos' },
+    { value:'Conference 57', label:'Chairman',  detail:'League of LG Chairmen, Lagos' },
     { value:'7',      label:'SHIEELD Pillars',      detail:'The governance framework' },
   ],
 }

@@ -18,6 +18,7 @@ const MENU: { heading: string; links: { label: string; href: string }[] }[] = [
   {
     heading: 'Government',
     links: [
+      { label: 'Overview',            href: '/about' },
       { label: 'Vision & Mission',    href: '/government/vision' },
       { label: 'Executive Chairman',  href: '/government/chairman' },
       { label: 'Executive Council',   href: '/government/executive-council' },
@@ -37,7 +38,6 @@ const MENU: { heading: string; links: { label: string; href: string }[] }[] = [
   {
     heading: 'About',
     links: [
-      { label: 'Overview',                   href: '/about' },
       { label: 'Historic Background',        href: '/about/history' },
       { label: 'The People, Arts & Culture', href: '/about/culture' },
       { label: 'Traditional Rulers',         href: '/about/traditional-rulers' },

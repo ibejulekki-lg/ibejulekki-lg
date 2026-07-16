@@ -120,7 +120,7 @@ export default function NewsSection({ posts }: Props) {
               {featured.coverImage?.asset ? (
                 <Image src={urlFor(featured.coverImage).width(900).height(506).fit('crop').auto('format').url()} alt={featured.coverImage.alt || featured.title} fill className="object-cover" sizes="(max-width: 1024px) 100vw, 60vw" />
               ) : (
-                <div className="absolute inset-0 bg-gradient-to-br from-brand-yellow to-[#E08E0B] flex items-center justify-center"><span className="text-[clamp(3rem,8vw,5rem)] font-extrabold text-black/10 italic tracking-tighter select-none">{CATEGORY_LABELS[featured.category] ?? featured.category}</span></div>
+                <div className="absolute inset-0 bg-gradient-to-br from-brand-yellow to-[#E0A421] flex items-center justify-center"><span className="text-[clamp(3rem,8vw,5rem)] font-extrabold text-black/10 italic tracking-tighter select-none">{CATEGORY_LABELS[featured.category] ?? featured.category}</span></div>
               )}
               <span className="absolute top-4 left-4 bg-brand-yellow text-black text-[10px] font-bold uppercase tracking-[0.12em] px-3 py-1 rounded-full">
                 {CATEGORY_LABELS[featured.category] ?? featured.category}

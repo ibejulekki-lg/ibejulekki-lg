@@ -21,7 +21,7 @@ import {
 const PILLARS = [
   { key: 'S', label: 'Security',       Icon: ShieldCheck },
   { key: 'H', label: 'Health',          Icon: HeartPulse },
-  { key: 'I', label: 'Infrastructure',  Icon: Landmark },
+  { key: 'I', label: 'Infrastructural Development',  Icon: Landmark },
   { key: 'E', label: 'Education',       Icon: GraduationCap },
   { key: 'E', label: 'Environment',     Icon: Leaf },
   { key: 'L', label: 'Local Economy',   Icon: TrendingUp },
@@ -89,7 +89,7 @@ export default function Hero() {
           className="absolute top-0 right-0 w-1/2 h-full pointer-events-none"
           style={{
             background:
-              'radial-gradient(ellipse at 90% 20%, rgba(245,166,35,0.07) 0%, transparent 60%)',
+              'radial-gradient(ellipse at 90% 20%, rgba(255,186,38,0.07) 0%, transparent 60%)',
           }}
         />
 
@@ -125,7 +125,8 @@ export default function Hero() {
                 style={{ transitionDelay: '80ms' }}
               >
                 Making Ibeju-Lekki <br />
-                <span className="text-[#111111]">Great Again.</span>
+                <span className="text-[#111111]">Great </span>
+                <span className="text-brand-yellow">for Everyone</span>
               </h1>
 
               {/* Sub */}
@@ -138,9 +139,8 @@ export default function Hero() {
                 `}
                 style={{ transitionDelay: '160ms' }}
               >
-                Home to the Dangote Refinery, Lekki Free Trade Zone, and Lekki
-                Deep Seaport Ibeju-Lekki is Lagos State&apos;s fastest-growing
-                local government area and Nigeria&apos;s new economic frontier.
+                Ibeju-Lekki is the fastest-growing local government area in
+                Lagos State and Nigeria&apos;s emerging economic frontier.
               </p>
 
               {/* CTAs */}

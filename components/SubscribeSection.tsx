@@ -165,7 +165,7 @@ export default function SubscribeSection() {
                     />
                   </div>
                   <button type="submit" disabled={emailStatus === 'loading'}
-                    className="flex-shrink-0 inline-flex items-center gap-2 px-6 py-3.5 bg-brand-yellow text-black text-[13px] font-bold rounded-full hover:bg-[#E08E0B] active:scale-95 transition-all duration-200 disabled:opacity-70 disabled:active:scale-100"
+                    className="flex-shrink-0 inline-flex items-center gap-2 px-6 py-3.5 bg-brand-yellow text-black text-[13px] font-bold rounded-full hover:bg-[#E0A421] active:scale-95 transition-all duration-200 disabled:opacity-70 disabled:active:scale-100"
                   >
                     {emailStatus === 'loading' ? (
                       <>Subscribing <Loader2 size={14} strokeWidth={2.5} className="animate-spin" /></>

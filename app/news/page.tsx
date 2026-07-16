@@ -129,7 +129,7 @@ export default async function NewsPage({ searchParams }: { searchParams?: { page
                   {heroCover ? (
                     <Image src={heroCover} alt={hero.coverImage?.alt || hero.title} fill className="object-cover" sizes="(max-width: 1024px) 100vw, 60vw" priority />
                   ) : (
-                    <div className="absolute inset-0 bg-gradient-to-br from-brand-yellow to-[#E08E0B] flex items-center justify-center">
+                    <div className="absolute inset-0 bg-gradient-to-br from-brand-yellow to-[#E0A421] flex items-center justify-center">
                       <span className="text-[clamp(4rem,10vw,7rem)] font-extrabold text-black/10 italic tracking-tighter select-none">{CATEGORY_LABELS[hero.category] ?? hero.category}</span>
                     </div>
                   )}

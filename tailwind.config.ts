@@ -16,9 +16,9 @@ const config: Config = {
         // Tailwind scales (amber-600, red-700, yellow-400...) keep working.
         // Existing `bg-brand-yellow` classes resolve to brand.yellow below.
         brand: {
-          yellow: '#F5A623', // primary highlight / fills (black text on top)
+          yellow: '#FFBA26', // primary highlight / fills (black text on top)
           amber:  '#B26B00', // readable yellow text on white; hovers
-          hover:  '#E08E0B', // yellow hover state
+          hover:  '#E0A421', // yellow hover state
           ink:    '#111111', // body text + dark sections
           red:    '#BE1E2D', // touch of red (alerts, emergencies)
           cream:  '#FAFAFA', // subtle alternating section background

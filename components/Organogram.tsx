@@ -50,7 +50,7 @@ export default function Organogram() {
             id="org-heading"
             className="text-[clamp(1.6rem,3.5vw,2.2rem)] font-extrabold text-[#111111] tracking-tight leading-tight"
           >
-            Council Organogram
+            Council Structure
           </h2>
           <p className="mt-3 text-[14px] text-black/55 leading-[1.8]">
             How Ibeju-Lekki Local Government is organised, from the Executive Chairman

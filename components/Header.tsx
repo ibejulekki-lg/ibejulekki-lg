@@ -8,10 +8,20 @@ import BrandStripe from '@/components/BrandStripe';
 
 const NAV_ITEMS = [
   { label: 'Home', href: '/' },
+    {
+    label: 'About',
+    href: '#',
+    children: [
+      { label: 'Historic Background',        href: '/about/history' },
+      { label: 'The People, Arts & Culture', href: '/about/culture' },
+      { label: 'Traditional Rulers',         href: '/about/traditional-rulers' },
+    ],
+  },
   {
     label: 'Government',
     href: '#',
     children: [
+      { label: 'Overview',            href: '/about' },
       { label: 'Vision & Mission',    href: '/government/vision' },
       { label: 'Executive Chairman',  href: '/government/chairman' },
       { label: 'Executive Council',   href: '/government/executive-council' },
@@ -27,16 +37,6 @@ const NAV_ITEMS = [
       { label: '2025 Budget Summary', href: '/programmes/budget' },
       { label: 'Performance Report',  href: '/programmes/performance-report' },
       // { label: 'Agenda 2029',         href: '/programmes/agenda-2029' },
-    ],
-  },
-  {
-    label: 'About',
-    href: '#',
-    children: [
-      { label: 'Overview',                   href: '/about' },
-      { label: 'Historic Background',        href: '/about/history' },
-      { label: 'The People, Arts & Culture', href: '/about/culture' },
-      { label: 'Traditional Rulers',         href: '/about/traditional-rulers' },
     ],
   },
   {
