@@ -14,7 +14,7 @@ export const revalidate = 60
 
 const CATEGORY_LABELS: Record<string, string> = {
   governance: 'Governance', infrastructure: 'Infrastructure', health: 'Health',
-  education: 'Education', environment: 'Environment', economy: 'Economy',
+  education: 'Education', environment: 'Environment', economy: 'Economy', careers: 'Careers',
   security: 'Security', community: 'Community', events: 'Events',
 }
 

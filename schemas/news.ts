@@ -16,6 +16,7 @@ export default defineType({
         { title:'Education',      value:'education' },
         { title:'Environment',    value:'environment' },
         { title:'Economy',        value:'economy' },
+        { title:'Careers',        value:'careers' },
         { title:'Security',       value:'security' },
         { title:'Community',      value:'community' },
         { title:'Events',         value:'events' },

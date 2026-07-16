@@ -32,13 +32,13 @@ const PLACEHOLDER_NEWS = [
 
 const CATEGORY_LABELS: Record<string, string> = {
   governance: 'Governance', infrastructure: 'Infrastructure', health: 'Health',
-  education: 'Education', environment: 'Environment', economy: 'Economy',
+  education: 'Education', environment: 'Environment', economy: 'Economy', careers: 'Careers',
   security: 'Security', community: 'Community', events: 'Events',
 }
 const CATEGORY_COLORS: Record<string, string> = {
   governance: 'bg-[#111111] text-white', infrastructure: 'bg-[#1A3A7A] text-white',
   health: 'bg-emerald-700 text-white', education: 'bg-brand-yellow text-black',
-  environment: 'bg-green-700 text-white', economy: 'bg-amber-600 text-white',
+  environment: 'bg-green-700 text-white', economy: 'bg-amber-600 text-white', careers: 'bg-brand-yellow text-black',
   security: 'bg-[#BE1E2D] text-white', community: 'bg-purple-700 text-white',
   events: 'bg-teal-700 text-white',
 }
