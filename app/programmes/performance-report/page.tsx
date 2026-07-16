@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Download, ArrowLeft, FileText, CheckCircle2 } from 'lucide-react'
+import { Download, ArrowLeft, CheckCircle2 } from 'lucide-react'
 import Footer from '@/components/Footer'
 
 export const metadata = {
@@ -9,12 +9,13 @@ export const metadata = {
 }
 
 const PILLARS = [
-  { title: 'Environmental Sustainability',     body: 'Daily street sweeping, the Cleaner Ibeju-Lekki initiative, and a large-scale de-flooding exercise that cleared blocked canals and reopened access roads.' },
-  { title: 'Infrastructural Development',      body: 'A modern secretariat under construction to replace the building lost in 2020, new office equipment, and ICT automation across the council.' },
-  { title: 'Local Economic Development',       body: 'A comprehensive overhaul of revenue collection and administration that delivered roughly 500 percent growth in internally generated revenue.' },
-  { title: 'Social Development & Security',    body: 'Education support, health interventions, and community programmes that complement state security efforts across the wards.' },
-  { title: 'Government Performance Management', body: 'Reforms to systems and administration that align council efforts with the Lagos State THEMES agenda for measurable results.' },
-  { title: 'Strategic Partnerships',           body: 'Collaboration with institutions such as Pan-Atlantic University and state agencies to extend the reach and impact of council programmes.' },
+  { letter: 'S', title: 'Security',                                body: 'Community safety programmes complementing state security efforts across the wards, with Ibeju-Lekki Traffic Managers established to ease the Lekki to Epe corridor.' },
+  { letter: 'H', title: 'Health',                                  body: 'Three primary health centres rehabilitated and expanded, more doctors recruited, and health interventions delivered across the wards.' },
+  { letter: 'I', title: 'Infrastructural Development',             body: 'A modern council secretariat under construction to replace the building lost in 2020, with new office equipment for council operations.' },
+  { letter: 'E', title: 'Environmental Sustainability',            body: 'Daily street sweeping and the Cleaner Ibeju-Lekki initiative kept up by hundreds of street sweepers, plus a large-scale de-flooding exercise that cleared blocked canals and reopened access roads.' },
+  { letter: 'E', title: 'Education & Youth Development',           body: 'Weekend coaching with Pan-Atlantic University for UTME and WASSCE candidates, hundreds of free JAMB and WASSCE forms each year, and bursaries and scholarships for indigenous students at every level.' },
+  { letter: 'L', title: 'Local Economy',                          body: 'Roughly 500 percent growth in internally generated revenue over two years, reinvested in projects and programmes across the wards.' },
+  { letter: 'D', title: 'Digital Governance & Civic Participation', body: 'A comprehensive overhaul of revenue collection and administration with ICT automation across the council, and performance reforms aligned with the Lagos State THEMES agenda for measurable results.' },
 ]
 
 const HIGHLIGHTS = [
@@ -74,13 +75,13 @@ export default function Page() {
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-10">
             <div className="flex items-center gap-3 mb-6">
               <span className="h-px w-8 bg-brand-yellow" aria-hidden="true" />
-              <span className="text-[10.5px] font-bold uppercase tracking-[0.25em] text-black/45">Key Development Pillars</span>
+              <span className="text-[10.5px] font-bold uppercase tracking-[0.25em] text-black/45">Performance Against the SHIEELD Agenda</span>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {PILLARS.map((p) => (
                 <div key={p.title} className="rounded-2xl border border-black/10 bg-white p-5">
                   <div className="flex items-center gap-2 mb-2">
-                    <FileText size={15} strokeWidth={2} className="text-[#B26B00]" />
+                    <span className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-lg bg-brand-yellow text-[13px] font-extrabold text-black">{p.letter}</span>
                     <h2 className="text-[13.5px] font-bold text-[#111111] leading-snug">{p.title}</h2>
                   </div>
                   <p className="text-[12.5px] text-black/55 leading-[1.7]">{p.body}</p>

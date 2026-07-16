@@ -25,7 +25,7 @@ const PILLARS = [
   { key: 'E', label: 'Education',       Icon: GraduationCap },
   { key: 'E', label: 'Environment',     Icon: Leaf },
   { key: 'L', label: 'Local Economy',   Icon: TrendingUp },
-  { key: 'D', label: 'Digital Gov.',    Icon: MonitorSmartphone },
+  { key: 'D', label: 'Digital Governance',    Icon: MonitorSmartphone },
 ];
 
 // ── Stats ─────────────────────────────────────────────────────────────────────

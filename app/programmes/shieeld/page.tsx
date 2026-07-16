@@ -106,7 +106,7 @@ export default function Page() {
               </p>
             </div>
             <Link
-              href="/programmes/budget"
+              href="/programmes/performance-report"
               className="inline-flex items-center gap-2 whitespace-nowrap rounded-full bg-brand-yellow px-6 py-3.5 text-[13px] font-bold text-black transition-colors hover:bg-white"
             >
               View Performance Report <ArrowRight size={15} strokeWidth={2.5} />
