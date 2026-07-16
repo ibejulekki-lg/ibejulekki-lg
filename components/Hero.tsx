@@ -14,6 +14,7 @@ import {
   MonitorSmartphone,
   Megaphone,
   ChevronRight,
+  Download,
 } from 'lucide-react';
 
 // ── SHIEELD pillars ───────────────────────────────────────────────────────────
@@ -177,6 +178,44 @@ export default function Hero() {
                   Latest News
                   <ChevronRight size={15} strokeWidth={2.5} />
                 </Link>
+              </div>
+
+              {/* Document downloads */}
+              <div
+                className={`
+                  flex flex-wrap items-center gap-x-5 gap-y-2 mb-12 -mt-6
+                  transition-all duration-700 ease-out
+                  ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}
+                `}
+                style={{ transitionDelay: '280ms' }}
+              >
+                <span className="text-[10.5px] font-semibold uppercase tracking-[0.14em] text-[#111111]/35">
+                  Downloads
+                </span>
+                <a
+                  href="/shieeld-manifesto.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="
+                    inline-flex items-center gap-1.5 text-[12.5px] font-semibold
+                    text-[#111111]/70 hover:text-[#B26B00] transition-colors
+                  "
+                >
+                  <Download size={14} strokeWidth={2.2} className="text-brand-yellow" />
+                  SHIEELD Manifesto
+                </a>
+                <a
+                  href="/performance-report.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="
+                    inline-flex items-center gap-1.5 text-[12.5px] font-semibold
+                    text-[#111111]/70 hover:text-[#B26B00] transition-colors
+                  "
+                >
+                  <Download size={14} strokeWidth={2.2} className="text-brand-yellow" />
+                  Performance Report
+                </a>
               </div>
 
               {/* Stats */}
