@@ -1,6 +1,14 @@
 import { PortableText } from '@portabletext/react'
 import Image from 'next/image'
+import { Download } from 'lucide-react'
 import { urlFor } from '@/lib/sanity'
+
+function formatBytes(bytes?: number) {
+  if (!bytes || bytes <= 0) return ''
+  const mb = bytes / (1024 * 1024)
+  if (mb >= 1) return `${mb.toFixed(1)} MB`
+  return `${Math.max(1, Math.round(bytes / 1024))} KB`
+}
 
 const components: any = {
   block: {
@@ -22,11 +30,40 @@ const components: any = {
     strong: ({ children }: any) => <strong className="font-bold text-[#111111]">{children}</strong>,
     em: ({ children }: any) => <em className="italic">{children}</em>,
     underline: ({ children }: any) => <span className="underline">{children}</span>,
-    link: ({ children, value }: any) => (
-      <a href={value?.href} target="_blank" rel="noopener noreferrer" className="text-[#B26B00] underline underline-offset-2 hover:text-[#111111] transition-colors">{children}</a>
-    ),
+    link: ({ children, value }: any) => {
+      const openNew = value?.blank !== false
+      return (
+        <a
+          href={value?.href}
+          {...(openNew ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+          className="text-[#B26B00] underline underline-offset-2 hover:text-[#111111] transition-colors"
+        >
+          {children}
+        </a>
+      )
+    },
   },
   types: {
+    fileDownload: ({ value }: any) => {
+      if (!value?.url) return null
+      const meta = [value.fileName, formatBytes(value.size)].filter(Boolean).join(' - ')
+      return (
+        <a
+          href={value.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="my-6 flex items-center gap-3 rounded-xl border border-[#111111]/10 bg-[#FAFAFA] px-4 py-3.5 no-underline transition-colors hover:border-brand-yellow/50 hover:bg-brand-yellow/[0.06]"
+        >
+          <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-brand-yellow">
+            <Download size={17} strokeWidth={2.2} className="text-black" />
+          </span>
+          <span className="min-w-0">
+            <span className="block text-[13.5px] font-bold text-[#111111] leading-tight">{value.label || 'Download file'}</span>
+            {meta ? <span className="block text-[11px] text-[#111111]/45 truncate">{meta}</span> : null}
+          </span>
+        </a>
+      )
+    },
     image: ({ value }: any) =>
       value?.asset ? (
         <figure className="my-7">

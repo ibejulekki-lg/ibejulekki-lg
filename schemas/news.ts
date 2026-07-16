@@ -1,4 +1,28 @@
-import { defineField, defineType } from 'sanity'
+import { defineField, defineType, defineArrayMember } from 'sanity'
+
+/* Shared link annotation used inside the body rich text. Validates that the
+   URL is a real http(s) address (or a mailto:) so staff cannot save a broken
+   link by mistake. */
+const linkAnnotation = {
+  name: 'link',
+  type: 'object',
+  title: 'Link',
+  fields: [
+    defineField({
+      name: 'href',
+      type: 'url',
+      title: 'URL',
+      validation: (R) =>
+        R.required().uri({ scheme: ['http', 'https', 'mailto', 'tel'] }),
+    }),
+    defineField({
+      name: 'blank',
+      type: 'boolean',
+      title: 'Open in new tab',
+      initialValue: true,
+    }),
+  ],
+}
 
 export default defineType({
   name: 'news',
@@ -29,13 +53,60 @@ export default defineType({
       name:'coverImage', title:'Cover Image', type:'image', options:{ hotspot:true },
       fields:[ defineField({ name:'alt', title:'Alt Text', type:'string', validation:(R)=>R.required() }) ],
     }),
-    defineField({ name:'summary', title:'Summary', type:'text', rows:3, description:'Max 200 chars — shown on cards', validation:(R)=>R.required().max(200) }),
+    defineField({ name:'summary', title:'Summary', type:'text', rows:3, description:'Max 200 chars - shown on cards', validation:(R)=>R.required().max(200) }),
     defineField({
       name:'body', title:'Full Article Body', type:'array',
-      of:[ { type:'block' }, { type:'image', options:{ hotspot:true }, fields:[
-        defineField({ name:'alt', type:'string', title:'Alt Text' }),
-        defineField({ name:'caption', type:'string', title:'Caption' }),
-      ]}],
+      of:[
+        defineArrayMember({
+          type:'block',
+          marks:{
+            annotations:[ linkAnnotation ],
+          },
+        }),
+        defineArrayMember({
+          type:'image', options:{ hotspot:true },
+          fields:[
+            defineField({ name:'alt', type:'string', title:'Alt Text' }),
+            defineField({ name:'caption', type:'string', title:'Caption' }),
+          ],
+        }),
+        // Inline downloadable file (e.g. an application form or notice PDF).
+        defineArrayMember({
+          type:'file',
+          name:'fileDownload',
+          title:'File Download',
+          fields:[
+            defineField({ name:'label', type:'string', title:'Button Label', description:'e.g. Download application form', validation:(R)=>R.required() }),
+          ],
+        }),
+      ],
+    }),
+    // Dedicated call-to-action, shown as a prominent button on the article.
+    // Ideal for job posts: link straight to an application portal or form,
+    // or upload a form file for people to download.
+    defineField({
+      name:'cta',
+      title:'Call-to-Action Button (optional)',
+      type:'object',
+      description:'Adds a prominent button to the article, e.g. Apply Now or Download Form.',
+      options:{ collapsible:true, collapsed:true },
+      fields:[
+        defineField({ name:'label', type:'string', title:'Button Label', description:'e.g. Apply Now, Download Form, Register Here' }),
+        defineField({
+          name:'href', type:'url', title:'Button Link (URL)',
+          description:'Where the button goes. Leave empty if using an uploaded file below instead.',
+          validation:(R)=>R.uri({ scheme:['http','https','mailto','tel'] }),
+        }),
+        defineField({ name:'file', type:'file', title:'Or upload a file', description:'If set and no URL is given, the button downloads this file.' }),
+      ],
+      validation:(R)=>R.custom((cta:any)=>{
+        if (!cta) return true
+        const hasLabel = !!cta.label
+        const hasTarget = !!cta.href || !!(cta.file && cta.file.asset)
+        if (hasTarget && !hasLabel) return 'Add a button label.'
+        if (hasLabel && !hasTarget) return 'Add a link or upload a file for the button.'
+        return true
+      }),
     }),
     defineField({ name:'author', title:'Author', type:'string', initialValue:'Ibeju-Lekki LGA Communications' }),
     defineField({ name:'tags', title:'Tags', type:'array', of:[{ type:'string' }], options:{ layout:'tags' } }),

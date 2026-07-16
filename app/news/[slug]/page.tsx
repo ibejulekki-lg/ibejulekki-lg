@@ -5,7 +5,7 @@ import { notFound } from 'next/navigation'
 import { groq } from 'next-sanity'
 import { client, urlFor } from '@/lib/sanity'
 import { newsPostBySlugQuery } from '@/lib/queries'
-import { Calendar, Tag, ArrowLeft } from 'lucide-react'
+import { Calendar, Tag, ArrowLeft, ArrowRight, Download } from 'lucide-react'
 import Footer from '@/components/Footer'
 import ShareButton from '@/components/ShareButton'
 import PortableBody from '@/components/PortableBody'
@@ -82,6 +82,9 @@ export default async function NewsPost({ params }: { params: { slug: string } })
   if (!post) notFound()
 
   const hasBody = Array.isArray(post.body) && post.body.length > 0
+  const cta = post.cta && post.cta.label && (post.cta.href || post.cta.fileUrl)
+    ? { label: post.cta.label as string, href: (post.cta.href || post.cta.fileUrl) as string, isFile: !post.cta.href && !!post.cta.fileUrl }
+    : null
   const cover = post.coverImage?.asset
     ? urlFor(post.coverImage).width(1200).height(675).fit('crop').auto('format').url()
     : null
@@ -124,6 +127,21 @@ export default async function NewsPost({ params }: { params: { slug: string } })
           <p className="text-[16px] sm:text-[17px] text-[#111111]/70 leading-[1.8] font-medium border-l-[3px] border-brand-yellow pl-5 mb-10">
             {post.summary}
           </p>
+
+          {cta ? (
+            <div className="mb-10 -mt-4">
+              <a
+                href={cta.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2.5 rounded-full bg-brand-yellow px-6 py-3.5 text-[13.5px] font-bold text-black transition-colors hover:bg-[#111111] hover:text-brand-yellow"
+              >
+                {cta.isFile ? <Download size={16} strokeWidth={2.5} /> : null}
+                {cta.label}
+                {!cta.isFile ? <ArrowRight size={16} strokeWidth={2.5} /> : null}
+              </a>
+            </div>
+          ) : null}
 
           {hasBody ? (
             <article className="max-w-none">

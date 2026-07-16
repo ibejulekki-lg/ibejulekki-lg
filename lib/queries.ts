@@ -29,7 +29,18 @@ export const siteSettingsQuery = groq`
 
 export const newsPostBySlugQuery = groq`
   *[_type == "news" && slug.current == $slug][0] {
-    _id, title, slug, category, publishedAt, summary, body, author, tags,
+    _id, title, slug, category, publishedAt, summary, author, tags,
+    body[]{
+      ...,
+      _type == "fileDownload" => {
+        _type, label, "url": asset->url, "fileName": asset->originalFilename, "size": asset->size
+      }
+    },
+    cta {
+      label, href,
+      "fileUrl": file.asset->url,
+      "fileName": file.asset->originalFilename
+    },
     "coverImage": coverImage { asset, alt, hotspot }
   }
 `
