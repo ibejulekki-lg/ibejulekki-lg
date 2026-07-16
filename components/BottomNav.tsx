@@ -44,13 +44,18 @@ const MENU: { heading: string; links: { label: string; href: string }[] }[] = [
     ],
   },
   {
+    heading: 'Opportunities',
+    links: [
+      { label: 'Career & Jobs',     href: '/resources/careers' },
+      { label: 'Housing & Tourism', href: '/housing-tourism' },
+    ],
+  },
+  {
     heading: 'More',
     links: [
-      { label: 'Housing & Tourism', href: '/housing-tourism' },
       { label: 'News & Events',     href: '/news' },
       { label: 'Revenue Portal',    href: '/resources/revenue' },
       { label: 'Waste Collection',  href: '/resources/waste' },
-      { label: 'Career & Jobs',     href: '/resources/careers' },
       { label: 'Contact Us',        href: '/contact' },
     ],
   },

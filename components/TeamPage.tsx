@@ -2,7 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { User } from 'lucide-react'
 import Footer from '@/components/Footer'
-import type { Member } from '@/lib/cabinet'
+import type { Member, Section } from '@/lib/cabinet'
 
 const HONORIFICS = ['Hon.', 'Engr.', 'Dr.', 'Mr.', 'Mrs.', 'Ms.', 'Miss', 'Barr.', 'Alh.', 'Chief', 'Prince', 'Princess', 'Pastor', 'Arc.', 'Surv.', 'Mallam']
 
@@ -16,7 +16,7 @@ function Portrait({ m }: { m: Member }) {
     return (
       <Image
         src={m.image}
-        alt={`${m.name}, ${m.role}`}
+        alt={m.role ? `${m.name}, ${m.role}` : m.name}
         fill
         className="object-cover object-top"
         sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
@@ -37,13 +37,45 @@ function Portrait({ m }: { m: Member }) {
   )
 }
 
+function Card({ m }: { m: Member }) {
+  return (
+    <div className="group overflow-hidden rounded-2xl border border-black/10 bg-white hover:border-brand-yellow/50 hover:shadow-md transition-all duration-200">
+      <div className="relative aspect-[3/4] overflow-hidden bg-[#F4F4F4]">
+        <Portrait m={m} />
+      </div>
+      <div className="p-3 sm:p-4">
+        <div className="text-[12.5px] sm:text-[13.5px] font-bold text-[#111111] leading-snug">{m.name}</div>
+        {m.role ? (
+          <div className="mt-0.5 text-[11px] sm:text-[12px] font-medium text-[#B26B00] leading-snug">{m.role}</div>
+        ) : null}
+        {m.ward ? (
+          <span className="mt-2 inline-block rounded-full bg-black/[0.05] px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-black/50">
+            {m.ward}
+          </span>
+        ) : null}
+      </div>
+    </div>
+  )
+}
+
+function Grid({ members }: { members: Member[] }) {
+  return (
+    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
+      {members.map((m, i) => (
+        <Card key={i} m={m} />
+      ))}
+    </div>
+  )
+}
+
 export default function TeamPage({
-  eyebrow, title, intro, members, group,
+  eyebrow, title, intro, members, sections, group,
 }: {
   eyebrow: string
   title: string
   intro: string
-  members: Member[]
+  members?: Member[]
+  sections?: Section[]
   group: string
 }) {
   return (
@@ -68,24 +100,24 @@ export default function TeamPage({
         </section>
 
         <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-10 py-12 sm:py-16">
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
-            {members.map((m, i) => (
-              <div key={i} className="group overflow-hidden rounded-2xl border border-black/10 bg-white hover:border-brand-yellow/50 hover:shadow-md transition-all duration-200">
-                <div className="relative aspect-[3/4] overflow-hidden bg-[#F4F4F4]">
-                  <Portrait m={m} />
+          {sections ? (
+            <div className="space-y-12 sm:space-y-16">
+              {sections.map((sec) => (
+                <div key={sec.title}>
+                  <div className="mb-6">
+                    <h2 className="text-[clamp(1.15rem,2.5vw,1.5rem)] font-extrabold text-[#111111] tracking-tight">{sec.title}</h2>
+                    {sec.blurb ? (
+                      <p className="mt-1.5 text-[13px] text-black/50 leading-relaxed max-w-2xl">{sec.blurb}</p>
+                    ) : null}
+                    <div className="mt-3 h-px w-full bg-black/10" />
+                  </div>
+                  <Grid members={sec.members} />
                 </div>
-                <div className="p-3 sm:p-4">
-                  <div className="text-[12.5px] sm:text-[13.5px] font-bold text-[#111111] leading-snug">{m.name}</div>
-                  <div className="mt-0.5 text-[11px] sm:text-[12px] font-medium text-[#B26B00] leading-snug">{m.role}</div>
-                  {m.ward ? (
-                    <span className="mt-2 inline-block rounded-full bg-black/[0.05] px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-black/50">
-                      {m.ward}
-                    </span>
-                  ) : null}
-                </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          ) : members ? (
+            <Grid members={members} />
+          ) : null}
         </section>
       </main>
       <Footer />
