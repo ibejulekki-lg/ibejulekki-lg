@@ -18,22 +18,11 @@ const CATEGORY_LABELS: Record<string, string> = {
   security: 'Security', community: 'Community', events: 'Events',
 }
 
-const PLACEHOLDER_POSTS: Record<string, any> = {
-  'lasg-local-government-development-plan': {
-    _id: 'n1', title: 'LASG Set To Drive Local Government Development Plan Across All 57 LGAs',
-    slug: { current: 'lasg-local-government-development-plan' }, category: 'governance',
-    publishedAt: '2026-04-17T09:00:00Z', author: 'Ibeju-Lekki LGA Communications',
-    summary: 'Conference 57 Chairman Hon. Abdullahi Sesan Olowa appreciates a unified Lagos State plan for accelerated growth and service delivery across all 57 local government areas.',
-    body: null, coverImage: null,
-  },
-}
-
 async function getPost(slug: string) {
   let post = null
   try {
     post = await client.fetch(newsPostBySlugQuery, { slug })
   } catch {}
-  if (!post) post = PLACEHOLDER_POSTS[slug] ?? null
   return post
 }
 

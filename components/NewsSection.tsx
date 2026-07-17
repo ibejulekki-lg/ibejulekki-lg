@@ -3,49 +3,6 @@ import Image from 'next/image'
 import { urlFor } from '@/lib/sanity'
 import { ArrowRight, ChevronRight, Calendar, Tag } from 'lucide-react'
 
-const PLACEHOLDER_NEWS = [
-  {
-    _id: 'n1',
-    title: 'LASG Set To Drive Local Government Development Plan Across All 57 LGAs',
-    slug: { current: 'lasg-local-government-development-plan' },
-    category: 'governance',
-    publishedAt: '2026-04-17T09:00:00Z',
-    featured: true,
-    summary: 'Conference 57 Chairman Hon. Abdullahi Sesan Olowa appreciates a unified Lagos State plan for accelerated growth and service delivery across all 57 local government areas.',
-    coverImage: null,
-  },
-  {
-    _id: 'n2',
-    title: 'Stakeholders Meeting on Gbadamosi Alo Street Rehabilitation',
-    slug: { current: 'gbadamosi-alo-street-rehabilitation' },
-    category: 'infrastructure',
-    publishedAt: '2026-03-01T09:00:00Z',
-    featured: false,
-    summary: 'Council convenes stakeholders to discuss plans for the rehabilitation of Gbadamosi Alo Street and surrounding access roads.',
-    coverImage: null,
-  },
-  {
-    _id: 'n3',
-    title: 'Women Empowerment Programme Holds at Council Secretariat',
-    slug: { current: 'women-empowerment-programme' },
-    category: 'community',
-    publishedAt: '2025-11-30T09:00:00Z',
-    featured: false,
-    summary: "Over 300 women from across Ibeju-Lekki participated in the quarterly empowerment programme organised by the council's social development department.",
-    coverImage: null,
-  },
-  {
-    _id: 'n4',
-    title: '33KV Overhead Power Line Rehabilitation Flag-off at Ibeju Long Bridge',
-    slug: { current: '33kv-power-line-rehabilitation' },
-    category: 'infrastructure',
-    publishedAt: '2025-11-22T09:00:00Z',
-    featured: false,
-    summary: 'The Executive Chairman flags off rehabilitation of the 33KV overhead power line, a project expected to improve electricity supply across major corridors.',
-    coverImage: null,
-  },
-]
-
 const CATEGORY_LABELS: Record<string, string> = {
   governance: 'Governance', infrastructure: 'Infrastructure', health: 'Health',
   education: 'Education', environment: 'Environment', economy: 'Economy',
@@ -69,8 +26,8 @@ interface NewsPost {
 interface Props { posts?: NewsPost[] }
 
 export default function NewsSection({ posts }: Props) {
-  // Always fall back to placeholder if posts is empty, null, or undefined
-  const data = (posts && posts.length > 0) ? posts : PLACEHOLDER_NEWS
+  // Render real posts only; hide the whole section when there are none
+  const data = posts && posts.length > 0 ? posts : []
 
   const featured  = data.find((p) => p.featured) ?? data[0]
   const secondary = data.filter((p) => p._id !== featured._id).slice(0, 3)

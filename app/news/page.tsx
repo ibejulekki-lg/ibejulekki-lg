@@ -24,12 +24,6 @@ const pageQuery  = groq`*[_type == "news"] | order(publishedAt desc)[$start...$e
 const searchCountQuery = groq`count(*[_type == "news" && (title match $q || summary match $q)])`
 const searchPageQuery  = groq`*[_type == "news" && (title match $q || summary match $q)] | order(publishedAt desc)[$start...$end] ${cardProjection}`
 
-const PLACEHOLDER_NEWS = [
-  { _id: 'n1', title: 'LASG Set To Drive Local Government Development Plan Across All 57 LGAs', slug: { current: 'lasg-local-government-development-plan' }, category: 'governance', publishedAt: '2026-04-17T09:00:00Z', featured: true, summary: 'Conference 57 Chairman Hon. Abdullahi Sesan Olowa appreciates a unified Lagos State plan for accelerated growth and service delivery across all 57 local government areas.', coverImage: null },
-  { _id: 'n2', title: 'Stakeholders Meeting on Gbadamosi Alo Street Rehabilitation', slug: { current: 'gbadamosi-alo-street-rehabilitation' }, category: 'infrastructure', publishedAt: '2026-03-01T09:00:00Z', featured: false, summary: 'Council convenes stakeholders to discuss plans for the rehabilitation of Gbadamosi Alo Street and surrounding access roads.', coverImage: null },
-  { _id: 'n3', title: 'Women Empowerment Programme Holds at Council Secretariat', slug: { current: 'women-empowerment-programme' }, category: 'community', publishedAt: '2025-11-30T09:00:00Z', featured: false, summary: 'Over 300 women from across Ibeju-Lekki participated in the quarterly empowerment programme organised by the council social development department.', coverImage: null },
-]
-
 const CATEGORY_LABELS: Record<string, string> = {
   governance: 'Governance', infrastructure: 'Infrastructure', health: 'Health',
   education: 'Education', environment: 'Environment', economy: 'Economy', careers: 'Careers',
@@ -88,14 +82,6 @@ export default async function NewsPage({ searchParams }: { searchParams?: { page
       if (page === 1) hero = await client.fetch(heroQuery)
       grid = (await client.fetch(pageQuery, { start, end })) || []
     } catch {}
-  } else {
-    const pool = searching
-      ? PLACEHOLDER_NEWS.filter((p) => (p.title + ' ' + p.summary).toLowerCase().includes(q.toLowerCase()))
-      : PLACEHOLDER_NEWS
-    total = pool.length
-    hero = !searching && page === 1 ? (pool.find((p) => p.featured) ?? pool[0]) : null
-    grid = pool.filter((p) => !hero || p._id !== hero._id)
-    totalPages = 1
   }
 
   const heroCover = hero ? coverUrl(hero.coverImage, 900, 560) : null
