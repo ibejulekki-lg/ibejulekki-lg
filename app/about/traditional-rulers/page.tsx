@@ -14,6 +14,13 @@ const FACTS = [
 
 const BLOCKS: Block[] = [
   {
+    kind: 'ruler',
+    name: 'HRM Oba Amb. Abidemi Toheeb Yissa Oyedele',
+    title: 'Onimedu of Orimedu Kingdom, Oyetu I, Ibeju-Lekki, Lagos',
+    image: '/leadership/oba-onimedu-orimedu.webp',
+    note: 'A reigning traditional ruler within the Council of Obas and Chiefs of Ibeju-Lekki, custodian of the customs and heritage of the Orimedu Kingdom.',
+  },
+  {
     kind: 'section',
     paras: [
       `Firmly rooted in a patriarchal and male-dominated structure, leadership is vested in the Council of Obas and Chiefs, which is headed by the Onibeju, who serves as its permanent Chairman.`,

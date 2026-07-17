@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import Footer from '@/components/Footer'
 
 export type Block =
@@ -7,6 +8,7 @@ export type Block =
   | { kind: 'chips'; label: string; items: string[] }
   | { kind: 'cards'; label: string; intro?: string[]; items: { name: string; desc: string }[] }
   | { kind: 'defs'; label: string; items: { term: string; text: string }[] }
+  | { kind: 'ruler'; name: string; title: string; image: string; note?: string }
 
 function Eyebrow({ children }: { children: React.ReactNode }) {
   return (
@@ -116,7 +118,21 @@ export default function AboutPage({
                   </div>
                 )
               }
-              // defs
+              if (b.kind === 'ruler') {
+          return (
+            <div key={i} className="overflow-hidden rounded-2xl border border-black/10 bg-white sm:flex">
+              <div className="relative aspect-[3/4] w-full sm:w-56 flex-shrink-0 bg-[#F4F4F4]">
+                <Image src={b.image} alt={b.name} fill className="object-cover object-top" sizes="(max-width: 640px) 100vw, 224px" />
+              </div>
+              <div className="p-5 sm:p-6">
+                <div className="text-[15px] font-extrabold text-[#111111] leading-snug">{b.name}</div>
+                <div className="mt-1 text-[12px] font-semibold uppercase tracking-wide text-[#B26B00]">{b.title}</div>
+                {b.note ? <p className="mt-3 text-[13.5px] leading-[1.8] text-black/70">{b.note}</p> : null}
+              </div>
+            </div>
+          )
+        }
+        // defs
               return (
                 <div key={i}>
                   <Eyebrow>{b.label}</Eyebrow>
