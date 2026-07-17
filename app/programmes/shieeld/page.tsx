@@ -24,7 +24,7 @@ export default function Page() {
     <>
       <main className="min-h-screen bg-white">
         <section className="border-b border-black/10 bg-brand-cream">
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-10 py-10 sm:py-14">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-10 py-10 sm:py-14">
             <nav className="flex items-center flex-wrap gap-1.5 text-[11px] sm:text-[12px] text-black/45 mb-6" aria-label="Breadcrumb">
               <Link href="/" className="hover:text-brand-ink transition-colors">Home</Link>
               <span className="text-black/30">/</span>
@@ -33,8 +33,19 @@ export default function Page() {
               <span className="text-brand-ink font-semibold">SHIEELD Agenda</span>
             </nav>
 
-            <div className="flex flex-col sm:flex-row items-center sm:items-end gap-6 sm:gap-9">
-              <div className="text-center sm:text-left">
+            <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
+              <div className="w-full lg:w-[58%] order-2 lg:order-1">
+                <Image
+                  src="/shieeld-pillars.webp"
+                  alt="The seven SHIEELD pillars: Security, Health, Infrastructure, Environmental Sustainability, Education and Youth Development, Local Economy, and Digital Economy and Civic Participation"
+                  width={1800}
+                  height={1182}
+                  sizes="(max-width: 1024px) 100vw, 58vw"
+                  className="w-full h-auto"
+                  priority
+                />
+              </div>
+              <div className="w-full lg:w-[42%] order-1 lg:order-2 text-center lg:text-left">
                 <div className="flex items-center justify-center sm:justify-start gap-3 mb-3">
                   <span className="h-px w-8 bg-brand-yellow" aria-hidden="true" />
                   <span className="text-[10.5px] font-bold uppercase tracking-[0.25em] text-black/45">Manifesto &middot; 2025 &ndash; 2029</span>
@@ -58,19 +69,6 @@ export default function Page() {
           </div>
         </section>
 
-        <section className="bg-white">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-10 pt-8 sm:pt-10">
-            <Image
-              src="/shieeld-pillars.webp"
-              alt="The seven SHIEELD pillars: Security, Health, Infrastructure, Environmental Sustainability, Education and Youth Development, Local Economy, and Digital Economy and Civic Participation"
-              width={1800}
-              height={1182}
-              sizes="(max-width: 1152px) 100vw, 1152px"
-              className="w-full h-auto"
-              priority
-            />
-          </div>
-        </section>
         <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-10 py-12 sm:py-16">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
             {PILLARS.map((p) => {
