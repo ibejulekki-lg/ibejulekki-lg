@@ -34,16 +34,6 @@ export default function Page() {
             </nav>
 
             <div className="flex flex-col sm:flex-row items-center sm:items-end gap-6 sm:gap-9">
-              <div className="relative w-40 h-52 sm:w-48 sm:h-64 flex-shrink-0 overflow-hidden rounded-2xl bg-[#D9D9D9] shadow-lg">
-                <Image
-                  src="/chairman.webp"
-                  alt="Hon. Abdullahi Sesan Olowa, Executive Chairman"
-                  fill
-                  className="object-cover object-top"
-                  sizes="(max-width: 640px) 160px, 192px"
-                  priority
-                />
-              </div>
               <div className="text-center sm:text-left">
                 <div className="flex items-center justify-center sm:justify-start gap-3 mb-3">
                   <span className="h-px w-8 bg-brand-yellow" aria-hidden="true" />
@@ -68,6 +58,19 @@ export default function Page() {
           </div>
         </section>
 
+        <section className="bg-white">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-10 pt-8 sm:pt-10">
+            <Image
+              src="/shieeld-pillars.webp"
+              alt="The seven SHIEELD pillars: Security, Health, Infrastructure, Environmental Sustainability, Education and Youth Development, Local Economy, and Digital Economy and Civic Participation"
+              width={1800}
+              height={1182}
+              sizes="(max-width: 1152px) 100vw, 1152px"
+              className="w-full h-auto"
+              priority
+            />
+          </div>
+        </section>
         <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-10 py-12 sm:py-16">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
             {PILLARS.map((p) => {
