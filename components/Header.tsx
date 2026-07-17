@@ -194,7 +194,7 @@ export default function Header({
           </nav>
 
           <Link
-            href="/resources/revenue"
+            href="https://portal.ibejulekkilga.com" target="_blank" rel="noopener noreferrer"
             className="hidden xl:inline-flex items-center gap-2 rounded-full bg-brand-yellow px-5 py-2.5 text-[12px] font-bold text-black transition-colors hover:bg-brand-ink hover:text-brand-yellow"
           >
             <CreditCard size={15} strokeWidth={2.5} /> Pay Levies

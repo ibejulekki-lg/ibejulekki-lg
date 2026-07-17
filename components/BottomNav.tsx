@@ -10,7 +10,7 @@ type Tab = { href: string; label: string; Icon: typeof Home; primary?: boolean }
 const TABS: Tab[] = [
   { href: '/',                  label: 'Home',    Icon: Home },
   { href: '/news',              label: 'News',    Icon: Newspaper },
-  { href: '/resources/revenue', label: 'Pay',     Icon: CreditCard, primary: true },
+  { href: 'https://portal.ibejulekkilga.com', label: 'Pay',     Icon: CreditCard, primary: true },
   { href: '/programmes/shieeld', label: 'SHIEELD', Icon: ShieldCheck },
 ]
 
