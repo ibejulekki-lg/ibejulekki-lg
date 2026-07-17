@@ -22,8 +22,8 @@ export const EXECUTIVE_SECTIONS: Section[] = [
     title: 'Council Leadership',
     members: [
       { name: 'Hon. Abdullahi Sesan Olowa', role: 'Executive Chairman', image: '/chairman_on_landingpage.webp' },
-      { name: 'To be confirmed', role: 'Vice Chairman' },
-      { name: 'To be confirmed', role: 'Council Secretary' },
+      { name: 'Hon. Isiaka Yusuf Olatunji (IYO)', role: 'Vice Chairman / Supervisor for Works & Infrastructure', image: '/leadership/vice-chairman.webp' },
+      { name: 'Hon. Adewale Fasali Adebanjo', role: 'Secretary to the Local Government', image: '/leadership/secretary.webp' },
     ],
   },
   {
@@ -31,15 +31,15 @@ export const EXECUTIVE_SECTIONS: Section[] = [
     blurb: 'Supervisory councillors appointed to lead the council portfolios.',
     members: [
       { name: 'Hon. Ogungbo Sofwan Temitope',        role: 'Supervisor for Environmental Services and Waste Management' },
-      { name: 'Hon. Ajibola Elemoro',                role: 'Supervisor for Market & Revenue' },
-      { name: 'Hon. Fatai Alonge',                   role: 'Supervisor for Housing & Tourism' },
+      { name: 'Hon. Ajibola Elemoro',                role: 'Supervisor for Market & Revenue', image: '/leadership/ajibola-elemoro.webp' },
+      { name: 'Hon. Fatai Alonge',                   role: 'Supervisor for Housing & Tourism', image: '/leadership/fatai-alonge.webp' },
       { name: 'Hon. Abisola Raolat Azeez',           role: 'Supervisor for WAPA', image: '/leadership/abisola-raolat-azeez.webp' },
       { name: 'Hon. Olusola Edalere',                role: 'Supervisor for Agric. & Social Services' },
       { name: 'Hon. Balogun Hakeem Oluwole',         role: 'Supervisor for Youth & Sports' },
-      { name: 'Hon. Aje Saheed',                     role: 'Supervisor for Health' },
-      { name: 'Hon. Balogun Abdulwaliu Oluwagbemi',  role: 'Supervisor for Budget, Planning & Statistics' },
-      { name: 'Hon. Lasiru Sule',                    role: 'Supervisor for Information, Communication & Technology' },
-      { name: 'Hon. Agbaje Sodiq Olajide',           role: 'Supervisor for Education & Library Services' },
+      { name: 'Hon. Aje Saheed',                     role: 'Supervisor for Health', image: '/leadership/aje-saheed.webp' },
+      { name: 'Hon. Balogun Abdulwaliu Oluwagbemi',  role: 'Supervisor for Budget, Planning & Statistics', image: '/leadership/balogun-abdulwaliu-oluwagbemi.webp' },
+      { name: 'Hon. Lasiru Sule',                    role: 'Supervisor for Information, Communication & Technology', image: '/leadership/lasiru-sule.webp' },
+      { name: 'Hon. Agbaje Sodiq Olajide',           role: 'Supervisor for Education & Library Services', image: '/leadership/agbaje-sodiq-olajide.webp' },
     ],
   },
   {
@@ -47,9 +47,9 @@ export const EXECUTIVE_SECTIONS: Section[] = [
     members: [
       { name: 'Hon. Saheed Yusuf',                   role: 'Special Adviser for Agric & Social Services' },
       { name: 'Hon. Mrs. Wakilat Remilekun Odupe',   role: 'Special Adviser on Wealth Creation', image: '/leadership/wakilat-remilekun-odupe.webp' },
-      { name: 'Hon. Nurudeen Adeboyejo',             role: 'Special Adviser on Political Affairs' },
+      { name: 'Hon. Nurudeen Adeboyejo',             role: 'Special Adviser on Political Affairs', image: '/leadership/nurudeen-adeboyejo.webp' },
       { name: 'Hon. Yusuf Mujaidu',                  role: 'Special Adviser on Chieftaincy Matters', image: '/leadership/yusuf-mujaidu.webp' },
-      { name: 'Hon. Shakirat Bisola Musari',         role: 'Special Adviser on Business & Economic Dev.' },
+      { name: 'Hon. Shakirat Bisola Musari',         role: 'Special Adviser on Business & Economic Development', image: '/leadership/shakirat-bisola-musari.webp' },
     ],
   },
   {
@@ -75,9 +75,9 @@ export const LEGISLATIVE: Member[] = [
 
 /* --- Management arm: career civil service, in official roster order --- */
 export const MANAGEMENT: Member[] = [
-  { name: 'Dr. Adekoya Adesanya Augustine',        role: 'Council Manager' },
+  { name: 'Dr. Adekoya Adesanya Augustine',        role: 'Council Manager', image: '/leadership/council-manager.webp' },
+  { name: 'Mrs. Osun Yetunde Shakirat',            role: 'Council Treasurer', image: '/leadership/council-treasurer.webp' },
   { name: 'Mr. Lagbalu Adesegun',                  role: 'HOD, Environmental Services',                      image: '/leadership/lagbalu-adesegun.webp' },
-  { name: 'Mrs. Osun Yetunde Shakirat',            role: 'Council Treasurer' },
   { name: 'Mr. Ajayi Babajide Muhammed',           role: 'Deputy Director, Administration & Human Resources', image: '/leadership/ajayi-babajide-muhammed.webp' },
   { name: 'Mrs. Belo Ganiat Abiola',               role: 'HOD, Education & Library Studies',                 image: '/leadership/belo-ganiat-abiola.webp' },
   { name: 'Dr. Agboola Bidemi',                    role: 'Medical Officer of Health',                        image: '/leadership/agboola-bidemi.webp' },
@@ -90,7 +90,7 @@ export const MANAGEMENT: Member[] = [
   { name: 'Mr. Balogun Adewale Alli',              role: 'Area Officer (Bogije)' },
   { name: 'Miss Issa R. Titilola',                 role: 'HOU, Procurement',                                 image: '/leadership/issa-r-titilola.webp' },
   { name: 'Mrs. Ibraheem-Edunjobi Moriam Olaide',  role: 'HOD, Budget, Planning and Statistics',            image: '/leadership/ibraheem-edunjobi-moriam-olaide.webp' },
-  { name: 'Mr. Olaojubu Nathaniel Idowu',          role: 'Public Affairs Officer',                           image: '/leadership/oladjobu-nathaniel-idowu.webp' },
+  { name: 'Mr. Oladjobu Nathaniel Idowu',          role: 'Public Affairs Officer',                           image: '/leadership/oladjobu-nathaniel-idowu.webp' },
   { name: 'Mrs. Aragbada Omolola Taiwo',           role: 'Area Officer (Ogunfayo)' },
   { name: 'Mr. Okesanya Olumide Adedapo',          role: 'Area Officer (Coastal)' },
   { name: 'Mr. Odumokun Olusegun',                 role: 'Area Officer (Ibeju)',                             image: '/leadership/odumokun-olusegun.webp' },
