@@ -78,9 +78,28 @@ export default async function NewsPost({ params }: { params: { slug: string } })
     ? urlFor(post.coverImage).width(1200).height(675).fit('crop').auto('format').url()
     : null
 
+  const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://ibejulekki-demo.vercel.app'
+  const newsJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'NewsArticle',
+    headline: post.title,
+    description: post.summary,
+    datePublished: post.publishedAt,
+    dateModified: post.publishedAt,
+    ...(cover ? { image: [cover] } : {}),
+    author: { '@type': 'Organization', name: post.author ?? 'Ibeju-Lekki LGA Communications' },
+    publisher: {
+      '@type': 'GovernmentOrganization',
+      name: 'Ibeju-Lekki Local Government',
+      logo: { '@type': 'ImageObject', url: SITE_URL + '/ibeju-lekki-logo.webp' },
+    },
+    mainEntityOfPage: { '@type': 'WebPage', '@id': SITE_URL + '/news/' + post.slug.current },
+  }
+
   return (
     <>
       <main className="min-h-screen bg-white">
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(newsJsonLd) }} />
         {/* Hero banner */}
         <div className="bg-brand-ink py-14 sm:py-20">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-10">

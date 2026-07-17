@@ -41,9 +41,31 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const settings = await getSiteSettings();
+  const orgJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'GovernmentOrganization',
+    name: settings.siteName,
+    alternateName: 'Ibeju-Lekki LGA',
+    url: SITE_URL,
+    logo: SITE_URL + '/ibeju-lekki-logo.webp',
+    email: settings.email,
+    telephone: settings.phone,
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: settings.address.replace(/\n/g, ', '),
+      addressRegion: 'Lagos',
+      addressCountry: 'NG',
+    },
+    areaServed: 'Ibeju-Lekki, Lagos State, Nigeria',
+    sameAs: Object.values(settings.socials).filter(Boolean),
+  };
   return (
     <html lang="en" className={poppins.variable}>
       <body className={poppins.className}>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
+        />
         <Header email={settings.email} officeHours={settings.officeHours} />
         {children}
         <BottomNav />
