@@ -90,8 +90,19 @@ export default function Page() {
                     </div>
                   </div>
                   <p className="mt-3 text-[12.5px] italic leading-[1.7] text-black/55">&ldquo;{p.summary}&rdquo;</p>
-                  <span className="mt-3 inline-flex items-center gap-1 text-[12px] font-semibold text-[#B26B00] transition-all group-hover:gap-2">
-                    Read more <ArrowRight size={13} strokeWidth={2.5} />
+                  <div className="mt-4 border-t border-black/[0.07] pt-3">
+                    <div className="text-[9.5px] font-bold uppercase tracking-[0.16em] text-black/40">{p.prioritiesLabel}</div>
+                    <ul className="mt-2 space-y-1.5">
+                      {p.priorities.slice(0, 3).map((it) => (
+                        <li key={it} className="flex items-start gap-2 text-[11.5px] leading-snug text-black/65">
+                          <span className="mt-[5px] h-1 w-1 flex-shrink-0 rounded-full bg-brand-yellow" aria-hidden="true" />
+                          <span>{it}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <span className="mt-4 inline-flex items-center gap-1 text-[12px] font-semibold text-[#B26B00] transition-all group-hover:gap-2">
+                    {p.priorities.length > 3 ? ('View all ' + p.priorities.length + ' priorities') : 'Read more'} <ArrowRight size={13} strokeWidth={2.5} />
                   </span>
                 </Link>
               )
