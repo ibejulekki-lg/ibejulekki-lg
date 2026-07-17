@@ -23,14 +23,14 @@ export default function Page() {
   return (
     <>
       <main className="min-h-screen bg-white">
-        <section className="border-b border-black/10 bg-[#FAFAFA]">
+        <section className="border-b border-black/10 bg-brand-cream">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-10 py-10 sm:py-14">
             <nav className="flex items-center flex-wrap gap-1.5 text-[11px] sm:text-[12px] text-black/45 mb-6" aria-label="Breadcrumb">
-              <Link href="/" className="hover:text-[#111111] transition-colors">Home</Link>
+              <Link href="/" className="hover:text-brand-ink transition-colors">Home</Link>
               <span className="text-black/30">/</span>
               <span>Programmes</span>
               <span className="text-black/30">/</span>
-              <span className="text-[#111111] font-semibold">SHIEELD Agenda</span>
+              <span className="text-brand-ink font-semibold">SHIEELD Agenda</span>
             </nav>
 
             <div className="flex flex-col sm:flex-row items-center sm:items-end gap-6 sm:gap-9">
@@ -49,8 +49,8 @@ export default function Page() {
                   <span className="h-px w-8 bg-brand-yellow" aria-hidden="true" />
                   <span className="text-[10.5px] font-bold uppercase tracking-[0.25em] text-black/45">Manifesto &middot; 2025 &ndash; 2029</span>
                 </div>
-                <h1 className="text-[clamp(1.9rem,5vw,3rem)] font-extrabold text-[#111111] tracking-tight leading-tight">
-                  The <span className="text-[#B26B00]">SHIEELD</span> Agenda
+                <h1 className="text-[clamp(1.9rem,5vw,3rem)] font-extrabold text-brand-ink tracking-tight leading-tight">
+                  The <span className="text-brand-amber">SHIEELD</span> Agenda
                 </h1>
                 <p className="mt-3 max-w-xl text-[14px] sm:text-[15px] text-black/55 leading-[1.8]">
                   Seven pillars for the next term under Hon. Abdullahi Sesan Olowa,
@@ -59,7 +59,7 @@ export default function Page() {
                 <a
                   href="/shieeld-manifesto.pdf"
                   download="Ibeju-Lekki-SHIEELD-Manifesto.pdf"
-                  className="mt-5 inline-flex items-center gap-2 rounded-full bg-brand-yellow px-6 py-3 text-[13px] font-bold text-black transition-colors hover:bg-[#111111] hover:text-brand-yellow"
+                  className="mt-5 inline-flex items-center gap-2 rounded-full bg-brand-yellow px-6 py-3 text-[13px] font-bold text-black transition-colors hover:bg-brand-ink hover:text-brand-yellow"
                 >
                   <Download size={15} strokeWidth={2.5} /> Download the Manifesto (PDF)
                 </a>
@@ -84,8 +84,8 @@ export default function Page() {
                     </div>
                     <div className="min-w-0">
                       <div className="flex items-center gap-2">
-                        <Icon size={14} strokeWidth={2} className="text-[#111111] flex-shrink-0" />
-                        <h2 className="text-[14.5px] font-bold text-[#111111] leading-snug">{p.title}</h2>
+                        <Icon size={14} strokeWidth={2} className="text-brand-ink flex-shrink-0" />
+                        <h2 className="text-[14.5px] font-bold text-brand-ink leading-snug">{p.title}</h2>
                       </div>
                     </div>
                   </div>
@@ -101,7 +101,7 @@ export default function Page() {
                       ))}
                     </ul>
                   </div>
-                  <span className="mt-4 inline-flex items-center gap-1 text-[12px] font-semibold text-[#B26B00] transition-all group-hover:gap-2">
+                  <span className="mt-4 inline-flex items-center gap-1 text-[12px] font-semibold text-brand-amber transition-all group-hover:gap-2">
                     {p.priorities.length > 3 ? ('View all ' + p.priorities.length + ' priorities') : 'Read more'} <ArrowRight size={13} strokeWidth={2.5} />
                   </span>
                 </Link>
@@ -109,7 +109,7 @@ export default function Page() {
             })}
           </div>
 
-          <div className="mt-10 flex flex-col items-start justify-between gap-5 rounded-2xl bg-[#111111] p-6 text-white sm:flex-row sm:items-center sm:p-8">
+          <div className="mt-10 flex flex-col items-start justify-between gap-5 rounded-2xl bg-brand-ink p-6 text-white sm:flex-row sm:items-center sm:p-8">
             <div>
               <div className="mb-1.5 text-[10px] font-bold uppercase tracking-[0.22em] text-brand-yellow">The record so far</div>
               <p className="max-w-md text-[14px] leading-relaxed text-white/70">

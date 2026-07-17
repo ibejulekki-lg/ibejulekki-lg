@@ -32,20 +32,20 @@ export default function AboutPage({
   return (
     <>
       <main className="min-h-screen bg-white">
-        <section className="border-b border-black/10 bg-[#FAFAFA]">
+        <section className="border-b border-black/10 bg-brand-cream">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-10 py-10 sm:py-14">
             <nav className="flex items-center flex-wrap gap-1.5 text-[11px] sm:text-[12px] text-black/45 mb-6" aria-label="Breadcrumb">
-              <Link href="/" className="hover:text-[#111111] transition-colors">Home</Link>
+              <Link href="/" className="hover:text-brand-ink transition-colors">Home</Link>
               <span className="text-black/30">/</span>
-              <Link href="/about" className="hover:text-[#111111] transition-colors">About</Link>
+              <Link href="/about" className="hover:text-brand-ink transition-colors">About</Link>
               <span className="text-black/30">/</span>
-              <span className="text-[#111111] font-semibold">{crumb}</span>
+              <span className="text-brand-ink font-semibold">{crumb}</span>
             </nav>
             <div className="flex items-center gap-3 mb-3">
               <span className="h-px w-8 bg-brand-yellow" aria-hidden="true" />
               <span className="text-[10.5px] font-bold uppercase tracking-[0.25em] text-black/45">{eyebrow}</span>
             </div>
-            <h1 className="text-[clamp(1.8rem,5vw,2.9rem)] font-extrabold text-[#111111] tracking-tight leading-tight">{title}</h1>
+            <h1 className="text-[clamp(1.8rem,5vw,2.9rem)] font-extrabold text-brand-ink tracking-tight leading-tight">{title}</h1>
             <p className="mt-4 max-w-2xl text-[15px] sm:text-[16px] text-black/60 leading-[1.85]">{lead}</p>
 
             {facts && facts.length > 0 ? (
@@ -53,7 +53,7 @@ export default function AboutPage({
                 {facts.map((f) => (
                   <div key={f.label}>
                     <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-black/40">{f.label}</div>
-                    <div className="text-[13.5px] font-bold text-[#111111]">{f.value}</div>
+                    <div className="text-[13.5px] font-bold text-brand-ink">{f.value}</div>
                   </div>
                 ))}
               </div>
@@ -76,8 +76,8 @@ export default function AboutPage({
               }
               if (b.kind === 'quote') {
                 return (
-                  <blockquote key={i} className="rounded-2xl border border-black/10 bg-[#FAFAFA] p-6 sm:p-7">
-                    <p className="border-l-4 border-brand-yellow pl-4 text-[clamp(1rem,2.4vw,1.25rem)] font-semibold italic leading-[1.6] text-[#111111]">
+                  <blockquote key={i} className="rounded-2xl border border-black/10 bg-brand-cream p-6 sm:p-7">
+                    <p className="border-l-4 border-brand-yellow pl-4 text-[clamp(1rem,2.4vw,1.25rem)] font-semibold italic leading-[1.6] text-brand-ink">
                       {b.text}
                     </p>
                     {b.note ? <p className="mt-3 pl-4 text-[13px] leading-relaxed text-black/55">{b.note}</p> : null}
@@ -110,7 +110,7 @@ export default function AboutPage({
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       {b.items.map((it) => (
                         <div key={it.name} className="rounded-2xl border border-black/10 bg-white p-4 sm:p-5">
-                          <div className="text-[13.5px] font-bold text-[#111111]">{it.name}</div>
+                          <div className="text-[13.5px] font-bold text-brand-ink">{it.name}</div>
                           <div className="mt-1 text-[12.5px] leading-relaxed text-black/60">{it.desc}</div>
                         </div>
                       ))}
@@ -125,8 +125,8 @@ export default function AboutPage({
                 <Image src={b.image} alt={b.name} fill className="object-cover object-top" sizes="(max-width: 640px) 100vw, 224px" />
               </div>
               <div className="p-5 sm:p-6">
-                <div className="text-[15px] font-extrabold text-[#111111] leading-snug">{b.name}</div>
-                <div className="mt-1 text-[12px] font-semibold uppercase tracking-wide text-[#B26B00]">{b.title}</div>
+                <div className="text-[15px] font-extrabold text-brand-ink leading-snug">{b.name}</div>
+                <div className="mt-1 text-[12px] font-semibold uppercase tracking-wide text-brand-amber">{b.title}</div>
                 {b.note ? <p className="mt-3 text-[13.5px] leading-[1.8] text-black/70">{b.note}</p> : null}
               </div>
             </div>
@@ -138,8 +138,8 @@ export default function AboutPage({
                   <Eyebrow>{b.label}</Eyebrow>
                   <div className="space-y-4">
                     {b.items.map((it) => (
-                      <div key={it.term} className="rounded-2xl border border-black/10 bg-[#FAFAFA] p-5">
-                        <div className="mb-1 text-[13.5px] font-bold text-[#B26B00]">{it.term}</div>
+                      <div key={it.term} className="rounded-2xl border border-black/10 bg-brand-cream p-5">
+                        <div className="mb-1 text-[13.5px] font-bold text-brand-amber">{it.term}</div>
                         <p className="text-[13.5px] leading-[1.8] text-black/70">{it.text}</p>
                       </div>
                     ))}

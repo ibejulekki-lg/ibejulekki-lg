@@ -82,7 +82,7 @@ export default async function NewsPost({ params }: { params: { slug: string } })
     <>
       <main className="min-h-screen bg-white">
         {/* Hero banner */}
-        <div className="bg-[#111111] py-14 sm:py-20">
+        <div className="bg-brand-ink py-14 sm:py-20">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-10">
             <Link href="/news" className="inline-flex items-center gap-2 text-[11.5px] font-semibold text-white/60 hover:text-white transition-colors mb-6">
               <ArrowLeft size={14} strokeWidth={2} /> Back to News
@@ -105,7 +105,7 @@ export default async function NewsPost({ params }: { params: { slug: string } })
         {/* Cover image */}
         {cover ? (
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-10 -mt-8 sm:-mt-10 relative z-10">
-            <div className="relative aspect-[16/9] overflow-hidden rounded-2xl border border-[#111111]/10 shadow-lg bg-[#FAFAFA]">
+            <div className="relative aspect-[16/9] overflow-hidden rounded-2xl border border-brand-ink/10 shadow-lg bg-brand-cream">
               <Image src={cover} alt={post.coverImage?.alt || post.title} fill className="object-cover" sizes="(max-width: 896px) 100vw, 896px" priority />
             </div>
           </div>
@@ -113,7 +113,7 @@ export default async function NewsPost({ params }: { params: { slug: string } })
 
         {/* Article body */}
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-10 py-12 sm:py-16">
-          <p className="text-[16px] sm:text-[17px] text-[#111111]/70 leading-[1.8] font-medium border-l-[3px] border-brand-yellow pl-5 mb-10">
+          <p className="text-[16px] sm:text-[17px] text-brand-ink/70 leading-[1.8] font-medium border-l-[3px] border-brand-yellow pl-5 mb-10">
             {post.summary}
           </p>
 
@@ -123,7 +123,7 @@ export default async function NewsPost({ params }: { params: { slug: string } })
                 href={cta.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2.5 rounded-full bg-brand-yellow px-6 py-3.5 text-[13.5px] font-bold text-black transition-colors hover:bg-[#111111] hover:text-brand-yellow"
+                className="inline-flex items-center gap-2.5 rounded-full bg-brand-yellow px-6 py-3.5 text-[13.5px] font-bold text-black transition-colors hover:bg-brand-ink hover:text-brand-yellow"
               >
                 {cta.isFile ? <Download size={16} strokeWidth={2.5} /> : null}
                 {cta.label}
@@ -137,14 +137,14 @@ export default async function NewsPost({ params }: { params: { slug: string } })
               <PortableBody value={post.body} />
             </article>
           ) : (
-            <div className="bg-[#FAFAFA] border border-[#111111]/10 rounded-2xl p-8 text-center">
-              <div className="text-[13px] text-[#111111]/40 mb-2">Full article content</div>
-              <div className="text-[12px] text-[#111111]/30">The complete article will appear here once published in the CMS.</div>
+            <div className="bg-brand-cream border border-brand-ink/10 rounded-2xl p-8 text-center">
+              <div className="text-[13px] text-brand-ink/40 mb-2">Full article content</div>
+              <div className="text-[12px] text-brand-ink/30">The complete article will appear here once published in the CMS.</div>
             </div>
           )}
 
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mt-12 pt-8 border-t border-[#111111]/10">
-            <Link href="/news" className="inline-flex items-center gap-2 text-[12.5px] font-bold text-[#111111] hover:text-[#B26B00] transition-colors">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mt-12 pt-8 border-t border-brand-ink/10">
+            <Link href="/news" className="inline-flex items-center gap-2 text-[12.5px] font-bold text-brand-ink hover:text-brand-amber transition-colors">
               <ArrowLeft size={14} strokeWidth={2.5} /> All News &amp; Events
             </Link>
             <ShareButton title={post.title} />

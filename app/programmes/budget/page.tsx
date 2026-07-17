@@ -12,7 +12,7 @@ export default function Page() {
   return (
     <>
       <main className="min-h-screen bg-white">
-        <section className="bg-[#111111] text-white">
+        <section className="bg-brand-ink text-white">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-10 py-12 sm:py-16">
             <nav className="flex items-center flex-wrap gap-1.5 text-[11px] sm:text-[12px] text-white/45 mb-5" aria-label="Breadcrumb">
               <Link href="/" className="hover:text-white transition-colors">Home</Link>
@@ -63,11 +63,11 @@ export default function Page() {
             <a
               href="/performance-report.pdf"
               download="Ibeju-Lekki-Performance-Report-2021-2025.pdf"
-              className="flex items-center gap-3 rounded-2xl border border-black/10 bg-[#FAFAFA] p-5 transition-colors hover:border-brand-yellow"
+              className="flex items-center gap-3 rounded-2xl border border-black/10 bg-brand-cream p-5 transition-colors hover:border-brand-yellow"
             >
-              <FileText size={20} strokeWidth={2} className="text-[#B26B00] flex-shrink-0" />
+              <FileText size={20} strokeWidth={2} className="text-brand-amber flex-shrink-0" />
               <div>
-                <div className="text-[13.5px] font-bold text-[#111111]">Performance Report 2021 &ndash; 2025</div>
+                <div className="text-[13.5px] font-bold text-brand-ink">Performance Report 2021 &ndash; 2025</div>
                 <div className="text-[12px] text-black/50">PDF download</div>
               </div>
             </a>
@@ -76,10 +76,10 @@ export default function Page() {
               className="flex items-center justify-between gap-3 rounded-2xl border border-black/10 bg-white p-5 transition-colors hover:border-brand-yellow"
             >
               <div>
-                <div className="text-[13.5px] font-bold text-[#111111]">The SHIEELD Agenda</div>
+                <div className="text-[13.5px] font-bold text-brand-ink">The SHIEELD Agenda</div>
                 <div className="text-[12px] text-black/50">The 2025 &ndash; 2029 manifesto</div>
               </div>
-              <ArrowRight size={16} strokeWidth={2.5} className="text-[#B26B00] flex-shrink-0" />
+              <ArrowRight size={16} strokeWidth={2.5} className="text-brand-amber flex-shrink-0" />
             </Link>
           </div>
         </section>

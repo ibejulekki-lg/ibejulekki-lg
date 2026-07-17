@@ -124,7 +124,7 @@ export default function SubscribeSection() {
     : Bell
 
   return (
-    <section className="bg-[#111111] py-16 sm:py-20 border-t border-white/[0.05]" aria-labelledby="subscribe-heading">
+    <section className="bg-brand-ink py-16 sm:py-20 border-t border-white/[0.05]" aria-labelledby="subscribe-heading">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-center">
           <div>
@@ -165,7 +165,7 @@ export default function SubscribeSection() {
                     />
                   </div>
                   <button type="submit" disabled={emailStatus === 'loading'}
-                    className="flex-shrink-0 inline-flex items-center gap-2 px-6 py-3.5 bg-brand-yellow text-black text-[13px] font-bold rounded-full hover:bg-[#E0A421] active:scale-95 transition-all duration-200 disabled:opacity-70 disabled:active:scale-100"
+                    className="flex-shrink-0 inline-flex items-center gap-2 px-6 py-3.5 bg-brand-yellow text-black text-[13px] font-bold rounded-full hover:bg-brand-hover active:scale-95 transition-all duration-200 disabled:opacity-70 disabled:active:scale-100"
                   >
                     {emailStatus === 'loading' ? (
                       <>Subscribing <Loader2 size={14} strokeWidth={2.5} className="animate-spin" /></>

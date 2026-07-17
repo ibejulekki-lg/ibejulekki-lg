@@ -94,13 +94,13 @@ export default function BottomNav() {
         className={`xl:hidden fixed inset-x-0 bottom-0 z-[186] flex max-h-[80vh] flex-col rounded-t-3xl bg-white shadow-2xl transition-transform duration-300 ${moreOpen ? 'translate-y-0' : 'translate-y-full'}`}
       >
         <div className="flex items-center justify-between border-b border-black/10 px-5 py-4">
-          <span className="text-[13px] font-bold uppercase tracking-[0.15em] text-[#111111]">Menu</span>
+          <span className="text-[13px] font-bold uppercase tracking-[0.15em] text-brand-ink">Menu</span>
           <button
             onClick={() => setMoreOpen(false)}
             aria-label="Close menu"
             className="flex h-8 w-8 items-center justify-center rounded-full bg-black/[0.06] transition-colors hover:bg-black/10"
           >
-            <X size={16} strokeWidth={2} className="text-[#111111]" />
+            <X size={16} strokeWidth={2} className="text-brand-ink" />
           </button>
         </div>
         <div
@@ -109,7 +109,7 @@ export default function BottomNav() {
         >
           {MENU.map((group) => (
             <div key={group.heading} className="mb-5 last:mb-0">
-              <div className="mb-2 text-[10px] font-bold uppercase tracking-[0.2em] text-[#B26B00]">
+              <div className="mb-2 text-[10px] font-bold uppercase tracking-[0.2em] text-brand-amber">
                 {group.heading}
               </div>
               <ul className="space-y-0.5">
@@ -118,7 +118,7 @@ export default function BottomNav() {
                     <Link
                       href={l.href}
                       onClick={() => setMoreOpen(false)}
-                      className="flex items-center justify-between py-2.5 text-[13.5px] font-medium text-[#111111]/80 transition-colors hover:text-[#111111]"
+                      className="flex items-center justify-between py-2.5 text-[13.5px] font-medium text-brand-ink/80 transition-colors hover:text-brand-ink"
                     >
                       {l.label}
                       <ChevronRight size={15} className="text-black/25" />
@@ -151,12 +151,12 @@ export default function BottomNav() {
                     className={
                       primary
                         ? 'flex h-11 w-11 -mt-5 items-center justify-center rounded-full border-4 border-white bg-brand-yellow text-black shadow-md'
-                        : `flex h-9 w-9 items-center justify-center rounded-full transition-colors ${active ? 'text-[#111111]' : 'text-black/45'}`
+                        : `flex h-9 w-9 items-center justify-center rounded-full transition-colors ${active ? 'text-brand-ink' : 'text-black/45'}`
                     }
                   >
                     <Icon size={primary ? 21 : 19} strokeWidth={2} />
                   </span>
-                  <span className={`text-[9.5px] font-semibold tracking-wide ${active ? 'text-[#111111]' : 'text-black/45'}`}>
+                  <span className={`text-[9.5px] font-semibold tracking-wide ${active ? 'text-brand-ink' : 'text-black/45'}`}>
                     {label}
                   </span>
                 </Link>
@@ -170,10 +170,10 @@ export default function BottomNav() {
               aria-expanded={moreOpen}
               className="flex w-full flex-col items-center justify-center gap-1 py-2"
             >
-              <span className={`flex h-9 w-9 items-center justify-center rounded-full transition-colors ${moreOpen ? 'text-[#111111]' : 'text-black/45'}`}>
+              <span className={`flex h-9 w-9 items-center justify-center rounded-full transition-colors ${moreOpen ? 'text-brand-ink' : 'text-black/45'}`}>
                 <Menu size={19} strokeWidth={2} />
               </span>
-              <span className={`text-[9.5px] font-semibold tracking-wide ${moreOpen ? 'text-[#111111]' : 'text-black/45'}`}>
+              <span className={`text-[9.5px] font-semibold tracking-wide ${moreOpen ? 'text-brand-ink' : 'text-black/45'}`}>
                 More
               </span>
             </button>

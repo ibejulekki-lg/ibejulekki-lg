@@ -44,9 +44,9 @@ function Card({ m }: { m: Member }) {
         <Portrait m={m} />
       </div>
       <div className="p-3 sm:p-4">
-        <div className="text-[12.5px] sm:text-[13.5px] font-bold text-[#111111] leading-snug">{m.name}</div>
+        <div className="text-[12.5px] sm:text-[13.5px] font-bold text-brand-ink leading-snug">{m.name}</div>
         {m.role ? (
-          <div className="mt-0.5 text-[11px] sm:text-[12px] font-medium text-[#B26B00] leading-snug">{m.role}</div>
+          <div className="mt-0.5 text-[11px] sm:text-[12px] font-medium text-brand-amber leading-snug">{m.role}</div>
         ) : null}
         {m.ward ? (
           <span className="mt-2 inline-block rounded-full bg-black/[0.05] px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-black/50">
@@ -81,20 +81,20 @@ export default function TeamPage({
   return (
     <>
       <main className="min-h-screen bg-white">
-        <section className="border-b border-black/10 bg-[#FAFAFA]">
+        <section className="border-b border-black/10 bg-brand-cream">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-10 py-10 sm:py-14">
             <nav className="flex items-center flex-wrap gap-1.5 text-[11px] sm:text-[12px] text-black/45 mb-5" aria-label="Breadcrumb">
-              <Link href="/" className="hover:text-[#111111] transition-colors">Home</Link>
+              <Link href="/" className="hover:text-brand-ink transition-colors">Home</Link>
               <span className="text-black/30">/</span>
               <span>Government</span>
               <span className="text-black/30">/</span>
-              <span className="text-[#111111] font-semibold">{group}</span>
+              <span className="text-brand-ink font-semibold">{group}</span>
             </nav>
             <div className="flex items-center gap-3 mb-3">
               <span className="h-px w-8 bg-brand-yellow" aria-hidden="true" />
               <span className="text-[10.5px] font-bold uppercase tracking-[0.25em] text-black/45">{eyebrow}</span>
             </div>
-            <h1 className="text-[clamp(1.8rem,5vw,2.8rem)] font-extrabold text-[#111111] tracking-tight leading-tight">{title}</h1>
+            <h1 className="text-[clamp(1.8rem,5vw,2.8rem)] font-extrabold text-brand-ink tracking-tight leading-tight">{title}</h1>
             <p className="mt-4 max-w-2xl text-[14px] sm:text-[15px] text-black/55 leading-[1.8]">{intro}</p>
           </div>
         </section>
@@ -105,7 +105,7 @@ export default function TeamPage({
               {sections.map((sec) => (
                 <div key={sec.title}>
                   <div className="mb-6">
-                    <h2 className="text-[clamp(1.15rem,2.5vw,1.5rem)] font-extrabold text-[#111111] tracking-tight">{sec.title}</h2>
+                    <h2 className="text-[clamp(1.15rem,2.5vw,1.5rem)] font-extrabold text-brand-ink tracking-tight">{sec.title}</h2>
                     {sec.blurb ? (
                       <p className="mt-1.5 text-[13px] text-black/50 leading-relaxed max-w-2xl">{sec.blurb}</p>
                     ) : null}

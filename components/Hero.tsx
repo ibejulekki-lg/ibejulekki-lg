@@ -101,7 +101,7 @@ export default function Hero() {
               {/* Badge */}
               <div
                 className={`
-                  inline-flex items-center gap-2 border border-[#111111]/20
+                  inline-flex items-center gap-2 border border-brand-ink/20
                   rounded-full px-4 py-1.5 mb-6
                   transition-all duration-600 ease-out
                   ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'}
@@ -109,7 +109,7 @@ export default function Hero() {
                 style={{ transitionDelay: '0ms' }}
               >
                 <span className="w-1.5 h-1.5 rounded-full bg-brand-yellow flex-shrink-0" />
-                <span className="text-[10px] font-semibold tracking-[0.22em] uppercase text-[#111111]">
+                <span className="text-[10px] font-semibold tracking-[0.22em] uppercase text-brand-ink">
                   Official Local Govt. Website
                 </span>
               </div>
@@ -117,7 +117,7 @@ export default function Hero() {
               {/* H1 */}
               <h1
                 className={`
-                  text-[clamp(2.4rem,6vw,4rem)] font-extrabold text-[#111111]
+                  text-[clamp(2.4rem,6vw,4rem)] font-extrabold text-brand-ink
                   leading-[1.05] tracking-[-0.028em] mb-5
                   transition-all duration-700 ease-out
                   ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}
@@ -125,14 +125,14 @@ export default function Hero() {
                 style={{ transitionDelay: '80ms' }}
               >
                 Making Ibeju-Lekki <br />
-                <span className="text-[#111111]">Great </span>
+                <span className="text-brand-ink">Great </span>
                 <span className="text-brand-yellow">for Everyone</span>
               </h1>
 
               {/* Sub */}
               <p
                 className={`
-                  text-[15px] sm:text-[16px] text-[#111111]/55 leading-[1.8]
+                  text-[15px] sm:text-[16px] text-brand-ink/55 leading-[1.8]
                   max-w-[480px] mb-8
                   transition-all duration-700 ease-out
                   ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}
@@ -157,9 +157,9 @@ export default function Hero() {
                   className="
                     inline-flex items-center gap-2 px-6 py-3.5
                     bg-brand-yellow text-black text-[13px] font-bold tracking-[0.04em]
-                    rounded-full hover:bg-[#111111] hover:text-brand-yellow
+                    rounded-full hover:bg-brand-ink hover:text-brand-yellow
                     active:scale-95 transition-all duration-200
-                    shadow-sm shadow-[#111111]/15
+                    shadow-sm shadow-brand-ink/15
                   "
                 >
                   Explore SHIEELD Agenda
@@ -169,9 +169,9 @@ export default function Hero() {
                   href="/news"
                   className="
                     inline-flex items-center gap-2 px-6 py-3.5
-                    border border-[#111111]/20 text-[#111111]/75 text-[13px]
+                    border border-brand-ink/20 text-brand-ink/75 text-[13px]
                     font-semibold tracking-[0.04em] rounded-full
-                    hover:border-[#111111]/50 hover:text-[#B26B00]
+                    hover:border-brand-ink/50 hover:text-brand-amber
                     active:scale-95 transition-all duration-200
                   "
                 >
@@ -189,7 +189,7 @@ export default function Hero() {
                 `}
                 style={{ transitionDelay: '280ms' }}
               >
-                <span className="text-[10.5px] font-semibold uppercase tracking-[0.14em] text-[#111111]/35">
+                <span className="text-[10.5px] font-semibold uppercase tracking-[0.14em] text-brand-ink/35">
                   Downloads
                 </span>
                 <a
@@ -198,7 +198,7 @@ export default function Hero() {
                   rel="noopener noreferrer"
                   className="
                     inline-flex items-center gap-1.5 text-[12.5px] font-semibold
-                    text-[#111111]/70 hover:text-[#B26B00] transition-colors
+                    text-brand-ink/70 hover:text-brand-amber transition-colors
                   "
                 >
                   <Download size={14} strokeWidth={2.2} className="text-brand-yellow" />
@@ -210,7 +210,7 @@ export default function Hero() {
                   rel="noopener noreferrer"
                   className="
                     inline-flex items-center gap-1.5 text-[12.5px] font-semibold
-                    text-[#111111]/70 hover:text-[#B26B00] transition-colors
+                    text-brand-ink/70 hover:text-brand-amber transition-colors
                   "
                 >
                   <Download size={14} strokeWidth={2.2} className="text-brand-yellow" />
@@ -222,7 +222,7 @@ export default function Hero() {
               <div
                 className={`
                   grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6
-                  pt-8 border-t border-[#111111]/10
+                  pt-8 border-t border-brand-ink/10
                   transition-all duration-700 ease-out
                   ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}
                 `}
@@ -230,10 +230,10 @@ export default function Hero() {
               >
                 {STATS.map((s) => (
                   <div key={s.label}>
-                    <div className="text-[clamp(1.35rem,2.5vw,1.9rem)] font-extrabold text-[#B26B00] leading-none mb-1 tracking-tight">
+                    <div className="text-[clamp(1.35rem,2.5vw,1.9rem)] font-extrabold text-brand-amber leading-none mb-1 tracking-tight">
                       {s.value}
                     </div>
-                    <div className="text-[10.5px] font-semibold text-[#111111]/40 uppercase tracking-[0.1em]">
+                    <div className="text-[10.5px] font-semibold text-brand-ink/40 uppercase tracking-[0.1em]">
                       {s.label}
                     </div>
                   </div>
@@ -252,7 +252,7 @@ export default function Hero() {
             >
               {/* Chairman card */}
               <div className="
-                border border-[#111111]/[0.12] rounded-2xl p-5 sm:p-6
+                border border-brand-ink/[0.12] rounded-2xl p-5 sm:p-6
                 hover:border-brand-yellow/40 transition-colors duration-300
               ">
                 <div className="flex items-center gap-4 mb-4">
@@ -268,18 +268,18 @@ export default function Hero() {
                     />
                   </div>
                   <div>
-                    <div className="text-[14px] font-bold text-[#111111] leading-tight mb-0.5">
+                    <div className="text-[14px] font-bold text-brand-ink leading-tight mb-0.5">
                       Hon. Abdullahi Sesan Olowa
                     </div>
-                    <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#B26B00]">
+                    <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-brand-amber">
                       Executive Chairman
                     </div>
-                    <div className="text-[10px] text-[#111111]/40 mt-0.5 font-medium">
+                    <div className="text-[10px] text-brand-ink/40 mt-0.5 font-medium">
                       Ibeju-Lekki Local Government
                     </div>
                   </div>
                 </div>
-                <p className="text-[13px] text-[#111111]/55 leading-[1.78] italic border-l-[2.5px] border-brand-yellow/40 pl-3.5">
+                <p className="text-[13px] text-brand-ink/55 leading-[1.78] italic border-l-[2.5px] border-brand-yellow/40 pl-3.5">
                   &ldquo;Our dedication is rooted in the comprehensive advancement
                   of Ibeju-Lekki through SHIEELD, we are transforming this LGA
                   into a model of modern governance.&rdquo;
@@ -287,8 +287,8 @@ export default function Hero() {
               </div>
 
               {/* SHIEELD tiles */}
-              <div className="border border-[#111111]/[0.12] rounded-2xl p-4 sm:p-5">
-                <div className="text-[9.5px] font-bold uppercase tracking-[0.24em] text-[#111111]/35 mb-3">
+              <div className="border border-brand-ink/[0.12] rounded-2xl p-4 sm:p-5">
+                <div className="text-[9.5px] font-bold uppercase tracking-[0.24em] text-brand-ink/35 mb-3">
                   The SHIEELD Agenda, 7 Pillars
                 </div>
 
@@ -305,14 +305,14 @@ export default function Hero() {
                           py-2.5 px-1 border transition-all duration-300 cursor-pointer
                           ${isActive
                             ? 'bg-brand-yellow border-brand-yellow scale-105 shadow-md shadow-brand-yellow/25'
-                            : 'bg-white border-[#111111]/[0.12] hover:border-[#111111]/30 hover:bg-brand-yellow/10'
+                            : 'bg-white border-brand-ink/[0.12] hover:border-brand-ink/30 hover:bg-brand-yellow/10'
                           }
                         `}
                       >
                         <span
                           className={`
                             text-[clamp(1rem,2.2vw,1.4rem)] font-extrabold leading-none mb-0.5
-                            ${isActive ? 'text-black' : 'text-[#111111]/55'}
+                            ${isActive ? 'text-black' : 'text-brand-ink/55'}
                           `}
                         >
                           {p.key}
@@ -321,7 +321,7 @@ export default function Hero() {
                           className={`
                             hidden sm:block text-[7px] font-semibold uppercase
                             tracking-[0.04em] leading-tight text-center
-                            ${isActive ? 'text-black/60' : 'text-[#111111]/30'}
+                            ${isActive ? 'text-black/60' : 'text-brand-ink/30'}
                           `}
                         >
                           {p.label.split(' ')[0]}
@@ -332,21 +332,21 @@ export default function Hero() {
                 </div>
 
                 {/* Active pillar info */}
-                <div className="mt-3 pt-3 border-t border-[#111111]/[0.08] flex items-center gap-3 min-h-[40px]">
+                <div className="mt-3 pt-3 border-t border-brand-ink/[0.08] flex items-center gap-3 min-h-[40px]">
                   <div className="w-8 h-8 rounded-lg bg-brand-yellow/[0.12] flex items-center justify-center flex-shrink-0">
-                    <ActiveIcon size={15} strokeWidth={2} className="text-[#111111]" />
+                    <ActiveIcon size={15} strokeWidth={2} className="text-brand-ink" />
                   </div>
                   <div>
-                    <span className="text-[12.5px] font-bold text-[#111111]">
+                    <span className="text-[12.5px] font-bold text-brand-ink">
                       {PILLARS[activePillar].label}
                     </span>
-                    <span className="text-[11px] text-[#111111]/35 ml-2">
+                    <span className="text-[11px] text-brand-ink/35 ml-2">
                       Pillar {activePillar + 1} of 7
                     </span>
                   </div>
                   <Link
                     href="/programmes/shieeld"
-                    className="ml-auto text-[10.5px] font-semibold text-[#B26B00] hover:text-[#B26B00] transition-colors flex items-center gap-1"
+                    className="ml-auto text-[10.5px] font-semibold text-brand-amber hover:text-brand-amber transition-colors flex items-center gap-1"
                   >
                     View <ChevronRight size={12} strokeWidth={2.5} />
                   </Link>
@@ -356,23 +356,23 @@ export default function Hero() {
               {/* Alert strip */}
               <div className="
                 flex items-start gap-3
-                border border-[#BE1E2D]/20 rounded-xl px-4 py-3
-                bg-[#BE1E2D]/[0.03]
+                border border-brand-red/20 rounded-xl px-4 py-3
+                bg-brand-red/[0.03]
               ">
-                <div className="w-7 h-7 rounded-lg bg-[#BE1E2D]/[0.08] flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <Megaphone size={14} strokeWidth={2} className="text-[#BE1E2D]" />
+                <div className="w-7 h-7 rounded-lg bg-brand-red/[0.08] flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <Megaphone size={14} strokeWidth={2} className="text-brand-red" />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <div className="text-[11.5px] font-bold text-[#111111] mb-0.5">
+                  <div className="text-[11.5px] font-bold text-brand-ink mb-0.5">
                     Council Notice
                   </div>
-                  <div className="text-[11px] text-[#111111]/50 leading-snug">
+                  <div className="text-[11px] text-brand-ink/50 leading-snug">
                     LASG Local Government Development Plan, Conference 57 · Apr 2026
                   </div>
                 </div>
                 <Link
                   href="/news"
-                  className="flex-shrink-0 flex items-center gap-1 text-[10.5px] font-bold text-[#BE1E2D] hover:text-[#B26B00] transition-colors mt-0.5"
+                  className="flex-shrink-0 flex items-center gap-1 text-[10.5px] font-bold text-brand-red hover:text-brand-amber transition-colors mt-0.5"
                 >
                   Read <ChevronRight size={11} strokeWidth={2.5} />
                 </Link>
@@ -384,7 +384,7 @@ export default function Hero() {
 
       {/* ── TICKER ─────────────────────────────────────────────────────────── */}
       <div
-        className="border-y border-[#111111]/[0.08] overflow-hidden bg-white"
+        className="border-y border-brand-ink/[0.08] overflow-hidden bg-white"
         aria-label="Key investments in Ibeju-Lekki"
       >
         <div className="flex">
@@ -409,7 +409,7 @@ export default function Hero() {
               {[...TICKER, ...TICKER].map((item, i) => (
                 <span
                   key={i}
-                  className="inline-flex items-center gap-3 px-6 text-[12px] font-medium text-[#111111]/45 italic"
+                  className="inline-flex items-center gap-3 px-6 text-[12px] font-medium text-brand-ink/45 italic"
                 >
                   {item}
                   <span className="w-1 h-1 rounded-full bg-brand-yellow/50 flex-shrink-0" />

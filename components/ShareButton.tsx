@@ -28,7 +28,7 @@ export default function ShareButton({ title }: { title: string }) {
   return (
     <button
       onClick={handleShare}
-      className="inline-flex items-center gap-2 text-[12px] font-semibold text-[#111111]/50 hover:text-[#B26B00] transition-colors"
+      className="inline-flex items-center gap-2 text-[12px] font-semibold text-brand-ink/50 hover:text-brand-amber transition-colors"
     >
       {copied ? <Check size={13} strokeWidth={2} /> : <Share2 size={13} strokeWidth={2} />}
       {copied ? 'Link copied' : 'Share this article'}

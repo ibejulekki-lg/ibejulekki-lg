@@ -34,7 +34,7 @@ export default function Page() {
     <>
       <main className="min-h-screen bg-white">
         {/* Header band */}
-        <section className="bg-[#111111] text-white">
+        <section className="bg-brand-ink text-white">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-10 py-12 sm:py-16">
             <nav className="flex items-center flex-wrap gap-1.5 text-[11px] sm:text-[12px] text-white/45 mb-5" aria-label="Breadcrumb">
               <Link href="/" className="hover:text-white transition-colors">Home</Link>
@@ -71,7 +71,7 @@ export default function Page() {
         </section>
 
         {/* Pillars */}
-        <section className="bg-[#FAFAFA] border-y border-black/[0.06] py-12 sm:py-16">
+        <section className="bg-brand-cream border-y border-black/[0.06] py-12 sm:py-16">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-10">
             <div className="flex items-center gap-3 mb-6">
               <span className="h-px w-8 bg-brand-yellow" aria-hidden="true" />
@@ -82,7 +82,7 @@ export default function Page() {
                 <div key={p.title} className="rounded-2xl border border-black/10 bg-white p-5">
                   <div className="flex items-center gap-2 mb-2">
                     <span className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-lg bg-brand-yellow text-[13px] font-extrabold text-black">{p.letter}</span>
-                    <h2 className="text-[13.5px] font-bold text-[#111111] leading-snug">{p.title}</h2>
+                    <h2 className="text-[13.5px] font-bold text-brand-ink leading-snug">{p.title}</h2>
                   </div>
                   <p className="text-[12.5px] text-black/55 leading-[1.7]">{p.body}</p>
                 </div>
@@ -106,17 +106,17 @@ export default function Page() {
             ))}
           </ul>
 
-          <div className="mt-10 rounded-2xl border border-black/10 bg-[#FAFAFA] p-6 sm:p-8 text-center">
-            <h2 className="text-[clamp(1.1rem,3vw,1.4rem)] font-bold text-[#111111] mb-2">Read the full report</h2>
+          <div className="mt-10 rounded-2xl border border-black/10 bg-brand-cream p-6 sm:p-8 text-center">
+            <h2 className="text-[clamp(1.1rem,3vw,1.4rem)] font-bold text-brand-ink mb-2">Read the full report</h2>
             <p className="max-w-md mx-auto text-[13px] text-black/55 leading-[1.7] mb-6">
               This page summarises the headlines. Download the complete report to continue reading, with all projects, figures and photographs.
             </p>
             <a href="/performance-report.pdf" target="_blank" rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3.5 bg-brand-yellow text-black text-[13px] font-bold rounded-full hover:bg-[#111111] hover:text-brand-yellow transition-all duration-200">
+              className="inline-flex items-center gap-2 px-6 py-3.5 bg-brand-yellow text-black text-[13px] font-bold rounded-full hover:bg-brand-ink hover:text-brand-yellow transition-all duration-200">
               <Download size={16} strokeWidth={2.5} /> Download full report (PDF)
             </a>
             <div className="mt-4">
-              <Link href="/programmes/shieeld" className="inline-flex items-center gap-1.5 text-[12px] font-semibold text-[#B26B00] hover:text-[#111111] transition-colors">
+              <Link href="/programmes/shieeld" className="inline-flex items-center gap-1.5 text-[12px] font-semibold text-brand-amber hover:text-brand-ink transition-colors">
                 <ArrowLeft size={13} strokeWidth={2.5} /> Back to the SHIEELD Agenda
               </Link>
             </div>

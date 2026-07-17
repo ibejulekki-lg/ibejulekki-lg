@@ -32,7 +32,7 @@ function Connector() {
 export default function Organogram() {
   return (
     <section
-      className="bg-[#FAFAFA] py-16 sm:py-20 lg:py-24 border-t border-black/[0.06]"
+      className="bg-brand-cream py-16 sm:py-20 lg:py-24 border-t border-black/[0.06]"
       aria-labelledby="org-heading"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
@@ -48,7 +48,7 @@ export default function Organogram() {
           </div>
           <h2
             id="org-heading"
-            className="text-[clamp(1.6rem,3.5vw,2.2rem)] font-extrabold text-[#111111] tracking-tight leading-tight"
+            className="text-[clamp(1.6rem,3.5vw,2.2rem)] font-extrabold text-brand-ink tracking-tight leading-tight"
           >
             Council Structure
           </h2>
@@ -62,7 +62,7 @@ export default function Organogram() {
         <div className="flex justify-center">
           <Link
             href="/government/chairman"
-            className="group w-full max-w-xs text-center rounded-2xl bg-[#111111] text-white px-6 py-5 shadow-sm transition-colors hover:bg-[#1c1c1c]"
+            className="group w-full max-w-xs text-center rounded-2xl bg-brand-ink text-white px-6 py-5 shadow-sm transition-colors hover:bg-[#1c1c1c]"
           >
             <div className="text-[10px] font-bold uppercase tracking-[0.22em] text-brand-yellow mb-1">
               Executive Chairman
@@ -84,7 +84,7 @@ export default function Organogram() {
               href={d.href}
               className="group flex flex-col justify-center rounded-xl border border-black/[0.12] bg-white px-4 py-4 text-center transition-colors hover:border-brand-yellow hover:bg-brand-yellow/5"
             >
-              <div className="text-[13px] font-bold text-[#111111] leading-tight group-hover:text-[#B26B00] transition-colors">
+              <div className="text-[13px] font-bold text-brand-ink leading-tight group-hover:text-brand-amber transition-colors">
                 {d.role}
               </div>
               {d.note && <div className="mt-1 text-[10.5px] text-black/50 leading-snug">{d.note}</div>}
@@ -105,7 +105,7 @@ export default function Organogram() {
           {/* Departments */}
           <div className="flex items-center gap-3 mb-4">
             <span className="h-px flex-1 bg-black/[0.08]" aria-hidden="true" />
-            <span className="text-[10.5px] font-bold uppercase tracking-[0.2em] text-[#111111]">Departments</span>
+            <span className="text-[10.5px] font-bold uppercase tracking-[0.2em] text-brand-ink">Departments</span>
             <span className="h-px flex-1 bg-black/[0.08]" aria-hidden="true" />
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-8">
@@ -118,7 +118,7 @@ export default function Organogram() {
                 <span className="mt-1 w-1.5 h-1.5 rounded-full bg-brand-yellow flex-shrink-0" aria-hidden="true" />
                 <div>
                   <div className="text-[9px] font-bold uppercase tracking-[0.16em] text-black/40">Head</div>
-                  <div className="text-[12.5px] font-semibold text-[#111111] leading-snug group-hover:text-[#B26B00] transition-colors">{name}</div>
+                  <div className="text-[12.5px] font-semibold text-brand-ink leading-snug group-hover:text-brand-amber transition-colors">{name}</div>
                   <div className="text-[10px] text-black/40">Department</div>
                 </div>
               </Link>
@@ -128,7 +128,7 @@ export default function Organogram() {
           {/* Units */}
           <div className="flex items-center gap-3 mb-4">
             <span className="h-px flex-1 bg-black/[0.08]" aria-hidden="true" />
-            <span className="text-[10.5px] font-bold uppercase tracking-[0.2em] text-[#111111]">Units</span>
+            <span className="text-[10.5px] font-bold uppercase tracking-[0.2em] text-brand-ink">Units</span>
             <span className="h-px flex-1 bg-black/[0.08]" aria-hidden="true" />
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mb-6">
@@ -139,7 +139,7 @@ export default function Organogram() {
                 className="group rounded-xl border border-black/10 bg-white px-3 py-3 text-center hover:border-brand-yellow/50 transition-colors"
               >
                 <div className="text-[9px] font-bold uppercase tracking-[0.16em] text-black/40 mb-0.5">Head</div>
-                <div className="text-[12px] font-semibold text-[#111111] leading-tight group-hover:text-[#B26B00] transition-colors">{name}</div>
+                <div className="text-[12px] font-semibold text-brand-ink leading-tight group-hover:text-brand-amber transition-colors">{name}</div>
                 <div className="text-[9.5px] text-black/40 mt-0.5">Unit</div>
               </Link>
             ))}
@@ -148,10 +148,10 @@ export default function Organogram() {
           {/* Area Officers */}
           <Link
             href={DEPT_HREF}
-            className="group flex items-center justify-center rounded-xl border border-dashed border-black/20 bg-[#FAFAFA] px-4 py-3 text-center hover:border-brand-yellow/60 transition-colors"
+            className="group flex items-center justify-center rounded-xl border border-dashed border-black/20 bg-brand-cream px-4 py-3 text-center hover:border-brand-yellow/60 transition-colors"
           >
             <span className="text-[9px] font-bold uppercase tracking-[0.16em] text-black/40">Field</span>
-            <span className="ml-2 text-[12.5px] font-semibold text-[#111111] group-hover:text-[#B26B00] transition-colors">Area Officers</span>
+            <span className="ml-2 text-[12.5px] font-semibold text-brand-ink group-hover:text-brand-amber transition-colors">Area Officers</span>
           </Link>
         </div>
       </div>

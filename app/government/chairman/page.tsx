@@ -81,9 +81,9 @@ const AWARDS: string[] = [
 ]
 
 function FactIcon({ kind }: { kind: 'pin' | 'cal' | 'mark' }) {
-  if (kind === 'pin') return <MapPin size={14} strokeWidth={2} className="text-[#B26B00]" />
-  if (kind === 'cal') return <CalendarDays size={14} strokeWidth={2} className="text-[#B26B00]" />
-  return <Landmark size={14} strokeWidth={2} className="text-[#B26B00]" />
+  if (kind === 'pin') return <MapPin size={14} strokeWidth={2} className="text-brand-amber" />
+  if (kind === 'cal') return <CalendarDays size={14} strokeWidth={2} className="text-brand-amber" />
+  return <Landmark size={14} strokeWidth={2} className="text-brand-amber" />
 }
 
 export default function Page() {
@@ -94,11 +94,11 @@ export default function Page() {
         <section className="border-b border-black/10 bg-gradient-to-b from-[#ECECEC] to-[#F7F7F7]">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-10 py-10 sm:py-14">
             <nav className="flex items-center flex-wrap gap-1.5 text-[11px] sm:text-[12px] text-black/45 mb-6" aria-label="Breadcrumb">
-              <Link href="/" className="hover:text-[#111111] transition-colors">Home</Link>
+              <Link href="/" className="hover:text-brand-ink transition-colors">Home</Link>
               <span className="text-black/30">/</span>
               <span>Government</span>
               <span className="text-black/30">/</span>
-              <span className="text-[#111111] font-semibold">Executive Chairman</span>
+              <span className="text-brand-ink font-semibold">Executive Chairman</span>
             </nav>
 
             <div className="flex flex-col sm:flex-row items-center sm:items-end gap-6 sm:gap-9">
@@ -117,7 +117,7 @@ export default function Page() {
                   <span className="h-px w-8 bg-brand-yellow" aria-hidden="true" />
                   <span className="text-[10.5px] font-bold uppercase tracking-[0.25em] text-black/45">Executive Chairman</span>
                 </div>
-                <h1 className="text-[clamp(1.8rem,5vw,2.9rem)] font-extrabold text-[#111111] tracking-tight leading-tight">
+                <h1 className="text-[clamp(1.8rem,5vw,2.9rem)] font-extrabold text-brand-ink tracking-tight leading-tight">
                   Hon. Abdullahi Sesan Olowa
                 </h1>
                 <p className="mt-2 text-[14px] sm:text-[15px] text-black/55">
@@ -132,7 +132,7 @@ export default function Page() {
                         <FactIcon kind={f.icon} />
                       )}
                       <span className="text-[12px] text-black/45">{f.label}:</span>
-                      <span className="text-[12.5px] font-semibold text-[#111111]">{f.value}</span>
+                      <span className="text-[12.5px] font-semibold text-brand-ink">{f.value}</span>
                     </div>
                   ))}
                 </div>
@@ -167,8 +167,8 @@ export default function Page() {
             </div>
             <div className="space-y-6">
               {ACHIEVEMENTS.map((a) => (
-                <div key={a.group} className="rounded-2xl border border-black/10 bg-[#FAFAFA] p-5 sm:p-6">
-                  <h3 className="mb-3 text-[14px] font-bold text-[#111111]">{a.group}</h3>
+                <div key={a.group} className="rounded-2xl border border-black/10 bg-brand-cream p-5 sm:p-6">
+                  <h3 className="mb-3 text-[14px] font-bold text-brand-ink">{a.group}</h3>
                   <ul className="space-y-2.5">
                     {a.items.map((it) => (
                       <li key={it} className="flex items-start gap-2.5 text-[13px] leading-snug text-black/65">
@@ -199,7 +199,7 @@ export default function Page() {
           </div>
 
           {/* CTA */}
-          <div className="mt-12 flex flex-col items-start justify-between gap-5 rounded-2xl bg-[#111111] p-6 text-white sm:flex-row sm:items-center sm:p-8">
+          <div className="mt-12 flex flex-col items-start justify-between gap-5 rounded-2xl bg-brand-ink p-6 text-white sm:flex-row sm:items-center sm:p-8">
             <div>
               <div className="mb-1.5 text-[10px] font-bold uppercase tracking-[0.22em] text-brand-yellow">The plan and the record</div>
               <p className="max-w-md text-[14px] leading-relaxed text-white/70">

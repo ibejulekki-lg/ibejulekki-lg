@@ -54,20 +54,20 @@ export default async function CareersPage({ searchParams }: { searchParams?: { p
   return (
     <>
       <main className="min-h-screen bg-white">
-        <section className="border-b border-black/10 bg-[#FAFAFA]">
+        <section className="border-b border-black/10 bg-brand-cream">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-10 py-10 sm:py-14">
             <nav className="flex items-center flex-wrap gap-1.5 text-[11px] sm:text-[12px] text-black/45 mb-5" aria-label="Breadcrumb">
-              <Link href="/" className="hover:text-[#111111] transition-colors">Home</Link>
+              <Link href="/" className="hover:text-brand-ink transition-colors">Home</Link>
               <span className="text-black/30">/</span>
               <span>Opportunities</span>
               <span className="text-black/30">/</span>
-              <span className="text-[#111111] font-semibold">Career &amp; Jobs</span>
+              <span className="text-brand-ink font-semibold">Career &amp; Jobs</span>
             </nav>
             <div className="flex items-center gap-3 mb-3">
               <span className="h-px w-8 bg-brand-yellow" aria-hidden="true" />
               <span className="text-[10.5px] font-bold uppercase tracking-[0.25em] text-black/45">Opportunities</span>
             </div>
-            <h1 className="text-[clamp(1.8rem,5vw,2.8rem)] font-extrabold text-[#111111] tracking-tight leading-tight">Career &amp; Jobs</h1>
+            <h1 className="text-[clamp(1.8rem,5vw,2.8rem)] font-extrabold text-brand-ink tracking-tight leading-tight">Career &amp; Jobs</h1>
             <p className="mt-4 max-w-2xl text-[14px] sm:text-[15px] text-black/55 leading-[1.8]">
               Job opportunities, recruitment notices and vacancies from Ibeju-Lekki Local Government and partner agencies. Always confirm application details through official council channels.
             </p>
@@ -76,15 +76,15 @@ export default async function CareersPage({ searchParams }: { searchParams?: { p
 
         <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-10 py-12 sm:py-16">
           {posts.length === 0 ? (
-            <div className="bg-[#FAFAFA] border border-black/10 rounded-2xl p-10 text-center">
+            <div className="bg-brand-cream border border-black/10 rounded-2xl p-10 text-center">
               <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-brand-yellow/[0.15]">
-                <Briefcase size={22} strokeWidth={1.8} className="text-[#B26B00]" />
+                <Briefcase size={22} strokeWidth={1.8} className="text-brand-amber" />
               </div>
-              <div className="text-[15px] font-bold text-[#111111] mb-1.5">No open opportunities right now</div>
+              <div className="text-[15px] font-bold text-brand-ink mb-1.5">No open opportunities right now</div>
               <div className="text-[13px] text-black/50 mb-5 max-w-md mx-auto leading-relaxed">
                 There are no job or recruitment notices published at the moment. Please check back, or follow council announcements for the latest openings.
               </div>
-              <Link href="/news" className="inline-flex items-center gap-1.5 text-[12.5px] font-bold text-[#B26B00] hover:text-[#111111] transition-colors">
+              <Link href="/news" className="inline-flex items-center gap-1.5 text-[12.5px] font-bold text-brand-amber hover:text-brand-ink transition-colors">
                 Browse News &amp; Events <ArrowRight size={13} strokeWidth={2.5} />
               </Link>
             </div>
@@ -103,16 +103,16 @@ export default async function CareersPage({ searchParams }: { searchParams?: { p
                           <Image src={c} alt={post.coverImage?.alt || post.title} fill className="object-cover" sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" />
                         ) : (
                           <div className="absolute inset-0 bg-gradient-to-br from-brand-yellow/[0.15] to-brand-yellow/10 flex items-center justify-center">
-                            <Briefcase size={26} strokeWidth={1.2} className="text-[#111111]/25" />
+                            <Briefcase size={26} strokeWidth={1.2} className="text-brand-ink/25" />
                           </div>
                         )}
                         <span className="absolute top-3 left-3 text-[9.5px] font-bold uppercase tracking-[0.12em] px-2.5 py-1 rounded-full bg-brand-yellow text-black">Opportunity</span>
                       </div>
                       <div className="flex flex-col flex-1 p-5">
                         <div className="flex items-center gap-1.5 text-[10px] text-black/40 mb-2.5"><Calendar size={10} strokeWidth={2} />{formatDate(post.publishedAt)}</div>
-                        <h2 className="text-[13.5px] font-bold text-[#111111] leading-[1.4] mb-2 line-clamp-3 group-hover:text-[#B26B00] transition-colors flex-1">{post.title}</h2>
+                        <h2 className="text-[13.5px] font-bold text-brand-ink leading-[1.4] mb-2 line-clamp-3 group-hover:text-brand-amber transition-colors flex-1">{post.title}</h2>
                         {post.summary ? <p className="text-[12px] text-black/50 leading-[1.65] line-clamp-2 mb-4">{post.summary}</p> : null}
-                        <div className="inline-flex items-center gap-1 text-[11.5px] font-bold text-[#111111] group-hover:text-[#B26B00] transition-colors mt-auto">View details <ArrowRight size={12} strokeWidth={2.5} /></div>
+                        <div className="inline-flex items-center gap-1 text-[11.5px] font-bold text-brand-ink group-hover:text-brand-amber transition-colors mt-auto">View details <ArrowRight size={12} strokeWidth={2.5} /></div>
                       </div>
                     </Link>
                   )
@@ -122,7 +122,7 @@ export default async function CareersPage({ searchParams }: { searchParams?: { p
               {totalPages > 1 ? (
                 <nav className="mt-12 flex items-center justify-center gap-1.5 flex-wrap" aria-label="Pagination">
                   {page > 1 ? (
-                    <Link href={`/resources/careers?page=${page - 1}`} className="inline-flex items-center gap-1 px-3.5 py-2 text-[12.5px] font-semibold rounded-full border border-black/15 text-[#111111] hover:border-brand-yellow transition-colors"><ArrowLeft size={13} strokeWidth={2.5} /> Prev</Link>
+                    <Link href={`/resources/careers?page=${page - 1}`} className="inline-flex items-center gap-1 px-3.5 py-2 text-[12.5px] font-semibold rounded-full border border-black/15 text-brand-ink hover:border-brand-yellow transition-colors"><ArrowLeft size={13} strokeWidth={2.5} /> Prev</Link>
                   ) : (
                     <span className="inline-flex items-center gap-1 px-3.5 py-2 text-[12.5px] font-semibold rounded-full border border-black/10 text-black/25"><ArrowLeft size={13} strokeWidth={2.5} /> Prev</span>
                   )}
@@ -130,11 +130,11 @@ export default async function CareersPage({ searchParams }: { searchParams?: { p
                     n === '...' ? (
                       <span key={`d${i}`} className="px-2 text-[12.5px] text-black/35">...</span>
                     ) : (
-                      <Link key={n} href={`/resources/careers?page=${n}`} className={`min-w-[36px] text-center px-3 py-2 text-[12.5px] font-bold rounded-full border transition-colors ${n === page ? 'bg-brand-yellow border-brand-yellow text-black' : 'border-black/15 text-[#111111] hover:border-brand-yellow'}`}>{n}</Link>
+                      <Link key={n} href={`/resources/careers?page=${n}`} className={`min-w-[36px] text-center px-3 py-2 text-[12.5px] font-bold rounded-full border transition-colors ${n === page ? 'bg-brand-yellow border-brand-yellow text-black' : 'border-black/15 text-brand-ink hover:border-brand-yellow'}`}>{n}</Link>
                     )
                   )}
                   {page < totalPages ? (
-                    <Link href={`/resources/careers?page=${page + 1}`} className="inline-flex items-center gap-1 px-3.5 py-2 text-[12.5px] font-semibold rounded-full border border-black/15 text-[#111111] hover:border-brand-yellow transition-colors">Next <ArrowRight size={13} strokeWidth={2.5} /></Link>
+                    <Link href={`/resources/careers?page=${page + 1}`} className="inline-flex items-center gap-1 px-3.5 py-2 text-[12.5px] font-semibold rounded-full border border-black/15 text-brand-ink hover:border-brand-yellow transition-colors">Next <ArrowRight size={13} strokeWidth={2.5} /></Link>
                   ) : (
                     <span className="inline-flex items-center gap-1 px-3.5 py-2 text-[12.5px] font-semibold rounded-full border border-black/10 text-black/25">Next <ArrowRight size={13} strokeWidth={2.5} /></span>
                   )}

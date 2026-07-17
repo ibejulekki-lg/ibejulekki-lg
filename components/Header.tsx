@@ -75,7 +75,7 @@ function DesktopNavItem({ item }: { item: (typeof NAV_ITEMS)[number] }) {
     return (
       <Link
         href={item.href}
-        className="relative whitespace-nowrap text-[11.5px] font-semibold uppercase tracking-wide text-[#111111] transition-colors hover:text-black after:absolute after:-bottom-1.5 after:left-0 after:h-[2px] after:w-0 after:bg-brand-yellow after:transition-all after:duration-300 hover:after:w-full"
+        className="relative whitespace-nowrap text-[11.5px] font-semibold uppercase tracking-wide text-brand-ink transition-colors hover:text-black after:absolute after:-bottom-1.5 after:left-0 after:h-[2px] after:w-0 after:bg-brand-yellow after:transition-all after:duration-300 hover:after:w-full"
       >
         {item.label}
       </Link>
@@ -90,7 +90,7 @@ function DesktopNavItem({ item }: { item: (typeof NAV_ITEMS)[number] }) {
       onMouseLeave={() => setOpen(false)}
     >
       <button
-        className="flex items-center gap-1 whitespace-nowrap text-[11.5px] font-semibold uppercase tracking-wide text-[#111111] transition-colors hover:text-black"
+        className="flex items-center gap-1 whitespace-nowrap text-[11.5px] font-semibold uppercase tracking-wide text-brand-ink transition-colors hover:text-black"
         onClick={() => setOpen((v) => !v)}
       >
         {item.label}
@@ -108,7 +108,7 @@ function DesktopNavItem({ item }: { item: (typeof NAV_ITEMS)[number] }) {
             <Link
               key={child.href}
               href={child.href}
-              className="block px-4 py-2.5 text-[12.5px] font-medium text-[#111111]/80 transition-colors hover:bg-brand-yellow/10 hover:text-[#111111]"
+              className="block px-4 py-2.5 text-[12.5px] font-medium text-brand-ink/80 transition-colors hover:bg-brand-yellow/10 hover:text-brand-ink"
             >
               {child.label}
             </Link>
@@ -142,7 +142,7 @@ export default function Header({
       <BrandStripe />
 
       {/* utility bar */}
-      <div className="hidden md:block bg-[#111111] text-white">
+      <div className="hidden md:block bg-brand-ink text-white">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 lg:px-8 py-1.5 text-[11px]">
           <div className="flex items-center gap-5">
             <a href={`mailto:${email}`} className="flex items-center gap-1.5 text-white/70 transition-colors hover:text-brand-yellow">
@@ -178,7 +178,7 @@ export default function Header({
               className="h-11 w-11 flex-shrink-0 object-contain"
             />
             <span className="leading-tight">
-              <span className="block text-[15px] sm:text-[17px] font-extrabold tracking-tight text-[#111111]">
+              <span className="block text-[15px] sm:text-[17px] font-extrabold tracking-tight text-brand-ink">
                 IBEJU LEKKI 
               </span>
               <span className="block text-[9.5px] sm:text-[10px] font-medium uppercase tracking-[0.18em] text-black/45">
@@ -195,7 +195,7 @@ export default function Header({
 
           <Link
             href="/resources/revenue"
-            className="hidden xl:inline-flex items-center gap-2 rounded-full bg-brand-yellow px-5 py-2.5 text-[12px] font-bold text-black transition-colors hover:bg-[#111111] hover:text-brand-yellow"
+            className="hidden xl:inline-flex items-center gap-2 rounded-full bg-brand-yellow px-5 py-2.5 text-[12px] font-bold text-black transition-colors hover:bg-brand-ink hover:text-brand-yellow"
           >
             <CreditCard size={15} strokeWidth={2.5} /> Pay Levies
           </Link>
