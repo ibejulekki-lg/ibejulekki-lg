@@ -30,7 +30,6 @@ const PILLARS = [
 
 // ── Stats ─────────────────────────────────────────────────────────────────────
 const STATS = [
-  { value: '₦150M+', label: 'IGR Generated' },
   { value: '70,000+', label: 'New Payers Captured' },
   { value: '480', label: 'Jobs Created' },
   { value: '7',      label: 'SHIEELD Pillars' },

@@ -69,7 +69,7 @@ function Grid({ members }: { members: Member[] }) {
 }
 
 export default function TeamPage({
-  eyebrow, title, intro, members, sections, group,
+  eyebrow, title, intro, members, sections, group, lead,
 }: {
   eyebrow: string
   title: string
@@ -77,6 +77,7 @@ export default function TeamPage({
   members?: Member[]
   sections?: Section[]
   group: string
+  lead?: Member
 }) {
   return (
     <>
@@ -100,6 +101,13 @@ export default function TeamPage({
         </section>
 
         <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-10 py-12 sm:py-16">
+          {lead ? (
+            <div className="mb-10 sm:mb-12">
+              <div className="mx-auto max-w-xs">
+                <Card m={lead} />
+              </div>
+            </div>
+          ) : null}
           {sections ? (
             <div className="space-y-12 sm:space-y-16">
               {sections.map((sec) => (

@@ -3,6 +3,7 @@ import Link from 'next/link'
 // Senior roles, all on ONE level below the Chairman. Each links to its page.
 const DIRECT: { role: string; note?: string; href: string }[] = [
   { role: 'Vice Chairman', href: '/government/executive-council' },
+  { role: 'Secretary to the Local Government', note: 'SLG', href: '/government/executive-council' },
   { role: 'Council Manager', note: 'Oversees all departments & units', href: '/government/management-team' },
   { role: 'Supervisors', href: '/government/executive-council' },
   { role: 'Clerk of the House', note: 'Legislative Arm', href: '/government/legislative-council' },
@@ -16,7 +17,7 @@ const DEPARTMENTS = [
   'Education & Library Services',
   'Planning, Budget, Research & Statistics',
   'WAPA',
-  'Primary Health Care Services',
+  'Health Care Services',
   'Environmental Services',
 ]
 
@@ -77,7 +78,7 @@ export default function Organogram() {
         <div className="text-center text-[10px] font-bold uppercase tracking-[0.2em] text-black/40 mb-4">
           Reporting to the Executive Chairman
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 max-w-4xl mx-auto items-stretch">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4 max-w-5xl mx-auto items-stretch">
           {DIRECT.map((d) => (
             <Link
               key={d.role}

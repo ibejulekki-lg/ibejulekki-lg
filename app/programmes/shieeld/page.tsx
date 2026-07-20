@@ -51,7 +51,7 @@ export default function Page() {
                   <span className="text-[10.5px] font-bold uppercase tracking-[0.25em] text-black/45">Manifesto &middot; 2025 &ndash; 2029</span>
                 </div>
                 <h1 className="text-[clamp(1.9rem,5vw,3rem)] font-extrabold text-brand-ink tracking-tight leading-tight">
-                  The <span className="text-brand-amber">SHIEELD</span> Agenda
+                  The <span className="text-brand-yellow">SHIEELD</span> Agenda
                 </h1>
                 <p className="mt-3 max-w-xl text-[14px] sm:text-[15px] text-black/55 leading-[1.8]">
                   Seven pillars for the next term under Hon. Abdullahi Sesan Olowa,

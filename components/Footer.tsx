@@ -73,7 +73,7 @@ export default async function Footer() {
                 <Image src="/ibeju-lekki-logo-sm.webp" alt="Ibeju-Lekki LGA" fill className="object-contain" />
               </div>
               <div>
-                <div className="text-[14px] font-bold text-white leading-tight">Ibeju-Lekki LGA</div>
+                <div className="text-[14px] font-bold text-white leading-tight">IBEJU LEKKI LGA</div>
                 <div className="text-[9px] uppercase tracking-[0.2em] text-white/45">Official Government Website</div>
               </div>
             </Link>

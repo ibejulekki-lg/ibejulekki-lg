@@ -7,7 +7,7 @@ export default function Page() {
     <PagePlaceholder
       title="Download Forms"
       sectionLabel="Resources"
-      description="Download official council forms and documents."
+      description="Forms will be updated when there is a form to fill."
     />
   )
 }
