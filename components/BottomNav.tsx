@@ -47,9 +47,9 @@ const MENU: { heading: string; links: { label: string; href: string }[] }[] = [
     heading: 'Opportunities',
     links: [
       { label: 'Housing',                href: '/opportunities/housing' },
-      { label: 'Housing Opportunities',  href: '/opportunities/housing/housing-opportunities' },
-      { label: 'Citrus Garden',          href: '/opportunities/housing/citrus-garden' },
-      { label: 'Eleko ISOL',             href: '/opportunities/housing/eleko-isol' },
+      // { label: 'Housing Opportunities',  href: '/opportunities/housing/housing-opportunities' },
+      // { label: 'Citrus Garden',          href: '/opportunities/housing/citrus-garden' },
+      // { label: 'Eleko ISOL',             href: '/opportunities/housing/eleko-isol' },
       { label: 'Tourism',                href: '/opportunities/tourism' },
       { label: 'Career & Jobs',          href: '/resources/careers' },
     ],
