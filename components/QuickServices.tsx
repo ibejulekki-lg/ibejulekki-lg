@@ -4,7 +4,7 @@ import { CreditCard, Briefcase, Trash2, AlertCircle, FileText, Phone, ExternalLi
 const ICON_MAP: Record<string, React.ElementType> = { CreditCard, Briefcase, Trash2, AlertCircle, FileText, Phone }
 
 const PLACEHOLDER_SERVICES = [
-  { _id:'1', label:'Pay Levies',       description:'Pay your council levies online',  icon:'CreditCard',  href:'/resources/revenue',  external:false },
+  { _id:'1', label:'Pay Levies',       description:'Pay your council levies online',  icon:'CreditCard',  href:'https://portal.ibejulekkilga.com',  external:true },
   { _id:'2', label:'Career & Jobs',    description:'View current job vacancies',       icon:'Briefcase',   href:'/resources/careers',  external:false },
   { _id:'3', label:'Waste Collection', description:'Schedule a pickup for your area', icon:'Trash2',      href:'/resources/waste',    external:false },
   { _id:'4', label:'Report an Issue',  description:'Submit a complaint or concern',   icon:'AlertCircle', href:'/report',             external:false },
