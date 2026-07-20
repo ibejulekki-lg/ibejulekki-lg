@@ -1,14 +1,7 @@
-import PagePlaceholder from '@/components/PagePlaceholder'
+import { redirect } from 'next/navigation'
 
-export const metadata = {
-  title: 'Housing & Tourism | Ibeju-Lekki Local Government',
-}
-
+/* The combined Housing & Tourism page was split into Housing and Tourism.
+   Old links keep working by redirecting to the Housing landing page. */
 export default function Page() {
-  return (
-    <PagePlaceholder
-      title="Housing & Tourism"
-      description="Housing and tourism initiatives across Ibeju-Lekki."
-    />
-  )
+  redirect('/opportunities/housing')
 }

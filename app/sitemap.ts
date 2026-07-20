@@ -10,7 +10,10 @@ const STATIC_ROUTES = [
   '/government/legislative-council', '/government/management-team',
   '/programmes/shieeld', '/programmes/budget', '/programmes/performance-report',
   '/resources/careers', '/resources/revenue', '/resources/waste', '/resources/forms',
-  '/housing-tourism', '/contact', '/report', '/privacy', '/accessibility',
+  '/opportunities/housing', '/opportunities/housing/housing-opportunities',
+  '/opportunities/housing/citrus-garden', '/opportunities/housing/eleko-isol',
+  '/opportunities/tourism',
+  '/contact', '/report', '/privacy', '/accessibility',
 ]
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
