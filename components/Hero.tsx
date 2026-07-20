@@ -19,13 +19,13 @@ import {
 
 // ── SHIEELD pillars ───────────────────────────────────────────────────────────
 const PILLARS = [
-  { key: 'S', label: 'Security',       Icon: ShieldCheck },
-  { key: 'H', label: 'Health',          Icon: HeartPulse },
-  { key: 'I', label: 'Infrastructural Development',  Icon: Landmark },
-  { key: 'E', label: 'Education',       Icon: GraduationCap },
-  { key: 'E', label: 'Environment',     Icon: Leaf },
-  { key: 'L', label: 'Local Economy',   Icon: TrendingUp },
-  { key: 'D', label: 'Digital Governance',    Icon: MonitorSmartphone },
+  { key: 'S', label: 'Security',       slug: 'security', Icon: ShieldCheck },
+  { key: 'H', label: 'Health',          slug: 'health', Icon: HeartPulse },
+  { key: 'I', label: 'Infrastructural Development',  slug: 'infrastructure', Icon: Landmark },
+  { key: 'E', label: 'Education',       slug: 'education', Icon: GraduationCap },
+  { key: 'E', label: 'Environment',     slug: 'environment', Icon: Leaf },
+  { key: 'L', label: 'Local Economy',   slug: 'local-economy', Icon: TrendingUp },
+  { key: 'D', label: 'Digital Governance',    slug: 'digital-governance', Icon: MonitorSmartphone },
 ];
 
 // ── Stats ─────────────────────────────────────────────────────────────────────
@@ -295,9 +295,11 @@ export default function Hero() {
                   {PILLARS.map((p, i) => {
                     const isActive = activePillar === i;
                     return (
-                      <button
+                      <Link
                         key={i}
-                        onClick={() => setActivePillar(i)}
+                        href={`/programmes/shieeld/${p.slug}`}
+                        onMouseEnter={() => setActivePillar(i)}
+                        onFocus={() => setActivePillar(i)}
                         aria-label={`Pillar: ${p.label}`}
                         className={`
                           flex flex-col items-center justify-center rounded-xl
@@ -325,7 +327,7 @@ export default function Hero() {
                         >
                           {p.label.split(' ')[0]}
                         </span>
-                      </button>
+                      </Link>
                     );
                   })}
                 </div>
