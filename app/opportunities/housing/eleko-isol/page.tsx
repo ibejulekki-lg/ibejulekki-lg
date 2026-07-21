@@ -1,13 +1,13 @@
 import PagePlaceholder from '@/components/PagePlaceholder'
 
-export const metadata = { title: 'Eleko ISOL | Ibeju-Lekki Local Government' }
+export const metadata = { title: 'Eleko ISOLE | Ibeju-Lekki Local Government' }
 
 export default function Page() {
   return (
     <PagePlaceholder
-      title="Eleko ISOL"
+      title="Eleko ISOLE"
       sectionLabel="Opportunities"
-      description="Details of the Eleko ISOL estate development will be published here."
+      description="Details of the Eleko ISOLE estate development will be published here."
     />
   )
 }

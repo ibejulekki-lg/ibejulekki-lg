@@ -10,18 +10,13 @@ export const metadata = {
 
 const ITEMS = [
   {
-    name: 'Housing Opportunities',
-    href: '/opportunities/housing/housing-opportunities',
-    desc: 'Affordable home ownership and rental schemes open to residents of Ibeju-Lekki.',
-  },
-  {
     name: 'Citrus Garden',
     href: '/opportunities/housing/citrus-garden',
     desc: 'An estate development within the local government area.',
   },
   {
-    name: 'Eleko ISOL',
-    href: '/opportunities/housing/eleko-isol',
+    name: 'Eleko ISOLE',
+    href: '/opportunities/housing/eleko-isolE',
     desc: 'An estate development within the local government area.',
   },
 ]
