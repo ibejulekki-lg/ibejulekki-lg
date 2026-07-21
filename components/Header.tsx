@@ -56,7 +56,7 @@ const NAV_ITEMS = [
     label: 'Resources',
     href: '#',
     children: [
-      { label: 'Revenue Portal',   href: '/resources/revenue' },
+      { label: 'Revenue Portal',   href: 'https://portal.ibejulekkilga.com' },
       { label: 'Waste Collection', href: '/resources/waste' },
       { label: 'Career & Jobs',    href: '/resources/careers' },
     ],

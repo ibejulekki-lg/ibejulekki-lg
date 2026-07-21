@@ -58,7 +58,7 @@ const MENU: { heading: string; links: { label: string; href: string }[] }[] = [
     heading: 'More',
     links: [
       { label: 'News & Events',     href: '/news' },
-      { label: 'Revenue Portal',    href: '/resources/revenue' },
+      { label: 'Revenue Portal',    href: 'https://portal.ibejulekkilga.com' },
       { label: 'Waste Collection',  href: '/resources/waste' },
       { label: 'Contact Us',        href: '/contact' },
     ],
