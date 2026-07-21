@@ -6,6 +6,11 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://ibejulekki-demo.ve
 
 const STATIC_ROUTES = [
   '', '/news', '/about', '/about/history', '/about/culture', '/about/traditional-rulers',
+  '/about/traditional-rulers/orimedu', '/about/traditional-rulers/araromi',
+  '/about/traditional-rulers/kayetoro', '/about/traditional-rulers/debojo',
+  '/about/traditional-rulers/waliu-rasak', '/about/traditional-rulers/itedo',
+  '/about/traditional-rulers/lakowe', '/about/traditional-rulers/akodo',
+  '/about/traditional-rulers/ogunfayo',
   '/government/vision', '/government/chairman', '/government/executive-council',
   '/government/legislative-council', '/government/management-team',
   '/programmes/shieeld', '/programmes/budget', '/programmes/performance-report',

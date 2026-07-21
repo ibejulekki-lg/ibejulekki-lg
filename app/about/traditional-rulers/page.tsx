@@ -1,50 +1,73 @@
-import AboutPage from '@/components/AboutPage'
-import type { Block } from '@/components/AboutPage'
+import Link from 'next/link'
+import Image from 'next/image'
+import { ArrowRight } from 'lucide-react'
+import Footer from '@/components/Footer'
+import { RULERS } from '@/lib/rulers'
 
 export const metadata = {
   title: 'Traditional Rulers | Ibeju-Lekki Local Government',
   description:
-    'The traditional institution of Ibeju-Lekki: the Council of Obas and Chiefs, headed by the Onibeju as permanent Chairman.',
+    'The traditional rulers of Ibeju-Lekki Local Government Area, Lagos State: the Obas and custodians of the customs and heritage of our kingdoms.',
 }
-
-const FACTS = [
-  { label: 'Apex body', value: 'Council of Obas and Chiefs' },
-  { label: 'Permanent Chairman', value: 'The Onibeju' },
-]
-
-const BLOCKS: Block[] = [
-  {
-    kind: 'ruler',
-    name: 'HRM Oba Amb. Abidemi Toheeb Yissa Oyedele',
-    title: 'Onimedu of Orimedu Kingdom, Oyetu I, Ibeju-Lekki, Lagos',
-    image: '/leadership/oba-onimedu-orimedu.webp',
-    note: 'A reigning traditional ruler within the Council of Obas and Chiefs of Ibeju-Lekki, custodian of the customs and heritage of the Orimedu Kingdom.',
-  },
-  {
-    kind: 'section',
-    paras: [
-      `Firmly rooted in a patriarchal and male-dominated structure, leadership is vested in the Council of Obas and Chiefs, which is headed by the Onibeju, who serves as its permanent Chairman.`,
-    ],
-  },
-  {
-    kind: 'section',
-    heading: 'The Onibeju',
-    paras: [
-      `Historically, the Onibeju has long been the paramount traditional ruler and administrative head of all communities that constituted the old Ibeju District. This pre-colonial authority predates the arrival of the British colonial masters.`,
-      `Because of this ancient and unbroken legacy, the Onibeju has retained his position as the permanent Chairman of the Council of Obas and Chiefs in Ibeju-Lekki to the present day.`,
-    ],
-  },
-]
 
 export default function Page() {
   return (
-    <AboutPage
-      crumb="Traditional Rulers"
-      eyebrow="About · Traditional Rulers"
-      title="Traditional Rulers"
-      lead="The traditional institution of authority in Ibeju-Lekki remains deeply revered by the indigenous people."
-      facts={FACTS}
-      blocks={BLOCKS}
-    />
+    <>
+      <main className="min-h-screen bg-white">
+        <section className="border-b border-black/10 bg-brand-cream">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-10 py-10 sm:py-14">
+            <nav className="flex items-center flex-wrap gap-1.5 text-[11px] sm:text-[12px] text-black/45 mb-5" aria-label="Breadcrumb">
+              <Link href="/" className="hover:text-brand-ink transition-colors">Home</Link>
+              <span className="text-black/30">/</span>
+              <span>About</span>
+              <span className="text-black/30">/</span>
+              <span className="text-brand-ink font-semibold">Traditional Rulers</span>
+            </nav>
+            <div className="flex items-center gap-3 mb-3">
+              <span className="h-px w-8 bg-brand-yellow" aria-hidden="true" />
+              <span className="text-[10.5px] font-bold uppercase tracking-[0.25em] text-black/45">About Ibeju-Lekki</span>
+            </div>
+            <h1 className="text-[clamp(1.8rem,5vw,2.9rem)] font-extrabold text-brand-ink tracking-tight leading-tight">
+              Traditional Rulers
+            </h1>
+            <p className="mt-4 max-w-2xl text-[15px] sm:text-[16px] text-black/60 leading-[1.85]">
+              The royal fathers of Ibeju-Lekki: the Obas of our kingdoms, custodians of the
+              customs, history and heritage of the communities that make up the local
+              government area.
+            </p>
+          </div>
+        </section>
+
+        <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-10 py-12 sm:py-16">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+            {RULERS.map((r) => (
+              <Link
+                key={r.slug}
+                href={`/about/traditional-rulers/${r.slug}`}
+                className="group flex flex-col overflow-hidden rounded-2xl border border-black/10 bg-white transition-all hover:border-brand-yellow hover:shadow-md"
+              >
+                <div className="relative aspect-[3/4] w-full bg-[#F4F4F4]">
+                  <Image
+                    src={r.image}
+                    alt={r.name}
+                    fill
+                    className="object-cover object-top"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  />
+                </div>
+                <div className="flex flex-col flex-1 p-5">
+                  <h2 className="text-[14px] font-bold text-brand-ink leading-snug">{r.name}</h2>
+                  <p className="mt-1 text-[11.5px] font-semibold uppercase tracking-wide text-brand-amber">{r.title}</p>
+                  <span className="mt-3 inline-flex items-center gap-1 text-[12px] font-semibold text-brand-amber transition-all group-hover:gap-2">
+                    Read more <ArrowRight size={13} strokeWidth={2.5} />
+                  </span>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
+      </main>
+      <Footer />
+    </>
   )
 }
