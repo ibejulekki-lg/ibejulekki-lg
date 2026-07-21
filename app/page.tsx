@@ -1,6 +1,7 @@
 import { client } from '@/lib/sanity'
 import { homepageNewsQuery, quickServicesQuery, chairmanQuery } from '@/lib/queries'
 import Hero             from '@/components/Hero'
+import LandmarksTicker  from '@/components/LandmarksTicker'
 import QuickServices    from '@/components/QuickServices'
 import ChairmanSection  from '@/components/ChairmanSection'
 import NewsSection      from '@/components/NewsSection'
@@ -17,6 +18,7 @@ export default async function Home() {
   ])
   return (
     <main>
+      <LandmarksTicker />
       <Hero />
       <QuickServices   services={services  ?? undefined} />
       <ChairmanSection data={chairman      ?? undefined} />

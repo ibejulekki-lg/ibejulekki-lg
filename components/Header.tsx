@@ -48,6 +48,7 @@ const NAV_ITEMS = [
       // { label: 'Citrus Garden',          href: '/opportunities/housing/citrus-garden' },
       // { label: 'Eleko ISOL',             href: '/opportunities/housing/eleko-isol' },
       { label: 'Tourism',                href: '/opportunities/tourism' },
+      { label: 'Investment Opportunities', href: '/opportunities/investment' },
       { label: 'Career & Jobs',          href: '/resources/careers' },
     ],
   },

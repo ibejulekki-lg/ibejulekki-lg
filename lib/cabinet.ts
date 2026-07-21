@@ -23,7 +23,7 @@ export const EXECUTIVE_SECTIONS: Section[] = [
     members: [
       { name: 'Hon. Engr. Abdullahi Sesan Olowa', role: 'Executive Chairman', image: '/chairman_on_landingpage.webp' },
       { name: 'Hon. Isiaka Yusuf Olatunji (IYO)', role: 'Vice Chairman / Supervisor for Works & Infrastructure', image: '/leadership/vice-chairman.webp' },
-      { name: 'Hon. Olayinka Mojeed Oluwafemi', role: 'Leader of the House', image: '/leadership/olayinka-mojeed-oluwafemi.webp' },
+      // { name: 'Hon. Olayinka Mojeed Oluwafemi', role: 'Leader of the House', image: '/leadership/olayinka-mojeed-oluwafemi.webp' },
       { name: 'Hon. Adewale Fasali Adebanjo', role: 'Secretary to the Local Government', image: '/leadership/secretary.webp' },
     ],
   },

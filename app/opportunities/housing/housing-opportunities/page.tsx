@@ -25,6 +25,14 @@ const DATA: ArticleData = {
       "text": "Landmark Projects Driving Housing Demand"
     },
     {
+      "kind": "gallery",
+      "images": [
+        { "src": "/opportunities/housing/housing-1.webp", "alt": "Ibeju-Lekki landmark development" },
+        { "src": "/opportunities/housing/housing-2.webp", "alt": "Ibeju-Lekki landmark development" },
+        { "src": "/opportunities/housing/housing-3.webp", "alt": "Ibeju-Lekki landmark development" }
+      ]
+    },
+    {
       "kind": "heading",
       "text": "Dangote Refinery and Petrochemical Complex"
     },
@@ -47,6 +55,13 @@ const DATA: ArticleData = {
     {
       "kind": "para",
       "text": "The Lagos Free Zone and the broader Lekki Free Trade Zone have become major destinations for manufacturing, logistics, technology, and industrial investments. These economic activities are generating employment and driving population growth, creating sustained demand for affordable, middle-income, and luxury housing developments."
+    },
+    {
+      "kind": "gallery",
+      "images": [
+        { "src": "/opportunities/housing/housing-4.webp", "alt": "Ibeju-Lekki industrial and residential development" },
+        { "src": "/opportunities/housing/housing-5.webp", "alt": "Ibeju-Lekki industrial and residential development" }
+      ]
     },
     {
       "kind": "heading",

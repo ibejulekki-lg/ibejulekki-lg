@@ -35,18 +35,6 @@ const STATS = [
   { value: '7',      label: 'SHIEELD Pillars' },
 ];
 
-// ── Ticker ────────────────────────────────────────────────────────────────────
-const TICKER = [
-  'Dangote Refinery',
-  'Lekki Free Trade Zone',
-  'Lekki Deep Seaport',
-  'Pan-Atlantic University',
-  'Lekki International Airport',
-  'Epe Resort & Spa',
-  'Alaro City',
-  'Eleganza Industrial City',
-];
-
 export default function Hero() {
   const [visible, setVisible] = useState(false);
   const [activePillar, setActivePillar] = useState(0);
@@ -382,44 +370,6 @@ export default function Hero() {
           </div>
         </div>
       </section>
-
-      {/* ── TICKER ─────────────────────────────────────────────────────────── */}
-      <div
-        className="border-y border-brand-ink/[0.08] overflow-hidden bg-white"
-        aria-label="Key investments in Ibeju-Lekki"
-      >
-        <div className="flex">
-          {/* Label */}
-          <div className="
-            flex-shrink-0 flex items-center gap-2 px-4 sm:px-5
-            bg-brand-yellow text-black z-10
-            text-[9.5px] font-bold uppercase tracking-[0.22em]
-          ">
-            <span className="w-1.5 h-1.5 rounded-full bg-brand-yellow" aria-hidden="true" />
-            <span className="hidden sm:inline py-3">The New Lagos.</span>
-            <span className="sm:hidden py-3">The New Lagos.</span>
-          </div>
-
-          {/* Scrolling text */}
-          <div className="flex-1 overflow-hidden py-3">
-            <div
-              className="flex whitespace-nowrap"
-              style={{ animation: 'scroll 36s linear infinite' }}
-              aria-hidden="true"
-            >
-              {[...TICKER, ...TICKER].map((item, i) => (
-                <span
-                  key={i}
-                  className="inline-flex items-center gap-3 px-6 text-[12px] font-medium text-brand-ink/45 italic"
-                >
-                  {item}
-                  <span className="w-1 h-1 rounded-full bg-brand-yellow/50 flex-shrink-0" />
-                </span>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
     </>
   );
 }

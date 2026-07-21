@@ -18,6 +18,10 @@ const STATIC_ROUTES = [
   '/opportunities/housing', '/opportunities/housing/housing-opportunities',
   '/opportunities/housing/citrus-garden', '/opportunities/housing/eleko-isol',
   '/opportunities/tourism',
+  '/opportunities/investment',
+  '/opportunities/investment/dangote-refinery', '/opportunities/investment/lekki-free-trade-zone',
+  '/opportunities/investment/lekki-deep-seaport', '/opportunities/investment/pan-atlantic-university',
+  '/opportunities/investment/lekki-international-airport', '/opportunities/investment/eleganza-industrial-city',
   '/contact', '/report', '/privacy', '/accessibility',
 ]
 

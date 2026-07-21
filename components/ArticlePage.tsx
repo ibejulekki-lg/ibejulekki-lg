@@ -1,10 +1,12 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import Footer from '@/components/Footer'
 
 export type ArticleBlock =
   | { kind: 'para'; text: string }
   | { kind: 'heading'; text: string }
   | { kind: 'list'; items: string[] }
+  | { kind: 'gallery'; images: { src: string; alt: string }[] }
 
 export interface ArticleData {
   crumb: string
@@ -47,6 +49,17 @@ export default function ArticlePage({ data }: { data: ArticleData }) {
                 <h2 key={i} className="mt-10 first:mt-0 mb-4 text-[18px] sm:text-[20px] font-extrabold text-brand-ink tracking-tight">
                   {b.text}
                 </h2>
+              )
+            }
+            if (b.kind === 'gallery') {
+              return (
+                <div key={i} className="my-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
+                  {b.images.map((img) => (
+                    <div key={img.src} className="relative aspect-[4/3] overflow-hidden rounded-xl border border-black/10 bg-[#F4F4F4]">
+                      <Image src={img.src} alt={img.alt} fill className="object-cover" sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" />
+                    </div>
+                  ))}
+                </div>
               )
             }
             if (b.kind === 'list') {
