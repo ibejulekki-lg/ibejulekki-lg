@@ -19,8 +19,9 @@ const cardProjection = `{
   "coverImage": coverImage { asset, alt, hotspot }
 }`
 const countQuery = groq`count(*[_type == "news"])`
-const heroQuery  = groq`*[_type == "news"] | order(publishedAt desc)[0] ${cardProjection}`
-const pageQuery  = groq`*[_type == "news"] | order(publishedAt desc)[$start...$end] ${cardProjection}`
+const heroQuery  = groq`*[_type == "news" && defined(coverImage.asset)] | order(publishedAt desc)[0] ${cardProjection}`
+const heroFallbackQuery = groq`*[_type == "news"] | order(publishedAt desc)[0] ${cardProjection}`
+const pageQuery  = groq`*[_type == "news" && _id != $hid] | order(publishedAt desc)[$start...$end] ${cardProjection}`
 const searchCountQuery = groq`count(*[_type == "news" && (title match $q || summary match $q)])`
 const searchPageQuery  = groq`*[_type == "news" && (title match $q || summary match $q)] | order(publishedAt desc)[$start...$end] ${cardProjection}`
 
@@ -75,13 +76,14 @@ export default async function NewsPage({ searchParams }: { searchParams?: { page
     try { grid = (await client.fetch(searchPageQuery, { ...params, start, end: start + PER_PAGE })) || [] } catch {}
   } else if (connected) {
     try { total = (await client.fetch(countQuery)) ?? 0 } catch {}
-    const start = page === 1 ? 1 : 1 + (page - 1) * PER_PAGE
-    const end = start + PER_PAGE
-    totalPages = Math.max(1, Math.ceil((total - 1) / PER_PAGE))
-    try {
-      if (page === 1) hero = await client.fetch(heroQuery)
-      grid = (await client.fetch(pageQuery, { start, end })) || []
-    } catch {}
+    // Featured slot prefers the newest post WITH a cover image; falls back to
+    // the newest overall only when no post has an image yet.
+    try { hero = (await client.fetch(heroQuery)) ?? (await client.fetch(heroFallbackQuery)) } catch {}
+    const hid = hero?._id ?? 'none'
+    totalPages = Math.max(1, Math.ceil((total - (hero ? 1 : 0)) / PER_PAGE))
+    const start = (page - 1) * PER_PAGE
+    try { grid = (await client.fetch(pageQuery, { hid, start, end: start + PER_PAGE })) || [] } catch {}
+    if (page !== 1) hero = null
   }
 
   const heroCover = hero ? coverUrl(hero.coverImage, 900, 560) : null

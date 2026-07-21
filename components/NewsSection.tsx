@@ -29,7 +29,11 @@ export default function NewsSection({ posts }: Props) {
   // Render real posts only; hide the whole section when there are none
   const data = posts && posts.length > 0 ? posts : []
 
-  const featured  = data.find((p) => p.featured) ?? data[0]
+  const featured =
+    data.find((p) => p.featured && p.coverImage?.asset) ??
+    data.find((p) => p.coverImage?.asset) ??
+    data.find((p) => p.featured) ??
+    data[0]
   const secondary = data.filter((p) => p._id !== featured._id).slice(0, 3)
 
   // Safety check, should never hit this but prevents crash

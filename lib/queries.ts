@@ -1,7 +1,7 @@
 import { groq } from 'next-sanity'
 
 export const homepageNewsQuery = groq`
-  *[_type == "news"] | order(publishedAt desc) [0...4] {
+  *[_type == "news"] | order(publishedAt desc) [0...8] {
     _id, title, slug, category, publishedAt, featured, summary,
     "coverImage": coverImage { asset, alt, hotspot }
   }
