@@ -106,7 +106,7 @@ export default function Page() {
             <div className="flex flex-col sm:flex-row items-center sm:items-end gap-6 sm:gap-9">
               <div className="relative w-44 h-56 sm:w-52 sm:h-72 flex-shrink-0 overflow-hidden rounded-2xl bg-[#D9D9D9] shadow-lg ring-1 ring-black/5">
                 <Image
-                  src="/chairman.webp"
+                  src="/OIP.webp"
                   alt="Hon. Abdullahi Sesan Olowa, Executive Chairman"
                   fill
                   className="object-cover object-top"
