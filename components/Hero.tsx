@@ -111,9 +111,10 @@ export default function Hero() {
                 `}
                 style={{ transitionDelay: '80ms' }}
               >
-                Making Ibeju-Lekki <br />
-                <span className="text-brand-ink">Great </span>
-                <span className="text-brand-yellow">for Everyone</span>
+                Welcome to <span className="text-brand-yellow">Ibeju-Lekki</span>
+                <span className="block text-[clamp(1.15rem,2.8vw,1.6rem)] font-bold text-brand-ink/60 mt-3 leading-[1.3] tracking-[-0.01em]">
+                  The Future of Lagos. Nigeria&rsquo;s Fastest-Growing Economic and Industrial Corridor.
+                </span>
               </h1>
 
               {/* Sub */}

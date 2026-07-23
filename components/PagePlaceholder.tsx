@@ -1,14 +1,56 @@
 import Link from 'next/link'
-import { Clock, ArrowRight, ChevronRight, Home } from 'lucide-react'
+import { FileText, Newspaper, ArrowRight, ChevronRight, Home } from 'lucide-react'
 import Footer from './Footer'
+
+type Variant = 'form' | 'content' | 'listing'
 
 interface Props {
   title: string
   sectionLabel?: string
   description?: string
+  variant?: Variant
+  placeholderTitle?: string
+  placeholderBody?: string
 }
 
-export default function PagePlaceholder({ title, sectionLabel, description }: Props) {
+type VariantCopy = {
+  icon: typeof FileText
+  heading: string
+  body: string
+}
+
+const VARIANT_COPY: Record<Variant, VariantCopy> = {
+  form: {
+    icon: FileText,
+    heading: 'An online form will be available here shortly',
+    body:
+      'Where a form is required to complete this request, it will appear on this page. We are finalising this feature to ensure a smooth submission process, and it will be live shortly.',
+  },
+  content: {
+    icon: Newspaper,
+    heading: 'This information will be published here shortly',
+    body:
+      'We are compiling accurate, up-to-date content for this section of the website. It will be published here shortly.',
+  },
+  listing: {
+    icon: FileText,
+    heading: 'This directory will be updated shortly',
+    body:
+      'We are compiling the full list of records for this section. Entries will appear here as they are confirmed.',
+  },
+}
+
+export default function PagePlaceholder({
+  title,
+  sectionLabel,
+  description,
+  variant = 'form',
+  placeholderTitle,
+  placeholderBody,
+}: Props) {
+  const copy = VARIANT_COPY[variant]
+  const Icon = copy.icon
+
   return (
     <>
       <main className="min-h-screen bg-white">
@@ -54,18 +96,17 @@ export default function PagePlaceholder({ title, sectionLabel, description }: Pr
           </div>
         </section>
 
-        {/* On the way card */}
+        {/* Placeholder card */}
         <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-10 py-14 sm:py-20">
           <div className="border border-black/10 rounded-2xl p-8 sm:p-12 text-center">
             <div className="w-14 h-14 mx-auto mb-5 rounded-2xl bg-brand-yellow/15 flex items-center justify-center">
-              <Clock size={24} strokeWidth={1.8} className="text-brand-ink" />
+              <Icon size={24} strokeWidth={1.8} className="text-brand-ink" />
             </div>
             <h2 className="text-[clamp(1.1rem,3vw,1.5rem)] font-bold text-brand-ink mb-3">
-              This page is on the way
+              {placeholderTitle ?? copy.heading}
             </h2>
             <p className="max-w-md mx-auto text-[13.5px] text-black/55 leading-[1.8] mb-8">
-              We are preparing this section of the new Ibeju-Lekki website. Please check
-              back soon, or reach out if you need information right away.
+              {placeholderBody ?? copy.body}
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
               <Link
