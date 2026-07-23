@@ -11,7 +11,7 @@ export interface Ruler {
   history?: RulerSection[]
 }
 
-export const RULERS: Ruler[] = [
+const RULERS_RAW: Ruler[] = [
   {
     slug: 'orimedu',
     name: 'HRM Oba Amb. Abidemi Toheeb Yissa Oyedele',
@@ -108,6 +108,26 @@ export const RULERS: Ruler[] = [
     image: '/leadership/oba-idogun-ogunfayo.webp',
   },
 ]
+
+/* Official order of the traditional rulers as supplied by the council.
+   Rulers not yet matched to a stool on this list appear after these, in their
+   existing order. Add new slugs here as further rulers are confirmed. */
+const DISPLAY_ORDER = [
+  'orimedu',      // Onimedu
+  'itedo',        // Elemoro
+  'araromi',      // Araromi
+  'ogunfayo',     // Ologunfayo
+  'lakowe',       // Onilakowe
+  'debojo',       // Onidebojo
+  'akodo',        // Alakodo
+]
+
+const rank = (slug: string) => {
+  const i = DISPLAY_ORDER.indexOf(slug)
+  return i === -1 ? DISPLAY_ORDER.length + 1 : i
+}
+
+export const RULERS: Ruler[] = [...RULERS_RAW].sort((a, b) => rank(a.slug) - rank(b.slug))
 
 export function getRuler(slug: string): Ruler | undefined {
   return RULERS.find((r) => r.slug === slug)
