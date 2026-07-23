@@ -99,6 +99,14 @@ export default defineConfig({
                           .defaultOrdering([{ field: 'subscribedAt', direction: 'desc' }])
                       ),
                     S.listItem()
+                      .title('Contact Messages')
+                      .icon(EnvelopeIcon)
+                      .child(
+                        S.documentTypeList('contactMessage')
+                          .title('Contact Messages')
+                          .defaultOrdering([{ field: 'receivedAt', direction: 'desc' }])
+                      ),
+                    S.listItem()
                       .title('Push Subscriptions')
                       .icon(BellIcon)
                       .child(

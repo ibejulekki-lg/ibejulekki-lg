@@ -18,11 +18,15 @@ export interface SiteSettings {
 export const DEFAULT_SETTINGS: SiteSettings = {
   siteName: 'Ibeju-Lekki Local Government Area',
   tagline: 'The Official Website of Ibeju-Lekki LGA',
-  address: 'Km 47, Lekki-Epe Expressway,\nIgando-Oloja, Ibeju-Lekki, Lagos.',
-  phone: '+234 (0) 813 000 0000',
+  address: 'Klm 47, Lekki-Epe Expressway,\nIgando-Oloja, Ibeju-Lekki, Lagos State.',
+  phone: '08079792040, 09167148716',
   email: 'info@ibejulekki.lg.gov.ng',
   officeHours: 'Mon - Fri, 8am - 4pm',
-  socials: {},
+  socials: {
+    facebook: 'https://web.facebook.com/Idagbasokeibejulekki',
+    twitter: 'https://twitter.com/Olowajaja',
+    instagram: 'https://www.instagram.com/ibeju_lekkilg',
+  },
 }
 
 export async function getSiteSettings(): Promise<SiteSettings> {
