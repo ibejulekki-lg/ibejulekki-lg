@@ -70,6 +70,34 @@ export default defineType({
             defineField({ name:'caption', type:'string', title:'Caption' }),
           ],
         }),
+        // Image gallery: several photos shown together as a grid.
+        defineArrayMember({
+          type:'object',
+          name:'gallery',
+          title:'Image Gallery',
+          fields:[
+            defineField({
+              name:'images', title:'Images', type:'array',
+              of:[{
+                type:'image', options:{ hotspot:true },
+                fields:[
+                  { name:'alt', type:'string', title:'Alt Text' },
+                  { name:'caption', type:'string', title:'Caption' },
+                ],
+              }],
+              validation:(R)=>R.min(2).max(12),
+              description:'Add 2 to 12 photos. They appear as a grid in the article.',
+            }),
+            defineField({ name:'caption', title:'Gallery Caption', type:'string' }),
+          ],
+          preview:{
+            select:{ caption:'caption', images:'images' },
+            prepare({ caption, images }:{ caption?:string; images?:any[] }){
+              const n = Array.isArray(images) ? images.length : 0
+              return { title: caption || 'Image gallery', subtitle: n + ' image' + (n === 1 ? '' : 's') }
+            },
+          },
+        }),
         // Inline downloadable file (e.g. an application form or notice PDF).
         defineArrayMember({
           type:'file',

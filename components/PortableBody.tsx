@@ -64,6 +64,22 @@ const components: any = {
         </a>
       )
     },
+    gallery: ({ value }: any) => {
+      const imgs = (value?.images ?? []).filter((im: any) => im?.asset)
+      if (imgs.length === 0) return null
+      return (
+        <figure className="my-7">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 sm:gap-3">
+            {imgs.map((im: any, i: number) => (
+              <div key={im._key ?? i} className="relative aspect-square overflow-hidden rounded-xl border border-brand-ink/10">
+                <Image src={urlFor(im).width(700).height(700).fit('crop').auto('format').url()} alt={im.alt || ''} fill className="object-cover" sizes="(max-width: 640px) 50vw, 33vw" />
+              </div>
+            ))}
+          </div>
+          {value.caption ? <figcaption className="mt-2 text-[12px] text-brand-ink/45">{value.caption}</figcaption> : null}
+        </figure>
+      )
+    },
     image: ({ value }: any) =>
       value?.asset ? (
         <figure className="my-7">
