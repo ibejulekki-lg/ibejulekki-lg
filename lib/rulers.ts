@@ -12,6 +12,12 @@ export interface Ruler {
 }
 
 const RULERS_RAW: Ruler[] = [
+    {
+    slug: 'ibeju',
+    name: 'HRM Oba Waliu Rasak',
+    title: 'The Onibeju of Ibeju Kingdom',
+    image: '/leadership/oba-rasak.webp',
+  },
   {
     slug: 'orimedu',
     name: 'HRM Oba Amb. Abidemi Toheeb Yissa Oyedele',
@@ -65,6 +71,12 @@ const RULERS_RAW: Ruler[] = [
     title: 'Oba Gbadewolu of Araromi Kingdom',
     image: '/leadership/oba-arowolo-araromi.webp',
   },
+    {
+    slug: 'onisolu',
+    name: 'HRM Oba Muideen Babatunde Adebowale Balogun',
+    title: 'The onisolu of Solu-Alade kingdom',
+    image: '/leadership/onisolu.webp',
+  },
   {
     slug: 'kayetoro',
     name: 'HRM Oba Saka Bakare',
@@ -76,12 +88,6 @@ const RULERS_RAW: Ruler[] = [
     name: 'Oba Ajibola Talabi Odugbesan',
     title: 'Onidebojo of Debojo Kingdom',
     image: '/leadership/oba-odugbesan-debojo.webp',
-  },
-  {
-    slug: 'ibeju',
-    name: 'HRM Oba Waliu Rasak',
-    title: 'The Onibeju of Ibeju Kingdom',
-    image: '/leadership/oba-rasak.webp',
   },
   {
     slug: 'itedo',
@@ -112,15 +118,18 @@ const RULERS_RAW: Ruler[] = [
 /* Official order of the traditional rulers as supplied by the council.
    Rulers not yet matched to a stool on this list appear after these, in their
    existing order. Add new slugs here as further rulers are confirmed. */
+/* Official order of the traditional rulers as supplied by the council. */
 const DISPLAY_ORDER = [
-  'onibeju',      // Ibeju
-  'orimedu',      // Onimedu
-  'itedo',        // Elemoro
-  'araromi',      // Araromi
-  'ogunfayo',     // Ologunfayo
-  'lakowe',       // Onilakowe
-  'debojo',       // Onidebojo
-  'akodo',        // Alakodo
+  'ibeju',        // 1 — Oníbẹ̀jù
+  'orimedu',      // 2 — Onimedu
+  'itedo',        // 3 — Elemoro
+  'onisolu',      // 4 — Onisolu
+  'araromi',      // 5 — Araromi
+  'ogunfayo',     // 6 — Ologunfayo
+  'lakowe',       // 7 — Onilakowe
+  'debojo',       // 8 — Onidebojo
+  'akodo',        // 9 — Alakodo
+  'kayetoro',     // 10 — Onímòpó
 ]
 
 const rank = (slug: string) => {
