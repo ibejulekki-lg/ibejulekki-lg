@@ -118,7 +118,7 @@ export default function Hero() {
               </h1>
 
               {/* Sub */}
-              <p
+              {/* <p
                 className={`
                   text-[15px] sm:text-[16px] text-brand-ink/55 leading-[1.8]
                   max-w-[480px] mb-8
@@ -129,7 +129,7 @@ export default function Hero() {
               >
                 Ibeju-Lekki is the fastest-growing local government area in
                 Lagos State and Nigeria&apos;s emerging economic frontier.
-              </p>
+              </p> */}
 
               {/* CTAs */}
               <div

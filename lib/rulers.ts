@@ -78,9 +78,9 @@ const RULERS_RAW: Ruler[] = [
     image: '/leadership/oba-odugbesan-debojo.webp',
   },
   {
-    slug: 'waliu-rasak',
+    slug: 'ibeju',
     name: 'HRM Oba Waliu Rasak',
-    title: 'Traditional Ruler, Ibeju-Lekki',
+    title: 'The Onibeju of Ibeju Kingdom',
     image: '/leadership/oba-rasak.webp',
   },
   {
@@ -113,6 +113,7 @@ const RULERS_RAW: Ruler[] = [
    Rulers not yet matched to a stool on this list appear after these, in their
    existing order. Add new slugs here as further rulers are confirmed. */
 const DISPLAY_ORDER = [
+  'onibeju',      // Ibeju
   'orimedu',      // Onimedu
   'itedo',        // Elemoro
   'araromi',      // Araromi
