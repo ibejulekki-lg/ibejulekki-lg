@@ -9,6 +9,9 @@ import {
   UsersIcon,
   EnvelopeIcon,
   HomeIcon,
+  WarningOutlineIcon,
+  StarIcon,
+  TagIcon,
 } from '@sanity/icons'
 
 import { schemaTypes }     from './schemas'
@@ -16,6 +19,23 @@ import { theme }           from './studio/theme'
 import StudioLogo          from './studio/StudioLogo'
 import StudioNavbar        from './studio/StudioNavbar'
 import StudioDashboard     from './studio/StudioDashboard'
+
+/* Category list kept in step with schemas/news.ts so the studio can offer a
+   folder per category. Update both together if a category is added. */
+const NEWS_CATEGORIES: { title: string; value: string }[] = [
+  { title: 'Governance',     value: 'governance' },
+  { title: 'Infrastructure', value: 'infrastructure' },
+  { title: 'Health',         value: 'health' },
+  { title: 'Education',      value: 'education' },
+  { title: 'Environment',    value: 'environment' },
+  { title: 'Economy',        value: 'economy' },
+  { title: 'Careers',        value: 'careers' },
+  { title: 'Security',       value: 'security' },
+  { title: 'Community',      value: 'community' },
+  { title: 'Events',         value: 'events' },
+]
+
+const NEWS_DESC = [{ field: 'publishedAt', direction: 'desc' as const }]
 
 export default defineConfig({
   name:    'ibeju-lekki-lga',
@@ -55,9 +75,68 @@ export default defineConfig({
               .title('News & Events')
               .icon(DocumentTextIcon)
               .child(
-                S.documentTypeList('news')
-                  .title('All Articles')
-                  .defaultOrdering([{ field: 'publishedAt', direction: 'desc' }])
+                S.list()
+                  .title('News & Events')
+                  .items([
+                    S.listItem()
+                      .id('all-articles')
+                      .title('All Articles')
+                      .icon(DocumentTextIcon)
+                      .child(
+                        S.documentTypeList('news')
+                          .title('All Articles')
+                          .defaultOrdering(NEWS_DESC)
+                      ),
+                    S.listItem()
+                      .id('needs-attention')
+                      .title('Needs Attention')
+                      .icon(WarningOutlineIcon)
+                      .child(
+                        S.documentList()
+                          .id('news-needs-attention')
+                          .title('Missing Cover Image, Alt Text or Summary')
+                          .schemaType('news')
+                          .filter('_type == "news" && (!defined(coverImage.asset) || !defined(coverImage.alt) || !defined(summary))')
+                          .defaultOrdering(NEWS_DESC)
+                      ),
+                    S.listItem()
+                      .id('featured-posts')
+                      .title('Featured')
+                      .icon(StarIcon)
+                      .child(
+                        S.documentList()
+                          .id('news-featured')
+                          .title('Featured Posts')
+                          .schemaType('news')
+                          .filter('_type == "news" && featured == true')
+                          .defaultOrdering(NEWS_DESC)
+                      ),
+                    S.divider(),
+                    S.listItem()
+                      .id('by-category')
+                      .title('By Category')
+                      .icon(TagIcon)
+                      .child(
+                        S.list()
+                          .title('By Category')
+                          .items(
+                            NEWS_CATEGORIES.map((c) =>
+                              S.listItem()
+                                .id(c.value)
+                                .title(c.title)
+                                .child(
+                                  S.documentList()
+                                    .id('news-cat-' + c.value)
+                                    .title(c.title)
+                                    .schemaType('news')
+                                    .filter('_type == "news" && category == $cat')
+                                    .params({ cat: c.value })
+                                    .defaultOrdering(NEWS_DESC)
+                                )
+                            )
+                          )
+                      ),
+                  ])
               ),
 
             S.divider(),

@@ -66,7 +66,7 @@ export default defineType({
         defineArrayMember({
           type:'image', options:{ hotspot:true },
           fields:[
-            defineField({ name:'alt', type:'string', title:'Alt Text' }),
+            defineField({ name:'alt', type:'string', title:'Alt Text', description:'Describe the picture for screen readers and search engines.', validation:(R)=>R.required().warning('Add alt text so people using screen readers know what this picture shows.') }),
             defineField({ name:'caption', type:'string', title:'Caption' }),
           ],
         }),
@@ -81,7 +81,7 @@ export default defineType({
               of:[{
                 type:'image', options:{ hotspot:true },
                 fields:[
-                  { name:'alt', type:'string', title:'Alt Text' },
+                  { name:'alt', type:'string', title:'Alt Text', validation:(R:any)=>R.required().warning('Add alt text for this photo.') },
                   { name:'caption', type:'string', title:'Caption' },
                 ],
               }],

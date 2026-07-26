@@ -85,7 +85,7 @@ export default async function NewsPost({ params }: { params: { slug: string } })
     headline: post.title,
     description: post.summary,
     datePublished: post.publishedAt,
-    dateModified: post.publishedAt,
+    dateModified: post._updatedAt ?? post.publishedAt,
     ...(cover ? { image: [cover] } : {}),
     author: { '@type': 'Organization', name: post.author ?? 'Ibeju-Lekki LGA Communications' },
     publisher: {

@@ -29,7 +29,7 @@ export const siteSettingsQuery = groq`
 
 export const newsPostBySlugQuery = groq`
   *[_type == "news" && slug.current == $slug][0] {
-    _id, title, slug, category, publishedAt, summary, author, tags,
+    _id, title, slug, category, publishedAt, _updatedAt, summary, author, tags,
     body[]{
       ...,
       _type == "fileDownload" => {
@@ -45,6 +45,3 @@ export const newsPostBySlugQuery = groq`
   }
 `
 
-export const allNewsSlugsQuery = groq`
-  *[_type == "news"] { "slug": slug.current }
-`
