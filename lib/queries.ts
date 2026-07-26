@@ -45,3 +45,18 @@ export const newsPostBySlugQuery = groq`
   }
 `
 
+export const programmesQuery = groq`
+  *[_type == "programme" && active == true] | order(order asc, title asc) {
+    _id, title, slug, summary, status, audience, venue, deadline, partners,
+    "coverImage": coverImage { asset, alt, hotspot }
+  }
+`
+
+export const programmeBySlugQuery = groq`
+  *[_type == "programme" && slug.current == $slug && active == true][0] {
+    _id, title, slug, summary, status, audience, venue, deadline, contact,
+    outcomes, partners, body, howToApply, applyLink,
+    "applyFileUrl": applyFile.asset->url,
+    "coverImage": coverImage { asset, alt, hotspot }
+  }
+`

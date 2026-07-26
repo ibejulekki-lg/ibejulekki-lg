@@ -12,6 +12,7 @@ import {
   WarningOutlineIcon,
   StarIcon,
   TagIcon,
+  RocketIcon,
 } from '@sanity/icons'
 
 import { schemaTypes }     from './schemas'
@@ -140,6 +141,15 @@ export default defineConfig({
               ),
 
             S.divider(),
+
+            S.listItem()
+              .title('Programmes')
+              .icon(RocketIcon)
+              .child(
+                S.documentTypeList('programme')
+                  .title('Career & Skills Programmes')
+                  .defaultOrdering([{ field: 'order', direction: 'asc' }])
+              ),
 
             S.listItem()
               .title('Quick Services')

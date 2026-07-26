@@ -5,5 +5,6 @@ import siteSettings     from './siteSettings'
 import subscriber       from './subscriber'
 import pushSubscription from './pushSubscription'
 import contactMessage    from './contactMessage'
+import programme        from './programme'
 
-export const schemaTypes = [news, quickService, chairmanMessage, siteSettings, subscriber, pushSubscription, contactMessage]
+export const schemaTypes = [news, programme, quickService, chairmanMessage, siteSettings, subscriber, pushSubscription, contactMessage]

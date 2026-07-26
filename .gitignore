@@ -57,3 +57,4 @@ ibejulekki-production-*.tar.gz
 newposts.json
 import-new-posts.cjs
 .import-assets.json
+seed-programmes.cjs

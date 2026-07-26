@@ -4,6 +4,8 @@ import { client, urlFor } from '@/lib/sanity'
 import { groq } from 'next-sanity'
 import { Calendar, Briefcase, ArrowRight, ArrowLeft, ExternalLink } from 'lucide-react'
 import Footer from '@/components/Footer'
+import ProgrammeCards from '@/components/ProgrammeCards'
+import { programmesQuery } from '@/lib/queries'
 
 export const revalidate = 60
 
@@ -44,6 +46,10 @@ export default async function CareersPage({ searchParams }: { searchParams?: { p
 
   let total = 0
   let posts: any[] = []
+  let programmes: any[] = []
+  try {
+    programmes = (await client.fetch(programmesQuery)) || []
+  } catch {}
   try {
     total = (await client.fetch(countQuery)) ?? 0
     const start = (page - 1) * PER_PAGE
@@ -73,6 +79,8 @@ export default async function CareersPage({ searchParams }: { searchParams?: { p
             </p>
           </div>
         </section>
+
+        <ProgrammeCards programmes={programmes} />
 
         <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-10 py-12 sm:py-16">
           {posts.length === 0 ? (
