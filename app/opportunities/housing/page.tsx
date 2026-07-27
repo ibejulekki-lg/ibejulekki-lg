@@ -10,13 +10,13 @@ export const metadata = {
 
 const ITEMS = [
   {
-    name: 'Citrus Garden',
+    name: 'Citrus Gardens',
     href: '/opportunities/housing/citrus-garden',
-    desc: 'An estate development within the local government area.',
+    desc: 'Flagship affordable housing scheme in the Eleko axis. About 63 units, flagged off by the Governor in 2025 and under construction.',
   },
   {
     name: 'Eleko ISOLE',
-    href: '/opportunities/housing/eleko-isolE',
+    href: '/opportunities/housing/eleko-isol',
     desc: 'An estate development within the local government area.',
   },
 ]
@@ -49,7 +49,7 @@ export default function Page() {
         </section>
 
         <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-10 py-12 sm:py-16">
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
             {ITEMS.map((it) => (
               <Link
                 key={it.href}
