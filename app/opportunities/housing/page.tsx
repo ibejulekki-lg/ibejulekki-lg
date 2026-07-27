@@ -16,7 +16,7 @@ const ITEMS = [
   },
   {
     name: 'Eleko ISOLE',
-    href: '/opportunities/housing/eleko-isol',
+    href: '/opportunities/housing/eleko-isole',
     desc: 'An estate development within the local government area.',
   },
 ]
