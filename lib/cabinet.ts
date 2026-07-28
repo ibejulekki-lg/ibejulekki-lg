@@ -92,7 +92,7 @@ export const MANAGEMENT: Member[] = [
   { name: 'Miss Issa R. Titilola',                 role: 'HOU, Procurement',                                 image: '/leadership/issa-r-titilola.webp' },
   { name: 'Mrs. Ibraheem-Edunjobi Moriam Olaide',  role: 'HOD, Budget, Planning and Statistics',            image: '/leadership/ibraheem-edunjobi-moriam-olaide.webp' },
   { name: 'Mr. Oladjobu Nathaniel Idowu',          role: 'Public Affairs Officer',                           image: '/leadership/oladjobu-nathaniel-idowu.webp' },
-  { name: 'Mrs. Aragbada Omolola Taiwo',           role: 'Area Officer (Ogunfayo)' },
+  { name: 'Mrs. Aragbada Omolola Taiwo',           role: 'Area Officer (Ogunfayo)',                          image: '/leadership/aragbada-omolola-taiwo.webp' },
   { name: 'Mr. Okesanya Olumide Adedapo',          role: 'Area Officer (Coastal)' },
   { name: 'Mr. Odumokun Olusegun',                 role: 'Area Officer (Ibeju)',                             image: '/leadership/odumokun-olusegun.webp' },
   { name: 'Mrs. Sarumi Oluwatosin Abidemi',        role: 'HOU, ICT',                                         image: '/leadership/sarumi-oluwatosin-abidemi.webp' },

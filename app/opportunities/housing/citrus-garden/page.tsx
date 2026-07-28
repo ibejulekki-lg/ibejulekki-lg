@@ -439,13 +439,6 @@ export default function Page() {
               government-backed reliability with private-sector expertise for luxury living made easy in
               a rapidly developing area.
             </p>
-            <div className="mt-6 rounded-2xl border border-brand-yellow/40 bg-brand-yellow/[0.07] p-5 sm:p-6">
-              <p className="text-[13.5px] text-black/70 leading-[1.8]">
-                Prices for units (as marketed) typically range from around &#8358;80m for 2-bedroom
-                apartments to &#8358;150m&ndash;&#8358;170m for larger terraces/maisonettes, with
-                flexible payment plans (e.g., 30% initial deposit in some offerings).
-              </p>
-            </div>
           </section>
 
           {/* 7. The Terrace */}
