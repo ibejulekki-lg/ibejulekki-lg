@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { ArrowRight, Home } from 'lucide-react'
 import Footer from '@/components/Footer'
 
@@ -8,11 +9,13 @@ export const metadata = {
     'Housing opportunities and estate developments across Ibeju-Lekki Local Government Area, Lagos State.',
 }
 
-const ITEMS = [
+const ITEMS: { name: string; href: string; desc: string; image?: string; alt?: string }[] = [
   {
     name: 'Citrus Gardens',
     href: '/opportunities/housing/citrus-garden',
     desc: 'Flagship affordable housing scheme in the Eleko axis. About 63 units, flagged off by the Governor in 2025 and under construction.',
+    image: '/images/citrus-garden/hero-terraces.jpg',
+    alt: 'Terrace homes at Citrus Gardens Estate, Ibeju-Lekki',
   },
   {
     name: 'Eleko ISOLE',
@@ -54,16 +57,30 @@ export default function Page() {
               <Link
                 key={it.href}
                 href={it.href}
-                className="group flex flex-col rounded-2xl border border-black/10 bg-white p-5 sm:p-6 transition-all hover:border-brand-yellow hover:shadow-md"
+                className="group flex flex-col overflow-hidden rounded-2xl border border-black/10 bg-white transition-all hover:border-brand-yellow hover:shadow-md"
               >
-                <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-yellow">
-                  <Home size={18} strokeWidth={2.2} className="text-black" />
-                </span>
-                <h2 className="mt-4 text-[14.5px] font-bold text-brand-ink leading-snug">{it.name}</h2>
-                <p className="mt-2 text-[12.5px] leading-[1.7] text-black/55">{it.desc}</p>
-                <span className="mt-4 inline-flex items-center gap-1 text-[12px] font-semibold text-brand-amber transition-all group-hover:gap-2">
-                  Read more <ArrowRight size={13} strokeWidth={2.5} />
-                </span>
+                <div className="relative aspect-[16/9] w-full overflow-hidden bg-brand-cream">
+                  {it.image ? (
+                    <Image
+                      src={it.image}
+                      alt={it.alt ?? it.name}
+                      fill
+                      className="object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+                      sizes="(max-width: 640px) 100vw, 50vw"
+                    />
+                  ) : (
+                    <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-brand-yellow/[0.18] to-brand-yellow/[0.06]">
+                      <Home size={30} strokeWidth={1.3} className="text-brand-ink/25" />
+                    </div>
+                  )}
+                </div>
+                <div className="flex flex-1 flex-col p-5 sm:p-6">
+                  <h2 className="text-[14.5px] font-bold text-brand-ink leading-snug">{it.name}</h2>
+                  <p className="mt-2 text-[12.5px] leading-[1.7] text-black/55">{it.desc}</p>
+                  <span className="mt-4 inline-flex items-center gap-1 text-[12px] font-semibold text-brand-amber transition-all group-hover:gap-2">
+                    Read more <ArrowRight size={13} strokeWidth={2.5} />
+                  </span>
+                </div>
               </Link>
             ))}
           </div>

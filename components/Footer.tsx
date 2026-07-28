@@ -34,7 +34,7 @@ const FOOTER_NAV: {
       { label: 'Citrus Gardens',       href: '/opportunities/housing/citrus-garden' },
       { label: 'Eleko ISOLE',          href: '/opportunities/housing/eleko-isole' },
       { label: 'Tourism',              href: '/opportunities/tourism' },
-      { label: 'Investment',           href: '/opportunities/investment' },
+      { label: 'Investment Opportunities', href: '/opportunities/investment' },
       { label: 'Career & Jobs',        href: '/resources/careers' },
     ],
   },

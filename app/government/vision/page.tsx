@@ -158,7 +158,7 @@ export default function Page() {
           {/* Onward links */}
           <section className="rounded-2xl border border-black/10 bg-brand-cream p-6 sm:p-9">
             <h2 className="text-[clamp(1.2rem,3vw,1.6rem)] font-extrabold text-brand-ink tracking-tight mb-3">
-              See the vision in action
+              Our Roadmap to Success
             </h2>
             <p className="max-w-2xl text-[14px] text-black/65 leading-[1.85] mb-6">
               The SHIEELD Agenda sets out how these commitments are being delivered across security,
