@@ -56,9 +56,9 @@ export const EXECUTIVE_SECTIONS: Section[] = [
   {
     title: 'Non-Cabinet Members',
     members: [
-      { name: 'Rafiu Sanni Eleku' },
+      { name: 'Rafiu Sanni Eleku', image: '/leadership/rafiu-sanni-eleku.webp' },
       { name: 'Jimoh Azeez' },
-      { name: 'Kazeem Rilwan Abolaji' },
+      { name: 'Kazeem Rilwan Abolaji', image: '/leadership/kazeem-riliwan-abolaji.webp' },
     ],
   },
 ]
