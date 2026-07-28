@@ -52,6 +52,7 @@ asset-map.json
 
 # local Sanity export archives (backups run in CI)
 ibejulekki-production-*.tar.gz
+*.zip
 
 # July 2026 WordPress import artefacts (data migration, not app code)
 newposts.json
