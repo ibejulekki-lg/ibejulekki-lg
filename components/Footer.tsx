@@ -4,30 +4,45 @@ import { Mail, Phone, MapPin, ExternalLink } from 'lucide-react'
 import { FaXTwitter, FaFacebookF, FaInstagram, FaYoutube } from 'react-icons/fa6'
 import { getSiteSettings } from '@/lib/settings'
 
-const FOOTER_NAV = [
+const FOOTER_NAV: {
+  heading: string
+  links: { label: string; href: string; external?: boolean }[]
+}[] = [
   {
     heading: 'Government',
     links: [
+      { label: 'Overview',            href: '/about' },
+      { label: 'Vision & Mission',    href: '/government/vision' },
       { label: 'Executive Chairman',  href: '/government/chairman' },
       { label: 'Executive Council',   href: '/government/executive-council' },
+      { label: 'Legislative Council', href: '/government/legislative-council' },
       { label: 'Management Team',     href: '/government/management-team' },
-      { label: 'Vision & Mission',    href: '/government/vision' },
     ],
   },
   {
     heading: 'Programmes',
     links: [
       { label: 'SHIEELD Agenda',      href: '/programmes/shieeld' },
-      // { label: 'Agenda 2029',         href: '/programmes/agenda-2029' },
       { label: '2025 Budget',         href: '/programmes/budget' },
       { label: 'Performance Report',  href: '/programmes/performance-report' },
     ],
   },
   {
+    heading: 'Opportunities',
+    links: [
+      { label: 'Housing',              href: '/opportunities/housing' },
+      { label: 'Citrus Gardens',       href: '/opportunities/housing/citrus-garden' },
+      { label: 'Eleko ISOLE',          href: '/opportunities/housing/eleko-isole' },
+      { label: 'Tourism',              href: '/opportunities/tourism' },
+      { label: 'Investment',           href: '/opportunities/investment' },
+      { label: 'Career & Jobs',        href: '/resources/careers' },
+    ],
+  },
+  {
     heading: 'Services',
     links: [
-      { label: 'Pay Levies',          href: '/resources/revenue' },
-      { label: 'Career & Jobs',       href: '/resources/careers' },
+      { label: 'Pay Levies',          href: 'https://portal.ibejulekkilga.com', external: true },
+      { label: 'Revenue Portal',      href: '/resources/revenue' },
       { label: 'Waste Collection',    href: '/resources/waste' },
       { label: 'Download Forms',      href: '/resources/forms' },
       { label: 'Report an Issue',     href: '/report' },
@@ -36,11 +51,11 @@ const FOOTER_NAV = [
   {
     heading: 'Information',
     links: [
-      { label: 'News & Events',       href: '/news' },
-      { label: 'Career & Jobs',       href: '/resources/careers' },
-      { label: 'Housing & Tourism',   href: '/housing-tourism' },
-      { label: 'About Ibeju-Lekki',   href: '/about/history' },
-      { label: 'Contact Us',          href: '/contact' },
+      { label: 'News & Events',              href: '/news' },
+      { label: 'Historic Background',        href: '/about/history' },
+      { label: 'The People, Arts & Culture', href: '/about/culture' },
+      { label: 'Traditional Rulers',         href: '/about/traditional-rulers' },
+      { label: 'Contact Us',                 href: '/contact' },
     ],
   },
 ]
@@ -64,7 +79,7 @@ export default async function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 pt-14 sm:pt-16 pb-0">
 
         {/* Main grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr_1fr] gap-10 pb-12 border-b border-white/[0.08]">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-[1.5fr_1fr_1fr_1fr_1fr_1fr] gap-10 pb-12 border-b border-white/[0.08]">
 
           {/* Brand column */}
           <div className="sm:col-span-2 lg:col-span-1">
@@ -125,12 +140,24 @@ export default async function Footer() {
               <ul className="space-y-2.5">
                 {col.links.map((link) => (
                   <li key={link.href}>
-                    <Link
-                      href={link.href}
-                      className="text-[12.5px] hover:text-white hover:translate-x-0.5 transition-all duration-150 inline-block"
-                    >
-                      {link.label}
-                    </Link>
+                    {link.external ? (
+                      <a
+                        href={link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[12.5px] hover:text-white hover:translate-x-0.5 transition-all duration-150 inline-flex items-center gap-1"
+                      >
+                        {link.label}
+                        <ExternalLink size={9} />
+                      </a>
+                    ) : (
+                      <Link
+                        href={link.href}
+                        className="text-[12.5px] hover:text-white hover:translate-x-0.5 transition-all duration-150 inline-block"
+                      >
+                        {link.label}
+                      </Link>
+                    )}
                   </li>
                 ))}
               </ul>
