@@ -42,9 +42,9 @@ const FOOTER_NAV: {
     heading: 'Services',
     links: [
       { label: 'Pay Levies',          href: 'https://portal.ibejulekkilga.com', external: true },
-      { label: 'Revenue Portal',      href: 'https://portal.ibejulekkilga.com', external: true },
       { label: 'Street Naming',       href: '/resources/street-naming' },
       { label: 'Birth Certification', href: '/resources/birth-certification' },
+      { label: 'Marriage Registry',    href: '/resources/marriage-registry' },
       { label: 'Waste Collection',    href: '/resources/waste' },
       { label: 'Download Forms',      href: '/resources/forms' },
       { label: 'Report an Issue',     href: '/report' },

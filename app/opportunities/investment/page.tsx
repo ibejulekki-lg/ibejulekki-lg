@@ -4,46 +4,11 @@ import { ArrowRight, Building2 } from 'lucide-react'
 import Footer from '@/components/Footer'
 import { INVESTMENTS } from '@/lib/investments'
 
-
-/* Landmark projects, with wording from the council's Housing Development
-   Opportunities paper. Photographs live in public/images/investment/. */
-const LANDMARKS = [
-  {
-    name: 'Dangote Refinery and Petrochemical Complex',
-    image: '/images/investment/dangote-refinery.jpg',
-    alt: 'The Dangote Petroleum Refinery within the Lekki Free Zone',
-    body:
-      'The Dangote Petroleum Refinery is Africa\u2019s largest refinery and the world\u2019s largest single-train refinery, located within the Lekki Free Zone. The refinery has a processing capacity of approximately 650,000 barrels of crude oil per day and occupies thousands of hectares of land within Ibeju-Lekki. The project has created thousands of direct and indirect jobs, attracting workers and businesses that require quality housing and residential communities.',
-  },
-  {
-    name: 'Lekki Deep Sea Port',
-    image: '/images/investment/lekki-deep-sea-port.jpg',
-    alt: 'Aerial view of the Lekki Deep Sea Port',
-    body:
-      'The Lekki Deep Sea Port is one of the largest and most modern seaports in West Africa. The port is expected to facilitate trade, logistics, manufacturing, and export activities while generating significant employment opportunities. Its operations continue to attract businesses and professionals into the area, increasing demand for residential developments.',
-  },
-  {
-    name: 'Lagos Free Zone and Industrial Corridor',
-    image: '/images/investment/lekki-free-zone-gate.jpg',
-    alt: 'Entrance to the Lekki Free Zone',
-    body:
-      'The Lagos Free Zone and the broader Lekki Free Trade Zone have become major destinations for manufacturing, logistics, technology, and industrial investments. These economic activities are generating employment and driving population growth, creating sustained demand for affordable, middle-income, and luxury housing developments.',
-  },
-  {
-    name: 'Proposed Lekki International Airport',
-    image: '/images/investment/lagos-free-zone.jpg',
-    alt: 'Industrial corridor road within the Lagos Free Zone',
-    body:
-      'The proposed international airport project is expected to further accelerate economic growth and increase the attractiveness of Ibeju-Lekki as a residential and business destination. The airport is anticipated to stimulate demand for residential estates, hotels, serviced apartments, and commercial developments throughout the corridor.',
-  },
-  {
-    name: 'Lagos-Calabar Coastal Highway',
-    image: '/images/investment/coastal-corridor-aerial.jpg',
-    alt: 'Aerial view of the coastal industrial corridor in Ibeju-Lekki',
-    body:
-      'The ongoing Coastal Highway project will improve connectivity between Lagos and other coastal states, enhancing accessibility and property values throughout Ibeju-Lekki. Improved transportation infrastructure is expected to unlock new residential development opportunities and support the growth of emerging communities.',
-  },
-]
+export const metadata = {
+  title: 'Investment Opportunities | Ibeju-Lekki Local Government',
+  description:
+    'The landmark projects powering Ibeju-Lekki, Lagos State: Dangote Refinery, Lekki Free Trade Zone, Lekki Deep Seaport and more.',
+}
 
 const HOUSING_SEGMENTS = [
   'Affordable Housing Estates',
@@ -57,13 +22,12 @@ const HOUSING_SEGMENTS = [
   'Retirement Communities',
   'Waterfront Residential Developments',
 ]
-export const metadata = {
-  title: 'Investment Opportunities | Ibeju-Lekki Local Government',
-  description:
-    'The landmark projects powering Ibeju-Lekki, Lagos State: Dangote Refinery, Lekki Free Trade Zone, Lekki Deep Seaport and more.',
-}
 
 export default function Page() {
+  /* Landmarks with a photograph lead the page. Everything else appears in the
+     card grid below, so a new entry in lib/investments.ts needs no code here. */
+  const featured = INVESTMENTS.filter((i) => i.image)
+
   return (
     <>
       <main className="min-h-screen bg-white">
@@ -90,7 +54,7 @@ export default function Page() {
           </div>
         </section>
 
-        {/* Landmark projects driving demand */}
+        {/* Landmark projects */}
         <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-10 pt-12 sm:pt-16">
           <div className="flex items-center gap-3 mb-3">
             <span className="h-px w-8 bg-brand-yellow" aria-hidden="true" />
@@ -114,22 +78,37 @@ export default function Page() {
           </p>
 
           <div className="space-y-10 sm:space-y-14">
-            {LANDMARKS.map((l, i) => (
-              <article key={l.name} className="grid grid-cols-1 lg:grid-cols-2 gap-5 lg:gap-8 items-center">
-                <div className={`relative aspect-[16/10] overflow-hidden rounded-2xl border border-black/10 bg-brand-cream ${i % 2 ? 'lg:order-2' : ''}`}>
+            {featured.map((inv, i) => (
+              <article
+                key={inv.slug}
+                id={inv.slug}
+                className="grid grid-cols-1 lg:grid-cols-2 gap-5 lg:gap-8 items-center scroll-mt-24"
+              >
+                <Link
+                  href={`/opportunities/investment/${inv.slug}`}
+                  className={`group relative aspect-[16/10] overflow-hidden rounded-2xl border border-black/10 bg-brand-cream ${i % 2 ? 'lg:order-2' : ''}`}
+                >
                   <Image
-                    src={l.image}
-                    alt={l.alt}
+                    src={inv.image as string}
+                    alt={inv.alt ?? inv.name}
                     fill
-                    className="object-cover"
+                    className="object-cover transition-transform duration-300 group-hover:scale-[1.03]"
                     sizes="(max-width: 1024px) 100vw, 50vw"
                   />
-                </div>
+                </Link>
                 <div>
                   <h3 className="text-[16px] sm:text-[18px] font-bold text-brand-ink tracking-tight leading-snug mb-3">
-                    {l.name}
+                    {inv.name}
                   </h3>
-                  <p className="text-[13.5px] sm:text-[14px] text-black/65 leading-[1.85]">{l.body}</p>
+                  <p className="text-[13.5px] sm:text-[14px] text-black/65 leading-[1.85]">
+                    {inv.body[0] ?? inv.blurb}
+                  </p>
+                  <Link
+                    href={`/opportunities/investment/${inv.slug}`}
+                    className="mt-4 inline-flex items-center gap-1.5 text-[12.5px] font-bold text-brand-amber transition-all hover:gap-2.5 hover:text-brand-ink"
+                  >
+                    Read more about {inv.name} <ArrowRight size={13} strokeWidth={2.5} />
+                  </Link>
                 </div>
               </article>
             ))}
@@ -189,33 +168,44 @@ export default function Page() {
           </div>
         </section>
 
-        {/* Explore each project */}
-        <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-10 pt-12 sm:pt-16">
+        {/* All projects */}
+        <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-10 py-12 sm:py-16">
           <div className="flex items-center gap-3 mb-3">
             <span className="h-px w-8 bg-brand-yellow" aria-hidden="true" />
             <span className="text-[10.5px] font-bold uppercase tracking-[0.25em] text-black/45">Explore</span>
           </div>
-          <h2 className="text-[clamp(1.3rem,3.4vw,1.9rem)] font-extrabold text-brand-ink tracking-tight">
+          <h2 className="text-[clamp(1.3rem,3.4vw,1.9rem)] font-extrabold text-brand-ink tracking-tight mb-6">
             Each project in detail
           </h2>
-        </section>
-
-        <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-10 py-12 sm:py-16">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
             {INVESTMENTS.map((inv) => (
               <Link
                 key={inv.slug}
                 href={`/opportunities/investment/${inv.slug}`}
-                className="group flex flex-col rounded-2xl border border-black/10 bg-white p-5 sm:p-6 transition-all hover:border-brand-yellow hover:shadow-md"
+                className="group flex flex-col overflow-hidden rounded-2xl border border-black/10 bg-white transition-all hover:border-brand-yellow hover:shadow-md"
               >
-                <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-yellow">
-                  <Building2 size={18} strokeWidth={2.2} className="text-black" />
-                </span>
-                <h2 className="mt-4 text-[14.5px] font-bold text-brand-ink leading-snug">{inv.name}</h2>
-                <p className="mt-2 flex-1 text-[12.5px] leading-[1.7] text-black/55">{inv.blurb}</p>
-                <span className="mt-4 inline-flex items-center gap-1 text-[12px] font-semibold text-brand-amber transition-all group-hover:gap-2">
-                  Read more <ArrowRight size={13} strokeWidth={2.5} />
-                </span>
+                <div className="relative aspect-[16/9] w-full overflow-hidden bg-brand-cream">
+                  {inv.image ? (
+                    <Image
+                      src={inv.image}
+                      alt={inv.alt ?? inv.name}
+                      fill
+                      className="object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+                      sizes="(max-width: 640px) 100vw, 33vw"
+                    />
+                  ) : (
+                    <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-brand-yellow/[0.18] to-brand-yellow/[0.06]">
+                      <Building2 size={26} strokeWidth={1.4} className="text-brand-ink/25" />
+                    </div>
+                  )}
+                </div>
+                <div className="flex flex-1 flex-col p-5">
+                  <h3 className="text-[14.5px] font-bold text-brand-ink leading-snug">{inv.name}</h3>
+                  <p className="mt-2 flex-1 text-[12.5px] leading-[1.7] text-black/55">{inv.blurb}</p>
+                  <span className="mt-4 inline-flex items-center gap-1 text-[12px] font-semibold text-brand-amber transition-all group-hover:gap-2">
+                    Read more <ArrowRight size={13} strokeWidth={2.5} />
+                  </span>
+                </div>
               </Link>
             ))}
           </div>

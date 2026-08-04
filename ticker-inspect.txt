@@ -1,0 +1,223 @@
+
+===== GIT =====
+a863d3c Update Hon. Fatai Alonge portrait
+650cbd5 Untrack env file and helper scripts
+edc7e92 Delete setup-services-and-investment.sh
+8df6441 Delete setup-isles-and-executive.sh
+?? ticker-inspect.txt
+
+===== TICKER COMPONENT =====
+LandmarksTicker.tsx
+
+----- components/LandmarksTicker.tsx (39 lines) -----
+import Link from 'next/link'
+import { INVESTMENTS } from '@/lib/investments'
+
+/* Scrolling "The New Lagos" ticker. Each landmark links to its Investment
+   Opportunities page. Pure CSS scroll (globals.css @keyframes scroll); pauses
+   on hover so items can be clicked. */
+export default function LandmarksTicker() {
+  const items = [...INVESTMENTS, ...INVESTMENTS]
+  return (
+    <div
+      className="border-y border-brand-ink/[0.08] overflow-hidden bg-white"
+      aria-label="Key investments in Ibeju-Lekki"
+    >
+      <div className="flex">
+        <div className="flex-shrink-0 flex items-center gap-2 px-4 sm:px-5 bg-brand-yellow text-black z-10 text-[9.5px] font-bold uppercase tracking-[0.22em]">
+          <span className="w-1.5 h-1.5 rounded-full bg-black/40" aria-hidden="true" />
+          <span className="py-3">The New Lagos.</span>
+        </div>
+        <div className="flex-1 overflow-hidden py-3">
+          <div
+            className="flex whitespace-nowrap hover:[animation-play-state:paused]"
+            style={{ animation: 'scroll 36s linear infinite' }}
+          >
+            {items.map((inv, i) => (
+              <Link
+                key={i}
+                href={`/opportunities/investment/${inv.slug}`}
+                className="inline-flex items-center gap-3 px-6 text-[12px] font-medium text-brand-ink/55 italic hover:text-brand-amber transition-colors"
+              >
+                {inv.name}
+                <span className="w-1 h-1 rounded-full bg-brand-yellow/50 flex-shrink-0" aria-hidden="true" />
+              </Link>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+----- components/LandmarkTicker.tsx : MISSING -----
+
+----- components/Ticker.tsx : MISSING -----
+
+===== INVESTMENT DATA =====
+
+----- lib/investments.ts (59 lines) -----
+export interface Investment {
+  slug: string
+  name: string
+  blurb: string
+  body: string[]
+}
+
+/* Order here drives the homepage ticker order. body: [] renders a
+   "details coming soon" note until fuller text (and images) are added. */
+export const INVESTMENTS: Investment[] = [
+  {
+    slug: 'dangote-refinery',
+    name: 'Dangote Refinery',
+    blurb: 'Africa\'s largest refinery and the world\'s largest single-train refinery, within the Lekki Free Zone.',
+    body: [
+      `The Dangote Petroleum Refinery is Africa's largest refinery and the world's largest single-train refinery, located within the Lekki Free Zone. The refinery has a processing capacity of approximately 650,000 barrels of crude oil per day and occupies thousands of hectares of land within Ibeju-Lekki. The project has created thousands of direct and indirect jobs, attracting workers and businesses that require quality housing and residential communities.`,
+    ],
+  },
+  {
+    slug: 'lekki-free-trade-zone',
+    name: 'Lekki Free Trade Zone',
+    blurb: 'A major destination for manufacturing, logistics, technology and industrial investment.',
+    body: [
+      `The Lagos Free Zone and the broader Lekki Free Trade Zone have become major destinations for manufacturing, logistics, technology, and industrial investments. These economic activities are generating employment and driving population growth, creating sustained demand for affordable, middle-income, and luxury housing developments.`,
+    ],
+  },
+  {
+    slug: 'lekki-deep-seaport',
+    name: 'Lekki Deep Seaport',
+    blurb: 'One of the largest and most modern seaports in West Africa.',
+    body: [
+      `The Lekki Deep Sea Port is one of the largest and most modern seaports in West Africa. The port is expected to facilitate trade, logistics, manufacturing, and export activities while generating significant employment opportunities. Its operations continue to attract businesses and professionals into the area, increasing demand for residential developments.`,
+    ],
+  },
+  {
+    slug: 'pan-atlantic-university',
+    name: 'Pan-Atlantic University',
+    blurb: 'A leading private university within the Ibeju-Lekki corridor.',
+    body: [],
+  },
+  {
+    slug: 'lekki-international-airport',
+    name: 'Lekki International Airport',
+    blurb: 'A proposed international airport set to accelerate growth across the corridor.',
+    body: [
+      `The proposed international airport project is expected to further accelerate economic growth and increase the attractiveness of Ibeju-Lekki as a residential and business destination. The airport is anticipated to stimulate demand for residential estates, hotels, serviced apartments, and commercial developments throughout the corridor.`,
+    ],
+  },
+  {
+    slug: 'eleganza-industrial-city',
+    name: 'Eleganza Industrial City',
+    blurb: 'An industrial development within the Ibeju-Lekki investment corridor.',
+    body: [],
+  },
+]
+
+export function getInvestment(slug: string): Investment | undefined {
+  return INVESTMENTS.find((i) => i.slug === slug)
+}
+
+===== WHERE THE TICKER IS RENDERED =====
+app/page.tsx:21:      <LandmarksTicker />
+
+===== INVESTMENT DETAIL ROUTE =====
+app/opportunities/investment
+app/opportunities/investment/[slug]
+
+----- app/opportunities/investment/[slug]/page.tsx (71 lines) -----
+import Link from 'next/link'
+import { notFound } from 'next/navigation'
+import { ArrowLeft } from 'lucide-react'
+import Footer from '@/components/Footer'
+import { INVESTMENTS, getInvestment } from '@/lib/investments'
+
+export function generateStaticParams() {
+  return INVESTMENTS.map((i) => ({ slug: i.slug }))
+}
+
+export function generateMetadata({ params }: { params: { slug: string } }) {
+  const inv = getInvestment(params.slug)
+  if (!inv) return { title: 'Investment Opportunities | Ibeju-Lekki Local Government' }
+  return {
+    title: `${inv.name} | Investment Opportunities | Ibeju-Lekki Local Government`,
+    description: inv.blurb,
+  }
+}
+
+export default function Page({ params }: { params: { slug: string } }) {
+  const inv = getInvestment(params.slug)
+  if (!inv) notFound()
+
+  return (
+    <>
+      <main className="min-h-screen bg-white">
+        <section className="border-b border-black/10 bg-brand-cream">
+          <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-10 py-10 sm:py-14">
+            <nav className="flex items-center flex-wrap gap-1.5 text-[11px] sm:text-[12px] text-black/45 mb-5" aria-label="Breadcrumb">
+              <Link href="/" className="hover:text-brand-ink transition-colors">Home</Link>
+              <span className="text-black/30">/</span>
+              <Link href="/opportunities/investment" className="hover:text-brand-ink transition-colors">Investment Opportunities</Link>
+              <span className="text-black/30">/</span>
+              <span className="text-brand-ink font-semibold">{inv.name}</span>
+            </nav>
+            <div className="flex items-center gap-3 mb-3">
+              <span className="h-px w-8 bg-brand-yellow" aria-hidden="true" />
+              <span className="text-[10.5px] font-bold uppercase tracking-[0.25em] text-black/45">The New Lagos</span>
+            </div>
+            <h1 className="text-[clamp(1.7rem,4.5vw,2.7rem)] font-extrabold text-brand-ink tracking-tight leading-tight">
+              {inv.name}
+            </h1>
+            <p className="mt-4 max-w-2xl text-[15px] sm:text-[16px] text-black/60 leading-[1.85]">{inv.blurb}</p>
+          </div>
+        </section>
+
+        <section className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-10 py-12 sm:py-16">
+          {inv.body.length > 0 ? (
+            inv.body.map((p, i) => (
+              <p key={i} className="mb-5 text-[14.5px] sm:text-[15px] leading-[1.9] text-black/70">{p}</p>
+            ))
+          ) : (
+            <p className="text-[14.5px] leading-[1.9] text-black/60">
+              Detailed information about this landmark will be published here soon.
+            </p>
+          )}
+
+          <div className="mt-12">
+            <Link
+              href="/opportunities/investment"
+              className="inline-flex items-center gap-2 rounded-full border border-black/15 px-5 py-2.5 text-[12.5px] font-semibold text-brand-ink transition-colors hover:border-brand-yellow hover:bg-brand-yellow/10"
+            >
+              <ArrowLeft size={14} strokeWidth={2.5} /> All Investment Opportunities
+            </Link>
+          </div>
+        </section>
+      </main>
+      <Footer />
+    </>
+  )
+}
+
+===== INVESTMENT LANDING - LANDMARKS SECTION ONLY =====
+10:const LANDMARKS = [
+12:    name: 'Dangote Refinery and Petrochemical Complex',
+19:    name: 'Lekki Deep Sea Port',
+26:    name: 'Lagos Free Zone and Industrial Corridor',
+33:    name: 'Proposed Lekki International Airport',
+40:    name: 'Lagos-Calabar Coastal Highway',
+117:            {LANDMARKS.map((l, i) => (
+
+===== FOOTER SERVICES COLUMN =====
+    heading: 'Services',
+    links: [
+      { label: 'Pay Levies',          href: 'https://portal.ibejulekkilga.com', external: true },
+      { label: 'Revenue Portal',      href: 'https://portal.ibejulekkilga.com', external: true },
+      { label: 'Street Naming',       href: '/resources/street-naming' },
+      { label: 'Birth Certification', href: '/resources/birth-certification' },
+      { label: 'Waste Collection',    href: '/resources/waste' },
+      { label: 'Download Forms',      href: '/resources/forms' },
+      { label: 'Report an Issue',     href: '/report' },
+    ],
+  },
+
+===== DONE =====
+
