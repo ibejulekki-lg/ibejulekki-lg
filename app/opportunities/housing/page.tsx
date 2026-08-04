@@ -18,8 +18,8 @@ const ITEMS: { name: string; href: string; desc: string; image?: string; alt?: s
     alt: 'Terrace homes at Citrus Gardens Estate, Ibeju-Lekki',
   },
   {
-    name: 'Eleko ISOLE',
-    href: '/opportunities/housing/eleko-isole',
+    name: 'Eleko Isles',
+    href: '/opportunities/housing/eleko-isles',
     desc: 'An estate development within the local government area.',
   },
 ]

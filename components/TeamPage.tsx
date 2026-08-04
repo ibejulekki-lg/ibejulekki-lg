@@ -53,6 +53,9 @@ function Card({ m }: { m: Member }) {
             {m.ward}
           </span>
         ) : null}
+        {m.bio ? (
+          <p className="mt-2 text-[11px] sm:text-[11.5px] leading-[1.65] text-black/50">{m.bio}</p>
+        ) : null}
       </div>
     </div>
   )

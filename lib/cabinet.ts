@@ -3,6 +3,7 @@ export type Member = {
   role?: string  // portfolio or office; omitted for non-cabinet members
   ward?: string  // legislative councillors only
   image?: string // /path.webp in public/
+  bio?: string   // short profile, two or three sentences; shown on the team card
 }
 
 export type Section = {
@@ -19,7 +20,7 @@ export type Section = {
 /* --- Executive arm: sectioned (Leadership, Supervisors, Advisers, etc.) --- */
 export const EXECUTIVE_SECTIONS: Section[] = [
   {
-    title: 'Council Leadership',
+    title: 'Executive Members',
     members: [
       { name: 'Hon. Engr. Abdullahi Sesan Olowa', role: 'Executive Chairman', image: '/chairman_native.webp' },
       { name: 'Hon. Isiaka Yusuf Olatunji (IYO)', role: 'Vice Chairman / Supervisor for Works & Infrastructure', image: '/leadership/vice-chairman.webp' },
@@ -38,7 +39,7 @@ export const EXECUTIVE_SECTIONS: Section[] = [
       { name: 'Hon. Lasiru Sule',                    role: 'Supervisor for Information, Communication & Technology', image: '/leadership/lasiru-sule.webp' },
       { name: 'Hon. Balogun Abdulwaliu Oluwagbemi',  role: 'Supervisor for Budget, Planning & Statistics', image: '/leadership/balogun-abdulwaliu-oluwagbemi.webp' },
       { name: 'Hon. Fatai Alonge',                   role: 'Supervisor for Housing & Tourism', image: '/leadership/fatai-alonge.webp' },
-      { name: 'Hon. Ogungbo Sofwan Temitope',        role: 'Supervisor for Environmental Services and Waste Management' },
+      { name: 'Hon. Ogungbo Sofwan Temitope',        role: 'Supervisor for Environmental Services and Waste Management', image: '/leadership/ogungbo-sofwan-temitope.webp' },
       { name: 'Hon. Olusola Edalere',                role: 'Supervisor for Agric. & Social Services' },
       { name: 'Hon. Balogun Hakeem Oluwole',         role: 'Supervisor for Youth & Sports' },
     ],
@@ -57,7 +58,7 @@ export const EXECUTIVE_SECTIONS: Section[] = [
     title: 'Non-Cabinet Members',
     members: [
       { name: 'Rafiu Sanni Eleku', image: '/leadership/rafiu-sanni-eleku.webp' },
-      { name: 'Jimoh Azeez' },
+      { name: 'Jimoh Azeez', image: '/leadership/jimoh-azeez.webp' },
       { name: 'Kazeem Rilwan Abolaji', image: '/leadership/kazeem-riliwan-abolaji.webp' },
     ],
   },

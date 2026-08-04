@@ -1,0 +1,958 @@
+===== TICKER COMPONENT (find it) =====
+components/Hero.tsx
+app/about/page.tsx
+app/government/chairman/page.tsx
+app/layout.tsx
+app/opportunities/housing/housing-opportunities/page.tsx
+app/opportunities/tourism/page.tsx
+app/programmes/performance-report/page.tsx
+
+===== TICKER FILE CONTENTS (with commented-out items) =====
+----- components/Hero.tsx -----
+'use client';
+
+import { useEffect, useState } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import {
+  ArrowRight,
+  ShieldCheck,
+  HeartPulse,
+  Landmark,
+  GraduationCap,
+  Leaf,
+  TrendingUp,
+  MonitorSmartphone,
+  Megaphone,
+  ChevronRight,
+  Download,
+} from 'lucide-react';
+
+// ── SHIEELD pillars ───────────────────────────────────────────────────────────
+const PILLARS = [
+  { key: 'S', label: 'Security',       slug: 'security', Icon: ShieldCheck },
+  { key: 'H', label: 'Health',          slug: 'health', Icon: HeartPulse },
+  { key: 'I', label: 'Infrastructural Development',  slug: 'infrastructure', Icon: Landmark },
+  { key: 'E', label: 'Education',       slug: 'education', Icon: GraduationCap },
+  { key: 'E', label: 'Environment',     slug: 'environment', Icon: Leaf },
+  { key: 'L', label: 'Local Economy',   slug: 'local-economy', Icon: TrendingUp },
+  { key: 'D', label: 'Digital Governance',    slug: 'digital-governance', Icon: MonitorSmartphone },
+];
+
+// ── Stats ─────────────────────────────────────────────────────────────────────
+const STATS = [
+  { value: '70,000+', label: 'New Payers Captured' },
+  { value: '480', label: 'Jobs Created' },
+  { value: '7',      label: 'SHIEELD Pillars' },
+];
+
+// ── Ticker ────────────────────────────────────────────────────────────────────
+const TICKER = [
+  'Dangote Refinery',
+  'Lekki Free Trade Zone',
+  'Lekki Deep Seaport',
+  'Pan-Atlantic University',
+  'Lekki International Airport',
+  'Eleganza Industrial City',
+];
+
+export default function Hero() {
+  const [visible, setVisible] = useState(false);
+  const [activePillar, setActivePillar] = useState(0);
+
+  useEffect(() => {
+    const t = setTimeout(() => setVisible(true), 120);
+    return () => clearTimeout(t);
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActivePillar((p) => (p + 1) % PILLARS.length);
+    }, 2400);
+    return () => clearInterval(interval);
+  }, []);
+
+  const ActiveIcon = PILLARS[activePillar].Icon;
+
+  return (
+    <>
+      {/* ── HERO ──────────────────────────────────────────────────────────── */}
+      <section
+        className="relative bg-white overflow-hidden"
+        aria-label="Welcome to Ibeju-Lekki Local Government"
+      >
+        {/* Subtle dot grid background */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 opacity-[0.035]"
+          style={{
+            backgroundImage: 'radial-gradient(circle at 1px 1px, #111111 1px, transparent 0)',
+            backgroundSize: '32px 32px',
+          }}
+        />
+
+        {/* Top-right gold wash, very faint */}
+        <div
+          aria-hidden="true"
+          className="absolute top-0 right-0 w-1/2 h-full pointer-events-none"
+          style={{
+            background:
+              'radial-gradient(ellipse at 90% 20%, rgba(255,186,38,0.07) 0%, transparent 60%)',
+          }}
+        />
+
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 pt-12 pb-16 sm:pt-16 sm:pb-20 lg:pt-20 lg:pb-24">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-center">
+
+            {/* ── LEFT ── */}
+            <div>
+              {/* Badge */}
+              <div
+                className={`
+                  inline-flex items-center gap-2 border border-brand-ink/20
+                  rounded-full px-4 py-1.5 mb-6
+                  transition-all duration-600 ease-out
+                  ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'}
+                `}
+                style={{ transitionDelay: '0ms' }}
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-brand-yellow flex-shrink-0" />
+                <span className="text-[10px] font-semibold tracking-[0.22em] uppercase text-brand-ink">
+                  Official Local Govt. Website
+                </span>
+              </div>
+
+              {/* H1 */}
+              <h1
+                className={`
+                  text-[clamp(2.4rem,6vw,4rem)] font-extrabold text-brand-ink
+                  leading-[1.05] tracking-[-0.028em] mb-5
+                  transition-all duration-700 ease-out
+                  ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}
+                `}
+                style={{ transitionDelay: '80ms' }}
+              >
+                Making Ibeju-Lekki <br />
+                <span className="text-brand-ink">Great </span>
+                <span className="text-brand-yellow">for Everyone</span>
+              </h1>
+
+              {/* Sub */}
+              <p
+                className={`
+                  text-[15px] sm:text-[16px] text-brand-ink/55 leading-[1.8]
+                  max-w-[480px] mb-8
+                  transition-all duration-700 ease-out
+                  ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}
+                `}
+                style={{ transitionDelay: '160ms' }}
+              >
+                Ibeju-Lekki is the fastest-growing local government area in
+                Lagos State and Nigeria&apos;s emerging economic frontier.
+              </p>
+
+              {/* CTAs */}
+              <div
+                className={`
+                  flex flex-wrap gap-3 mb-12
+                  transition-all duration-700 ease-out
+                  ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}
+                `}
+                style={{ transitionDelay: '240ms' }}
+              >
+                <Link
+                  href="/programmes/shieeld"
+                  className="
+                    inline-flex items-center gap-2 px-6 py-3.5
+                    bg-brand-yellow text-black text-[13px] font-bold tracking-[0.04em]
+                    rounded-full hover:bg-brand-ink hover:text-brand-yellow
+                    active:scale-95 transition-all duration-200
+                    shadow-sm shadow-brand-ink/15
+                  "
+                >
+                  Explore SHIEELD Agenda
+                  <ArrowRight size={15} strokeWidth={2.5} />
+                </Link>
+                <Link
+                  href="/news"
+                  className="
+                    inline-flex items-center gap-2 px-6 py-3.5
+                    border border-brand-ink/20 text-brand-ink/75 text-[13px]
+                    font-semibold tracking-[0.04em] rounded-full
+                    hover:border-brand-ink/50 hover:text-brand-amber
+                    active:scale-95 transition-all duration-200
+                  "
+                >
+                  Latest News
+                  <ChevronRight size={15} strokeWidth={2.5} />
+                </Link>
+              </div>
+
+              {/* Document downloads */}
+              <div
+                className={`
+                  flex flex-wrap items-center gap-x-5 gap-y-2 mb-12 -mt-6
+                  transition-all duration-700 ease-out
+                  ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}
+                `}
+                style={{ transitionDelay: '280ms' }}
+              >
+                <span className="text-[10.5px] font-semibold uppercase tracking-[0.14em] text-brand-ink/35">
+                  Downloads
+                </span>
+                <a
+                  href="/shieeld-manifesto.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="
+                    inline-flex items-center gap-1.5 text-[12.5px] font-semibold
+                    text-brand-ink/70 hover:text-brand-amber transition-colors
+                  "
+                >
+                  <Download size={14} strokeWidth={2.2} className="text-brand-yellow" />
+                  SHIEELD Manifesto
+                </a>
+                <a
+                  href="/performance-report.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="
+                    inline-flex items-center gap-1.5 text-[12.5px] font-semibold
+                    text-brand-ink/70 hover:text-brand-amber transition-colors
+                  "
+                >
+                  <Download size={14} strokeWidth={2.2} className="text-brand-yellow" />
+                  Performance Report
+                </a>
+              </div>
+
+              {/* Stats */}
+              <div
+                className={`
+                  grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6
+                  pt-8 border-t border-brand-ink/10
+                  transition-all duration-700 ease-out
+                  ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}
+                `}
+                style={{ transitionDelay: '340ms' }}
+              >
+                {STATS.map((s) => (
+                  <div key={s.label}>
+                    <div className="text-[clamp(1.35rem,2.5vw,1.9rem)] font-extrabold text-brand-amber leading-none mb-1 tracking-tight">
+                      {s.value}
+                    </div>
+                    <div className="text-[10.5px] font-semibold text-brand-ink/40 uppercase tracking-[0.1em]">
+                      {s.label}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* ── RIGHT ── */}
+            <div
+              className={`
+                flex flex-col gap-4
+                transition-all duration-700 ease-out
+                ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}
+              `}
+              style={{ transitionDelay: '180ms' }}
+            >
+              {/* Chairman card */}
+              <div className="
+                border border-brand-ink/[0.12] rounded-2xl p-5 sm:p-6
+                hover:border-brand-yellow/40 transition-colors duration-300
+              ">
+                <div className="flex items-center gap-4 mb-4">
+                  {/* Portrait photo, square crop, face centred */}
+                  <div className="relative w-16 h-16 sm:w-[72px] sm:h-[72px] rounded-2xl overflow-hidden flex-shrink-0 ring-2 ring-brand-yellow/35 shadow-sm">
+                    <Image
+                      src="/chairman_on_landingpage.webp"
+                      alt="Hon. Abdullahi Sesan Olowa, Executive Chairman"
+                      fill
+                      className="object-cover object-[center_15%]"
+                      sizes="(max-width: 640px) 64px, 72px"
+                      priority
+                    />
+                  </div>
+                  <div>
+                    <div className="text-[14px] font-bold text-brand-ink leading-tight mb-0.5">
+                      Hon. Abdullahi Sesan Olowa
+                    </div>
+                    <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-brand-amber">
+                      Executive Chairman
+                    </div>
+                    <div className="text-[10px] text-brand-ink/40 mt-0.5 font-medium">
+                      Ibeju-Lekki Local Government
+                    </div>
+                  </div>
+                </div>
+                <p className="text-[13px] text-brand-ink/55 leading-[1.78] italic border-l-[2.5px] border-brand-yellow/40 pl-3.5">
+                  &ldquo;Our dedication is rooted in the comprehensive advancement
+                  of Ibeju-Lekki through SHIEELD, we are transforming this LGA
+                  into a model of modern governance.&rdquo;
+                </p>
+              </div>
+
+              {/* SHIEELD tiles */}
+              <div className="border border-brand-ink/[0.12] rounded-2xl p-4 sm:p-5">
+                <div className="text-[9.5px] font-bold uppercase tracking-[0.24em] text-brand-ink/35 mb-3">
+                  The SHIEELD Agenda, 7 Pillars
+                </div>
+
+                <div className="grid grid-cols-7 gap-1.5">
+                  {PILLARS.map((p, i) => {
+                    const isActive = activePillar === i;
+                    return (
+                      <Link
+                        key={i}
+                        href={`/programmes/shieeld/${p.slug}`}
+                        onMouseEnter={() => setActivePillar(i)}
+                        onFocus={() => setActivePillar(i)}
+                        aria-label={`Pillar: ${p.label}`}
+                        className={`
+                          flex flex-col items-center justify-center rounded-xl
+                          py-2.5 px-1 border transition-all duration-300 cursor-pointer
+                          ${isActive
+                            ? 'bg-brand-yellow border-brand-yellow scale-105 shadow-md shadow-brand-yellow/25'
+                            : 'bg-white border-brand-ink/[0.12] hover:border-brand-ink/30 hover:bg-brand-yellow/10'
+                          }
+                        `}
+                      >
+                        <span
+                          className={`
+                            text-[clamp(1rem,2.2vw,1.4rem)] font-extrabold leading-none mb-0.5
+                            ${isActive ? 'text-black' : 'text-brand-ink/55'}
+                          `}
+                        >
+                          {p.key}
+                        </span>
+                        <span
+                          className={`
+                            hidden sm:block text-[7px] font-semibold uppercase
+                            tracking-[0.04em] leading-tight text-center
+                            ${isActive ? 'text-black/60' : 'text-brand-ink/30'}
+                          `}
+                        >
+                          {p.label.split(' ')[0]}
+                        </span>
+                      </Link>
+                    );
+                  })}
+                </div>
+
+                {/* Active pillar info */}
+                <div className="mt-3 pt-3 border-t border-brand-ink/[0.08] flex items-center gap-3 min-h-[40px]">
+                  <div className="w-8 h-8 rounded-lg bg-brand-yellow/[0.12] flex items-center justify-center flex-shrink-0">
+                    <ActiveIcon size={15} strokeWidth={2} className="text-brand-ink" />
+                  </div>
+                  <div>
+                    <span className="text-[12.5px] font-bold text-brand-ink">
+                      {PILLARS[activePillar].label}
+                    </span>
+                    <span className="text-[11px] text-brand-ink/35 ml-2">
+                      Pillar {activePillar + 1} of 7
+                    </span>
+                  </div>
+                  <Link
+                    href="/programmes/shieeld"
+                    className="ml-auto text-[10.5px] font-semibold text-brand-amber hover:text-brand-amber transition-colors flex items-center gap-1"
+                  >
+                    View <ChevronRight size={12} strokeWidth={2.5} />
+                  </Link>
+                </div>
+              </div>
+
+              {/* Alert strip */}
+              <div className="
+                flex items-start gap-3
+                border border-brand-red/20 rounded-xl px-4 py-3
+                bg-brand-red/[0.03]
+              ">
+                <div className="w-7 h-7 rounded-lg bg-brand-red/[0.08] flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <Megaphone size={14} strokeWidth={2} className="text-brand-red" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="text-[11.5px] font-bold text-brand-ink mb-0.5">
+                    Council Notice
+                  </div>
+                  <div className="text-[11px] text-brand-ink/50 leading-snug">
+                    LASG Local Government Development Plan, Conference 57 · Apr 2026
+                  </div>
+                </div>
+                <Link
+                  href="/news"
+                  className="flex-shrink-0 flex items-center gap-1 text-[10.5px] font-bold text-brand-red hover:text-brand-amber transition-colors mt-0.5"
+                >
+                  Read <ChevronRight size={11} strokeWidth={2.5} />
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── TICKER ─────────────────────────────────────────────────────────── */}
+      <div
+        className="border-y border-brand-ink/[0.08] overflow-hidden bg-white"
+        aria-label="Key investments in Ibeju-Lekki"
+      >
+        <div className="flex">
+          {/* Label */}
+          <div className="
+            flex-shrink-0 flex items-center gap-2 px-4 sm:px-5
+            bg-brand-yellow text-black z-10
+            text-[9.5px] font-bold uppercase tracking-[0.22em]
+          ">
+            <span className="w-1.5 h-1.5 rounded-full bg-brand-yellow" aria-hidden="true" />
+            <span className="hidden sm:inline py-3">The New Lagos.</span>
+            <span className="sm:hidden py-3">The New Lagos.</span>
+          </div>
+
+          {/* Scrolling text */}
+          <div className="flex-1 overflow-hidden py-3">
+            <div
+              className="flex whitespace-nowrap"
+              style={{ animation: 'scroll 36s linear infinite' }}
+              aria-hidden="true"
+            >
+              {[...TICKER, ...TICKER].map((item, i) => (
+                <span
+                  key={i}
+                  className="inline-flex items-center gap-3 px-6 text-[12px] font-medium text-brand-ink/45 italic"
+                >
+                  {item}
+                  <span className="w-1 h-1 rounded-full bg-brand-yellow/50 flex-shrink-0" />
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
+----- app/about/page.tsx -----
+import Link from 'next/link'
+import Organogram from '@/components/Organogram'
+import Footer from '@/components/Footer'
+
+export const metadata = {
+  title: 'About Ibeju-Lekki LGA | Ibeju-Lekki Local Government',
+  description:
+    'About Ibeju-Lekki Local Government Area and how the council is organised to serve its communities.',
+}
+
+export default function Page() {
+  return (
+    <>
+      <main className="min-h-screen bg-white">
+        <section className="border-b border-black/10 bg-brand-cream">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-10 py-10 sm:py-14">
+            <nav className="flex items-center flex-wrap gap-1.5 text-[11px] sm:text-[12px] text-black/45 mb-5" aria-label="Breadcrumb">
+              <Link href="/" className="hover:text-brand-ink transition-colors">Home</Link>
+              <span className="text-black/30">/</span>
+              <span className="text-brand-ink font-semibold">About</span>
+            </nav>
+            <div className="flex items-center gap-3 mb-3">
+              <span className="h-px w-8 bg-brand-yellow" aria-hidden="true" />
+              <span className="text-[10.5px] font-bold uppercase tracking-[0.25em] text-black/45">About</span>
+            </div>
+            <h1 className="text-[clamp(1.9rem,5vw,3rem)] font-extrabold text-brand-ink tracking-tight leading-tight">
+              About Ibeju-Lekki LGA
+            </h1>
+            <p className="mt-4 max-w-2xl text-[14px] sm:text-[15px] text-black/55 leading-[1.8]">
+              Ibeju-Lekki Local Government Area is one of the fastest-growing parts of Lagos State,
+              home to the Dangote Refinery, the Lekki Free Trade Zone and the Lekki Deep Seaport.
+              Below is how the council is organised to serve its communities.
+            </p>
+          </div>
+        </section>
+
+        <Organogram />
+      </main>
+      <Footer />
+    </>
+  )
+}
+----- app/layout.tsx -----
+import type { Metadata, Viewport } from "next";
+import { Poppins } from "next/font/google";
+import "./globals.css";
+import Header from "@/components/Header";
+import BottomNav from "@/components/BottomNav";
+import { getSiteSettings } from "@/lib/settings";
+
+const poppins = Poppins({
+  weight: ["300", "400", "500", "600", "700", "800"],
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-poppins",
+});
+
+const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://ibejulekki-demo.vercel.app";
+
+export const viewport: Viewport = {
+  themeColor: "#FFBA26",
+};
+
+export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
+  title: "Ibeju-Lekki Local Government | Official Website",
+  description:
+    "The official website of Ibeju-Lekki Local Government Area, Lagos State, home to Dangote Refinery and Lekki Free Trade Zone.",
+  openGraph: {
+    type: "website",
+    siteName: "Ibeju-Lekki Local Government",
+    locale: "en_NG",
+    title: "Ibeju-Lekki Local Government | Official Website",
+    description:
+      "The official website of Ibeju-Lekki Local Government Area, Lagos State, Nigeria.",
+  },
+  twitter: { card: "summary_large_image" },
+};
+
+export default async function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const settings = await getSiteSettings();
+  const orgJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'GovernmentOrganization',
+    name: settings.siteName,
+    alternateName: 'Ibeju-Lekki LGA',
+    url: SITE_URL,
+    logo: SITE_URL + '/ibeju-lekki-logo.webp',
+    email: settings.email,
+    telephone: settings.phone,
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: settings.address.replace(/\n/g, ', '),
+      addressRegion: 'Lagos',
+      addressCountry: 'NG',
+    },
+    areaServed: 'Ibeju-Lekki, Lagos State, Nigeria',
+    sameAs: Object.values(settings.socials).filter(Boolean),
+  };
+  return (
+    <html lang="en" className={poppins.variable}>
+      <body className={poppins.className}>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
+        />
+        <Header email={settings.email} officeHours={settings.officeHours} />
+        {children}
+        <BottomNav />
+      </body>
+    </html>
+  );
+}
+----- app/opportunities/housing/housing-opportunities/page.tsx -----
+import ArticlePage, { type ArticleData } from '@/components/ArticlePage'
+
+export const metadata = {
+  title: 'Housing Opportunities | Ibeju-Lekki Local Government',
+  description:
+    'Housing development opportunities in Ibeju-Lekki, Lagos State, supported by landmark projects and strategic government investment.',
+}
+
+const DATA: ArticleData = {
+  "crumb": "Housing Opportunities",
+  "eyebrow": "Opportunities · Housing",
+  "title": "Housing Development Opportunities in Ibeju-Lekki",
+  "standfirst": "Supported by strategic government investments and landmark projects, Ibeju-Lekki has become the most promising real estate growth corridor in Lagos State.",
+  "blocks": [
+    {
+      "kind": "para",
+      "text": "Ibeju-Lekki has become the most promising real estate growth corridor in Lagos State and one of the fastest-growing investment destinations in Africa. The area is undergoing a remarkable transformation driven by massive public and private sector investments, creating unprecedented opportunities for residential, commercial, and mixed-use housing developments."
+    },
+    {
+      "kind": "para",
+      "text": "The emergence of major economic and infrastructure projects has significantly increased demand for housing, creating opportunities for developers, investors, mortgage institutions, and construction companies to participate in the area's growth story. The increasing influx of workers, professionals, business owners, expatriates, and investors is expected to sustain housing demand for decades."
+    },
+    {
+      "kind": "heading",
+      "text": "Landmark Projects Driving Housing Demand"
+    },
+    {
+      "kind": "heading",
+      "text": "Dangote Refinery and Petrochemical Complex"
+    },
+    {
+      "kind": "para",
+      "text": "The Dangote Petroleum Refinery is Africa's largest refinery and the world's largest single-train refinery, located within the Lekki Free Zone. The refinery has a processing capacity of approximately 650,000 barrels of crude oil per day and occupies thousands of hectares of land within Ibeju-Lekki. The project has created thousands of direct and indirect jobs, attracting workers and businesses that require quality housing and residential communities."
+    },
+    {
+      "kind": "heading",
+      "text": "Lekki Deep Sea Port"
+    },
+    {
+      "kind": "para",
+      "text": "The Lekki Deep Sea Port is one of the largest and most modern seaports in West Africa. The port is expected to facilitate trade, logistics, manufacturing, and export activities while generating significant employment opportunities. Its operations continue to attract businesses and professionals into the area, increasing demand for residential developments."
+    },
+    {
+      "kind": "heading",
+      "text": "Lagos Free Zone and Industrial Corridor"
+    },
+    {
+      "kind": "para",
+      "text": "The Lagos Free Zone and the broader Lekki Free Trade Zone have become major destinations for manufacturing, logistics, technology, and industrial investments. These economic activities are generating employment and driving population growth, creating sustained demand for affordable, middle-income, and luxury housing developments."
+    },
+    {
+      "kind": "heading",
+      "text": "Proposed Lekki International Airport"
+    },
+    {
+      "kind": "para",
+      "text": "The proposed international airport project is expected to further accelerate economic growth and increase the attractiveness of Ibeju-Lekki as a residential and business destination. The airport is anticipated to stimulate demand for residential estates, hotels, serviced apartments, and commercial developments throughout the corridor."
+    },
+    {
+      "kind": "heading",
+      "text": "Lagos-Calabar Coastal Highway"
+    },
+    {
+      "kind": "para",
+      "text": "The ongoing Coastal Highway project will improve connectivity between Lagos and other coastal states, enhancing accessibility and property values throughout Ibeju-Lekki. Improved transportation infrastructure is expected to unlock new residential development opportunities and support the growth of emerging communities."
+    },
+    {
+      "kind": "heading",
+      "text": "Government Intervention in Housing Development"
+    },
+    {
+      "kind": "para",
+      "text": "The Lagos State Government and Ibeju-Lekki Local Government have played a critical role in creating an enabling environment for housing and real estate development. Through strategic investments in roads, drainage systems, transportation infrastructure, urban planning, and public services, government has significantly improved the attractiveness of the area for investors and developers."
+    },
+    {
+      "kind": "para",
+      "text": "Government-backed land schemes, infrastructure expansion projects, road upgrades, and urban development initiatives have provided the foundation for large-scale residential development across the local government area. These interventions have enhanced land values, improved accessibility, and increased investor confidence in the area."
+    },
+    {
+      "kind": "heading",
+      "text": "Citrus Gardens: A Model for Future Residential Development"
+    },
+    {
+      "kind": "para",
+      "text": "One notable example of the area's housing transformation is Citrus Gardens, a modern residential estate developed within the Ibeju-Lekki growth corridor. The project demonstrates the quality and scale of housing developments emerging in response to the area's growing population and economic activities."
+    },
+    {
+      "kind": "para",
+      "text": "Citrus Gardens represents the type of integrated residential community needed to accommodate professionals, entrepreneurs, and families relocating to the area. The development contributes to local economic growth through job creation, infrastructure development, and increased commercial activity."
+    },
+    {
+      "kind": "para",
+      "text": "The success of Citrus Gardens provides a strong indication of the opportunities available for similar developments across Ibeju-Lekki. With continued government support and infrastructure investment, many more housing projects are expected to emerge in the coming years."
+    },
+    {
+      "kind": "heading",
+      "text": "Future Housing Opportunities"
+    },
+    {
+      "kind": "para",
+      "text": "The housing market in Ibeju-Lekki presents opportunities across several segments:"
+    },
+    {
+      "kind": "list",
+      "items": [
+        "Affordable Housing Estates",
+        "Middle-Income Residential Communities",
+        "Luxury Residential Estates",
+        "Smart City Developments",
+        "Mixed-Use Communities",
+        "Staff Housing for Industrial Workers",
+        "Serviced Apartments",
+        "Student Accommodation",
+        "Retirement Communities",
+        "Waterfront Residential Developments"
+      ]
+    },
+    {
+      "kind": "heading",
+      "text": "Conclusion"
+    },
+    {
+      "kind": "para",
+      "text": "Ibeju-Lekki is rapidly evolving into Lagos State's next major urban center. The combination of landmark projects such as the Dangote Refinery, Lekki Deep Sea Port, Lagos Free Zone, the proposed International Airport, and the Coastal Highway has created a strong foundation for long-term housing demand."
+    },
+    {
+      "kind": "para",
+      "text": "Government intervention through infrastructure development and urban planning, combined with successful residential projects such as Citrus Gardens, demonstrates a clear commitment to sustainable growth. As these transformative projects continue to mature, Ibeju-Lekki is positioned to become one of Nigeria's most important residential, commercial, and investment destinations, offering significant opportunities for housing developers, investors, and homebuyers alike."
+    }
+  ]
+}
+
+export default function Page() {
+  return <ArticlePage data={DATA} />
+}
+----- app/opportunities/tourism/page.tsx -----
+import ArticlePage, { type ArticleData } from '@/components/ArticlePage'
+
+export const metadata = {
+  title: 'Tourism | Ibeju-Lekki Local Government',
+  description:
+    'Tourism development and investment opportunities in Ibeju-Lekki, Lagos State: beaches, eco-tourism, culture, hospitality and marine tourism.',
+}
+
+const DATA: ArticleData = {
+  "crumb": "Tourism",
+  "eyebrow": "Opportunities · Tourism",
+  "title": "Tourism Development and Investment Opportunities in Ibeju-Lekki",
+  "standfirst": "Lagos' emerging tourism and leisure destination: Atlantic coastline, cultural heritage, eco-tourism assets, and a fast-growing hospitality market.",
+  "blocks": [
+    {
+      "kind": "para",
+      "text": "Ibeju-Lekki Local Government Area is rapidly transforming into one of Nigeria's most strategic investment corridors. While globally recognized for hosting major infrastructure projects such as the Dangote Refinery, Lekki Free Trade Zone, and Lekki Deep Sea Port, the area also possesses significant untapped tourism potential driven by its Atlantic coastline, cultural heritage, eco-tourism assets, and growing hospitality market. The ongoing development of transport infrastructure and industrial hubs is expected to increase both business and leisure tourism, creating numerous opportunities for investors."
+    },
+    {
+      "kind": "heading",
+      "text": "Atlantic Coastline and Beach Tourism"
+    },
+    {
+      "kind": "para",
+      "text": "Eleko Beach remains one of the most popular tourism destinations within the area. Its natural coastline, cultural activities, beach festivals, and recreational opportunities make it attractive to both domestic and international visitors. The Local Government has continued to promote tourism activities around the beach through events and festivals that showcase local culture and entertainment."
+    },
+    {
+      "kind": "para",
+      "text": "The extensive Atlantic shoreline also provides opportunities for:"
+    },
+    {
+      "kind": "list",
+      "items": [
+        "Luxury beach resorts",
+        "Beach clubs",
+        "Waterfront hotels",
+        "Water sports facilities",
+        "Family recreation centers",
+        "Eco-lodges"
+      ]
+    },
+    {
+      "kind": "heading",
+      "text": "La Campagne Tropicana Beach Resort"
+    },
+    {
+      "kind": "para",
+      "text": "La Campagne Tropicana Beach Resort is one of Nigeria's most recognized tourism destinations, combining luxury hospitality with African cultural heritage. The resort attracts visitors from across Nigeria and abroad and demonstrates the viability of tourism investments in the region."
+    },
+    {
+      "kind": "heading",
+      "text": "Lekki Conservation and Eco-Tourism Corridor"
+    },
+    {
+      "kind": "para",
+      "text": "The coastal wetlands, mangrove forests, lagoons, and natural ecosystems around Ibeju-Lekki provide opportunities for:"
+    },
+    {
+      "kind": "list",
+      "items": [
+        "Nature tourism",
+        "Bird watching",
+        "Eco-tourism parks",
+        "Conservation centers",
+        "Educational tourism",
+        "Adventure tourism"
+      ]
+    },
+    {
+      "kind": "para",
+      "text": "As global tourism increasingly shifts toward sustainable experiences, eco-tourism facilities can become major attractions."
+    },
+    {
+      "kind": "heading",
+      "text": "Cultural and Heritage Tourism"
+    },
+    {
+      "kind": "para",
+      "text": "Ibeju-Lekki possesses rich Yoruba cultural heritage, traditional festivals, fishing communities, local cuisine, arts, crafts, and cultural performances that can be developed into tourism products through:"
+    },
+    {
+      "kind": "list",
+      "items": [
+        "Annual cultural festivals",
+        "Heritage villages",
+        "Arts and craft markets",
+        "Traditional cuisine centers",
+        "Community tourism initiatives"
+      ]
+    },
+    {
+      "kind": "heading",
+      "text": "Industrial and Business Tourism"
+    },
+    {
+      "kind": "para",
+      "text": "The presence of major industrial projects has created a unique opportunity for business tourism. Key developments include the Dangote Refinery, Lekki Deep Sea Port, Lekki Free Trade Zone, Alaro City, and the proposed International Airport. These developments are attracting investors, corporate visitors, consultants, and international delegations to the area."
+    },
+    {
+      "kind": "heading",
+      "text": "High-Potential Tourism Investment Opportunities"
+    },
+    {
+      "kind": "para",
+      "text": "Hospitality development: demand is growing for international-standard hotels, boutique hotels, serviced apartments, beach resorts, conference centers, event venues, and short-let accommodations."
+    },
+    {
+      "kind": "para",
+      "text": "Entertainment and recreation: investors can develop water parks, theme parks, family entertainment centers, cinemas, beach clubs, golf courses, and adventure parks."
+    },
+    {
+      "kind": "para",
+      "text": "Marine tourism: potential investments include marinas, yacht clubs, boat cruises, fishing tourism, water sports facilities, and lagoon tourism operations."
+    },
+    {
+      "kind": "para",
+      "text": "Meetings, Incentives, Conferences and Exhibitions (MICE): with increasing corporate activities in the Lekki corridor, there is significant potential for convention centers, exhibition grounds, conference facilities, and business tourism packages."
+    },
+    {
+      "kind": "heading",
+      "text": "Government's Role in Tourism Development"
+    },
+    {
+      "kind": "para",
+      "text": "The Ibeju-Lekki Local Government has demonstrated commitment to promoting tourism through initiatives such as the Easter Beach Fiesta at Eleko Beach and other community-based tourism activities designed to position the area as a major leisure and tourism destination. These initiatives contribute to increased visitor traffic and investor confidence."
+    },
+    {
+      "kind": "heading",
+      "text": "Strategic Advantages for Investors"
+    },
+    {
+      "kind": "list",
+      "items": [
+        "Atlantic Coastline: beach and marine tourism",
+        "Mega Infrastructure Projects: increased visitor traffic",
+        "Proximity to Lagos: large tourism market",
+        "Growing Population: hospitality demand",
+        "Government Support: easier investment environment",
+        "Free Trade Zone: international visibility",
+        "Industrial Growth: business tourism opportunities"
+      ]
+    },
+    {
+      "kind": "heading",
+      "text": "Conclusion"
+    },
+    {
+      "kind": "para",
+      "text": "Ibeju-Lekki is uniquely positioned to become Nigeria's next major tourism and hospitality destination. The combination of pristine beaches, cultural heritage, eco-tourism assets, and world-class infrastructure developments creates a strong foundation for sustainable tourism growth. Investors who establish hospitality, entertainment, marine tourism, and leisure facilities today stand to benefit significantly from the area's ongoing transformation into the economic and tourism gateway of Lagos State."
+    }
+  ]
+}
+
+export default function Page() {
+  return <ArticlePage data={DATA} />
+}
+
+===== HOMEPAGE placement =====
+import { client } from '@/lib/sanity'
+import { homepageNewsQuery, quickServicesQuery, chairmanQuery } from '@/lib/queries'
+import Hero             from '@/components/Hero'
+import QuickServices    from '@/components/QuickServices'
+import ChairmanSection  from '@/components/ChairmanSection'
+import NewsSection      from '@/components/NewsSection'
+import SubscribeSection from '@/components/SubscribeSection'
+import Footer           from '@/components/Footer'
+
+export const revalidate = 60
+
+export default async function Home() {
+  const [news, services, chairman] = await Promise.all([
+    client.fetch(homepageNewsQuery).catch(() => null),
+    client.fetch(quickServicesQuery).catch(() => null),
+    client.fetch(chairmanQuery).catch(() => null),
+  ])
+  return (
+    <main>
+      <Hero />
+      <QuickServices   services={services  ?? undefined} />
+      <ChairmanSection data={chairman      ?? undefined} />
+      <NewsSection     posts={news         ?? undefined} />
+      <SubscribeSection />
+      <Footer />
+    </main>
+  )
+}
+
+===== Where landmarks are already linked (header/footer/nav) =====
+components/Hero.tsx:40:  'Dangote Refinery',
+components/Hero.tsx:41:  'Lekki Free Trade Zone',
+components/Hero.tsx:42:  'Lekki Deep Seaport',
+components/Hero.tsx:43:  'Pan-Atlantic University',
+components/Hero.tsx:45:  'Eleganza Industrial City',
+app/about/history/page.tsx:60:      `In recent decades, Ibeju-Lekki has undergone significant transformation and rapid urbanisation. Its proximity to key infrastructure such as the Lekki-Epe Expressway, the Dangote Refinery and numerous large-scale real estate projects has greatly enhanced its economic potential. Today it blends its traditional coastal identity with modern opportunities in industry, tourism and residential expansion.`,
+app/about/page.tsx:31:              home to the Dangote Refinery, the Lekki Free Trade Zone and the Lekki Deep Seaport.
+app/government/chairman/page.tsx:64:      `Free weekend tutorials and tertiary scholarships in partnership with Pan-Atlantic University.`,
+app/layout.tsx:26:    "The official website of Ibeju-Lekki Local Government Area, Lagos State, home to Dangote Refinery and Lekki Free Trade Zone.",
+app/programmes/performance-report/page.tsx:16:  { letter: 'E', title: 'Education & Youth Development',           body: 'Weekend coaching with Pan-Atlantic University for UTME and WASSCE candidates, hundreds of free JAMB and WASSCE forms each year, and bursaries and scholarships for indigenous students at every level.' },
+app/programmes/performance-report/page.tsx:24:  'Weekend coaching with Pan-Atlantic University for UTME and WASSCE candidates',
+
+===== Header nav structure (Opportunities dropdown) =====
+10:  { label: 'Home', href: '/' },
+12:    label: 'About',
+13:    href: '#',
+14:    children: [
+15:      { label: 'Historic Background',        href: '/about/history' },
+16:      { label: 'The People, Arts & Culture', href: '/about/culture' },
+17:      { label: 'Traditional Rulers',         href: '/about/traditional-rulers' },
+21:    label: 'Government',
+22:    href: '#',
+23:    children: [
+24:      { label: 'Overview',            href: '/about' },
+25:      { label: 'Vision & Mission',    href: '/government/vision' },
+26:      { label: 'Executive Chairman',  href: '/government/chairman' },
+27:      { label: 'Executive Council',   href: '/government/executive-council' },
+28:      { label: 'Legislative Council', href: '/government/legislative-council' },
+29:      { label: 'Management Team',     href: '/government/management-team' },
+33:    label: 'Programmes',
+34:    href: '#',
+35:    children: [
+36:      { label: 'SHIEELD Agenda',      href: '/programmes/shieeld' },
+37:      { label: '2025 Budget Summary', href: '/programmes/budget' },
+38:      { label: 'Performance Report',  href: '/programmes/performance-report' },
+39:      // { label: 'Agenda 2029',         href: '/programmes/agenda-2029' },
+43:    label: 'Opportunities',
+44:    href: '#',
+45:    children: [
+46:      { label: 'Housing',                href: '/opportunities/housing' },
+47:      // { label: 'Housing Opportunities',  href: '/opportunities/housing/housing-opportunities' },
+48:      // { label: 'Citrus Garden',          href: '/opportunities/housing/citrus-garden' },
+49:      // { label: 'Eleko ISOL',             href: '/opportunities/housing/eleko-isol' },
+50:      { label: 'Tourism',                href: '/opportunities/tourism' },
+51:      { label: 'Career & Jobs',          href: '/resources/careers' },
+54:  { label: 'News & Events', href: '/news' },
+56:    label: 'Resources',
+57:    href: '#',
+58:    children: [
+59:      { label: 'Revenue Portal',   href: 'https://portal.ibejulekkilga.com' },
+60:      { label: 'Waste Collection', href: '/resources/waste' },
+61:      { label: 'Career & Jobs',    href: '/resources/careers' },
+78:  if (!('children' in item) || !item.children) {
+111:          {item.children.map((child) => (
+
+===== Footer links =====
+11:      { label: 'Executive Chairman',  href: '/government/chairman' },
+12:      { label: 'Executive Council',   href: '/government/executive-council' },
+13:      { label: 'Management Team',     href: '/government/management-team' },
+14:      { label: 'Vision & Mission',    href: '/government/vision' },
+20:      { label: 'SHIEELD Agenda',      href: '/programmes/shieeld' },
+21:      // { label: 'Agenda 2029',         href: '/programmes/agenda-2029' },
+22:      { label: '2025 Budget',         href: '/programmes/budget' },
+23:      { label: 'Performance Report',  href: '/programmes/performance-report' },
+29:      { label: 'Pay Levies',          href: '/resources/revenue' },
+30:      { label: 'Career & Jobs',       href: '/resources/careers' },
+31:      { label: 'Waste Collection',    href: '/resources/waste' },
+32:      { label: 'Download Forms',      href: '/resources/forms' },
+33:      { label: 'Report an Issue',     href: '/report' },
+39:      { label: 'News & Events',       href: '/news' },
+40:      { label: 'Career & Jobs',       href: '/resources/careers' },
+41:      { label: 'Housing & Tourism',   href: '/housing-tourism' },
+42:      { label: 'About Ibeju-Lekki',   href: '/about/history' },
+43:      { label: 'Contact Us',          href: '/contact' },
+49:  twitter:   { Icon: FaXTwitter,  label: 'X / Twitter' },
+50:  facebook:  { Icon: FaFacebookF, label: 'Facebook' },
+51:  instagram: { Icon: FaInstagram, label: 'Instagram' },
+52:  youtube:   { Icon: FaYoutube,   label: 'YouTube' },
+59:    .map((key) => ({ key, href: settings.socials[key], ...SOCIAL_ICONS[key] }))
+60:    .filter((s): s is typeof s & { href: string } => typeof s.href === 'string' && s.href.startsWith('http'))

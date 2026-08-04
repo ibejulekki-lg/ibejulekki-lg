@@ -3,10 +3,13 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useState, useRef, useEffect } from 'react';
-import { ChevronDown, Phone, Mail, Clock, Circle, CreditCard } from 'lucide-react';
+import { ChevronDown, Phone, Mail, Clock, Circle, CreditCard, ExternalLink } from 'lucide-react';
 import BrandStripe from '@/components/BrandStripe';
 
-const NAV_ITEMS = [
+type NavChild = { label: string; href: string; external?: boolean };
+type NavItem = { label: string; href: string; children?: NavChild[] };
+
+const NAV_ITEMS: NavItem[] = [
   { label: 'Home', href: '/' },
     {
     label: 'About',
@@ -46,7 +49,7 @@ const NAV_ITEMS = [
       { label: 'Housing',                href: '/opportunities/housing' },
       // { label: 'Housing Opportunities',  href: '/opportunities/housing/housing-opportunities' },
       // { label: 'Citrus Garden',          href: '/opportunities/housing/citrus-garden' },
-      // { label: 'Eleko ISOL',             href: '/opportunities/housing/eleko-isole' },
+      // { label: 'Eleko Isles',             href: '/opportunities/housing/eleko-isles' },
       { label: 'Tourism',                href: '/opportunities/tourism' },
       { label: 'Investment Opportunities', href: '/opportunities/investment' },
       { label: 'Career & Jobs',          href: '/resources/careers' },
@@ -54,12 +57,15 @@ const NAV_ITEMS = [
   },
   { label: 'News & Events', href: '/news' },
   {
-    label: 'Resources',
+    label: 'Services',
     href: '#',
     children: [
-      { label: 'Revenue Portal',   href: 'https://portal.ibejulekkilga.com' },
-      { label: 'Waste Collection', href: '/resources/waste' },
-      { label: 'Career & Jobs',    href: '/resources/careers' },
+      { label: 'Pay Levies',          href: 'https://portal.ibejulekkilga.com', external: true },
+      { label: 'Revenue Portal',      href: 'https://portal.ibejulekkilga.com', external: true },
+      { label: 'Street Naming',       href: '/resources/street-naming' },
+      { label: 'Birth Certification', href: '/resources/birth-certification' },
+      { label: 'Waste Collection',    href: '/resources/waste' },
+      { label: 'Career & Jobs',       href: '/resources/careers' },
     ],
   },
 ];
@@ -109,15 +115,27 @@ function DesktopNavItem({ item }: { item: (typeof NAV_ITEMS)[number] }) {
       {/* transparent bridge so the menu stays open when moving the cursor down */}
       <div className={`absolute left-1/2 top-full z-50 -translate-x-1/2 pt-3 ${open ? 'block' : 'hidden'}`}>
         <div className="min-w-[230px] overflow-hidden rounded-xl border border-black/10 bg-white py-2 shadow-xl">
-          {item.children.map((child) => (
-            <Link
-              key={child.href}
-              href={child.href}
-              className="block px-4 py-2.5 text-[12.5px] font-medium text-brand-ink/80 transition-colors hover:bg-brand-yellow/10 hover:text-brand-ink"
-            >
-              {child.label}
-            </Link>
-          ))}
+          {item.children.map((child) => {
+            const cls =
+              'block px-4 py-2.5 text-[12.5px] font-medium text-brand-ink/80 transition-colors hover:bg-brand-yellow/10 hover:text-brand-ink';
+            const isExternal = child.external || /^https?:\/\//.test(child.href);
+            return isExternal ? (
+              <a
+                key={child.href}
+                href={child.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={cls + ' flex items-center justify-between gap-2'}
+              >
+                {child.label}
+                <ExternalLink size={11} className="text-black/30" />
+              </a>
+            ) : (
+              <Link key={child.href} href={child.href} className={cls}>
+                {child.label}
+              </Link>
+            );
+          })}
         </div>
       </div>
     </div>

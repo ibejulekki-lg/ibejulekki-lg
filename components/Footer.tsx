@@ -32,7 +32,7 @@ const FOOTER_NAV: {
     links: [
       { label: 'Housing',              href: '/opportunities/housing' },
       { label: 'Citrus Gardens',       href: '/opportunities/housing/citrus-garden' },
-      { label: 'Eleko ISOLE',          href: '/opportunities/housing/eleko-isole' },
+      { label: 'Eleko Isles',          href: '/opportunities/housing/eleko-isles' },
       { label: 'Tourism',              href: '/opportunities/tourism' },
       { label: 'Investment Opportunities', href: '/opportunities/investment' },
       { label: 'Career & Jobs',        href: '/resources/careers' },
@@ -42,7 +42,9 @@ const FOOTER_NAV: {
     heading: 'Services',
     links: [
       { label: 'Pay Levies',          href: 'https://portal.ibejulekkilga.com', external: true },
-      { label: 'Revenue Portal',      href: '/resources/revenue' },
+      { label: 'Revenue Portal',      href: 'https://portal.ibejulekkilga.com', external: true },
+      { label: 'Street Naming',       href: '/resources/street-naming' },
+      { label: 'Birth Certification', href: '/resources/birth-certification' },
       { label: 'Waste Collection',    href: '/resources/waste' },
       { label: 'Download Forms',      href: '/resources/forms' },
       { label: 'Report an Issue',     href: '/report' },

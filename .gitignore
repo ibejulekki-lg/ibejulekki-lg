@@ -1,64 +1,29 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
-# dependencies
-/node_modules
-/.pnp
-.pnp.*
-.yarn/*
-!.yarn/patches
-!.yarn/plugins
-!.yarn/releases
-!.yarn/versions
-
-# testing
-/coverage
-
-# next.js
-/.next/
-/out/
-
-# production
-/build
-
-# misc
+node_modules
+.next
+out
+build
 .DS_Store
 *.pem
-
-# debug
+.env
+.env.local
+.env*.local
+.vercel
+*.tsbuildinfo
+next-env.d.ts
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-.pnpm-debug.log*
-
-# env files (can opt-in for committing if needed)
-.env*
-
-# vercel
-.vercel
-
-# typescript
-*.tsbuildinfo
-next-env.d.ts
-.env.local
-.env.local.example
-*.sh
-*.txt
-# but never hide a real text asset that belongs on the site
-!public/**/*.txt
-posts.json
-import-wp-news.cjs
-retag-careers.cjs
 asset-map.json
-
-# local Sanity export archives (backups run in CI)
-ibejulekki-production-*.tar.gz
-*.zip
-
-# July 2026 WordPress import artefacts (data migration, not app code)
+posts.json
 newposts.json
+import-wp-news.cjs
 import-new-posts.cjs
-.import-assets.json
+retag-careers.cjs
 seed-programmes.cjs
+.import-assets.json
 citrus-garden-images.zip
 citrus-garden-images-extra.zip
 citrus-brochure-and-portraits.zip
+investment-and-portraits.zip
+aragbada-portrait.zip
+*.sh

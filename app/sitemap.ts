@@ -16,7 +16,7 @@ const STATIC_ROUTES = [
   '/programmes/shieeld', '/programmes/budget', '/programmes/performance-report',
   '/resources/careers', '/resources/revenue', '/resources/waste', '/resources/forms',
   '/opportunities/housing', '/opportunities/housing/housing-opportunities',
-  '/opportunities/housing/citrus-garden', '/opportunities/housing/eleko-isole',
+  '/opportunities/housing/citrus-garden', '/opportunities/housing/eleko-isles',
   '/opportunities/tourism',
   '/opportunities/investment',
   '/opportunities/investment/dangote-refinery', '/opportunities/investment/lekki-free-trade-zone',
