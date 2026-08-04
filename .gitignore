@@ -27,3 +27,16 @@ citrus-brochure-and-portraits.zip
 investment-and-portraits.zip
 aragbada-portrait.zip
 *.sh
+ticker-audit.txt
+import-state.json
+setup-*.sh
+fix-*.sh
+push.sh
+inspect.sh
+
+.env
+.env.local
+.env*.local
+/*.sh
+
+.env.local.backup
