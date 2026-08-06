@@ -24,6 +24,9 @@ export function generateMetadata({ params }: { params: { slug: string } }) {
     title: p
       ? `${p.title} - SHIEELD Agenda | Ibeju-Lekki Local Government`
       : 'SHIEELD Agenda | Ibeju-Lekki Local Government',
+    description: p
+      ? `${p.title} under the SHIEELD Agenda, the 2025 to 2029 development plan for Ibeju-Lekki Local Government Area, Lagos State.`
+      : 'The seven pillars of the SHIEELD Agenda for Ibeju-Lekki Local Government Area, Lagos State.',
   }
 }
 

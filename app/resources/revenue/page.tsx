@@ -1,7 +1,14 @@
 // Revenue Portal
 import PagePlaceholder from '@/components/PagePlaceholder'
 
-export const metadata = { title: 'Revenue Portal | Ibeju-Lekki Local Government' }
+export const metadata = {
+  // Placeholder page: keep it out of search results until it has real
+  // content. Delete these two lines when the page is written.
+  robots: { index: false, follow: true },
+  title: 'Revenue Portal | Ibeju-Lekki Local Government',
+  description:
+    "Pay levies and access the Ibeju-Lekki Local Government revenue portal.",
+}
 
 export default function Page() {
   return (

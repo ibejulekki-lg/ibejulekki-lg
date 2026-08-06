@@ -13,7 +13,7 @@ const poppins = Poppins({
 });
 
 const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://ibejulekki-demo.vercel.app";
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://ibejulekki.lg.gov.ng";
 
 export const viewport: Viewport = {
   themeColor: "#FFBA26",

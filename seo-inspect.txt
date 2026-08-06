@@ -1,0 +1,568 @@
+
+===== GIT =====
+f33805b Add Google Search Console verification code
+0d6d982 Complete Executive Council portraits and redirect the netlify.app address
+8a743b5 Unify investment data, add photos to detail pages, add Marriage Registry
+
+===== ROOT LAYOUT METADATA =====
+export const metadata: Metadata = {
+  verification: {
+    google: 'xPOj1m7ePeIt2tprMxj60MEnBzLkeeyJQQYSaIYGJ7o',
+  },
+  metadataBase: new URL(SITE_URL),
+  title: "Ibeju-Lekki Local Government | Official Website",
+  description:
+    "The official website of Ibeju-Lekki Local Government Area, Lagos State, home to Dangote Refinery and Lekki Free Trade Zone.",
+  openGraph: {
+    type: "website",
+    siteName: "Ibeju-Lekki Local Government",
+    locale: "en_NG",
+    title: "Ibeju-Lekki Local Government | Official Website",
+    description:
+      "The official website of Ibeju-Lekki Local Government Area, Lagos State, Nigeria.",
+  },
+  twitter: { card: "summary_large_image" },
+};
+
+===== PER PAGE METADATA =====
+
+--- ROUTE: /about/culture
+    FILE:  app/about/culture/page.tsx
+    export const metadata = {
+      title: 'The People, Arts and Culture | Ibeju-Lekki Local Government',
+      description:
+        'The people, arts and culture of Ibeju-Lekki: Igi-Meta heritage, religious tolerance, masquerades, festivals and Yoruba-Ijebu traditions.',
+    }
+
+--- ROUTE: /about/history
+    FILE:  app/about/history/page.tsx
+    export const metadata = {
+      title: 'History of Ibeju-Lekki | Ibeju-Lekki Local Government',
+      description:
+        'The history of Ibeju-Lekki Local Government Area, Lagos State: its creation, name, geography, towns and modern transformation.',
+    }
+
+--- ROUTE: /about
+    FILE:  app/about/page.tsx
+    export const metadata = {
+      title: 'About Ibeju-Lekki LGA | Ibeju-Lekki Local Government',
+      description:
+        'About Ibeju-Lekki Local Government Area and how the council is organised to serve its communities.',
+    }
+
+--- ROUTE: /about/traditional-rulers/[slug]
+    FILE:  app/about/traditional-rulers/[slug]/page.tsx
+    [dynamic] generateMetadata:
+    export function generateMetadata({ params }: { params: { slug: string } }) {
+      const ruler = getRuler(params.slug)
+      if (!ruler) return { title: 'Traditional Rulers | Ibeju-Lekki Local Government' }
+      return {
+        title: `${ruler.name} | Traditional Rulers | Ibeju-Lekki Local Government`,
+        description: `${ruler.name}, ${ruler.title}, Ibeju-Lekki Local Government Area, Lagos State.`,
+      }
+    }
+
+--- ROUTE: /about/traditional-rulers
+    FILE:  app/about/traditional-rulers/page.tsx
+    export const metadata = {
+      title: 'Traditional Rulers | Ibeju-Lekki Local Government',
+      description:
+        'The traditional rulers of Ibeju-Lekki Local Government Area, Lagos State: the Obas and custodians of the customs and heritage of our kingdoms.',
+    }
+
+--- ROUTE: /accessibility
+    FILE:  app/accessibility/page.tsx
+    export const metadata = { title: 'Accessibility | Ibeju-Lekki Local Government' }
+    
+    export default function Page() {
+      return (
+        <PagePlaceholder
+          title="Accessibility"
+          description="The accessibility commitment for the Ibeju-Lekki website."
+        />
+      )
+    }
+
+--- ROUTE: /contact
+    FILE:  app/contact/page.tsx
+    export const metadata = {
+      title: 'Contact Us | Ibeju-Lekki Local Government',
+      description:
+        'Get in touch with Ibeju-Lekki Local Government Council: phone numbers, email, office address and a contact form.',
+    }
+
+--- ROUTE: /government/chairman
+    FILE:  app/government/chairman/page.tsx
+    export const metadata = {
+      title: 'Executive Chairman | Ibeju-Lekki Local Government',
+      description:
+        'Biography of Hon. Abdullahi Sesan Olowa, Executive Chairman of Ibeju-Lekki Local Government Area, Lagos State.',
+    }
+
+--- ROUTE: /government/executive-council
+    FILE:  app/government/executive-council/page.tsx
+    export const metadata = {
+      title: 'Executive Council | Ibeju-Lekki Local Government',
+      description:
+        'The executive arm of Ibeju-Lekki Local Government: the Executive Chairman, supervisors leading each portfolio, special advisers, and non-cabinet members.',
+    }
+
+--- ROUTE: /government/legislative-council
+    FILE:  app/government/legislative-council/page.tsx
+    export const metadata = {
+      title: 'Legislative Council | Ibeju-Lekki Local Government',
+      description:
+        'The legislative arm of Ibeju-Lekki Local Government: councillors elected to represent the wards, with the leadership of the house.',
+    }
+
+--- ROUTE: /government/management-team
+    FILE:  app/government/management-team/page.tsx
+    export const metadata = {
+      title: 'Management Team | Ibeju-Lekki Local Government',
+      description:
+        'The management team of Ibeju-Lekki Local Government: the career civil service that delivers council services day to day.',
+    }
+
+--- ROUTE: /government/vision
+    FILE:  app/government/vision/page.tsx
+    export const metadata = {
+      title: 'Vision, Mission & Values | Ibeju-Lekki Local Government',
+      description:
+        'The vision, mission and core values guiding Ibeju-Lekki Local Government: transformation, inclusive governance, accountability and sustainable infrastructure for every resident.',
+    }
+
+--- ROUTE: /housing-tourism
+    FILE:  app/housing-tourism/page.tsx
+    NO METADATA DEFINED (inherits the root layout)
+
+--- ROUTE: /news/[slug]
+    FILE:  app/news/[slug]/page.tsx
+    [dynamic] generateMetadata:
+    export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+      const post = await getPost(params.slug)
+      if (!post) return { title: 'Article Not Found | Ibeju-Lekki Local Government' }
+      const ogImage = post.coverImage?.asset
+        ? urlFor(post.coverImage).width(1200).height(630).fit('crop').auto('format').url()
+        : undefined
+      return {
+        title: `${post.title} | Ibeju-Lekki Local Government`,
+        description: post.summary,
+        openGraph: {
+          type: 'article',
+          title: post.title,
+          description: post.summary,
+          publishedTime: post.publishedAt,
+          ...(ogImage ? { images: [{ url: ogImage, width: 1200, height: 630 }] } : {}),
+        },
+        twitter: {
+          card: ogImage ? 'summary_large_image' : 'summary',
+          title: post.title,
+          description: post.summary,
+        },
+      }
+    }
+
+--- ROUTE: /news
+    FILE:  app/news/page.tsx
+    export const metadata = {
+      title: 'News & Events | Ibeju-Lekki Local Government',
+      description: 'Latest news, announcements and events from Ibeju-Lekki Local Government Area.',
+    }
+
+--- ROUTE: /opportunities/housing/citrus-garden
+    FILE:  app/opportunities/housing/citrus-garden/page.tsx
+    export const metadata = {
+      title: 'Citrus Gardens Estate | Ibeju-Lekki Local Government',
+      description:
+        'Citrus Gardens is an Ibeju-Lekki Local Government housing initiative, sponsored by the Lagos State Government in partnership with RIZZ Consulting Nigeria Limited.',
+    }
+
+--- ROUTE: /opportunities/housing/eleko-isles
+    FILE:  app/opportunities/housing/eleko-isles/page.tsx
+    export const metadata = { title: 'Eleko Isles | Ibeju-Lekki Local Government' }
+    
+    export default function Page() {
+      return (
+        <PagePlaceholder
+          title="Eleko Isles"
+          sectionLabel="Opportunities"
+          description="Details of the Eleko Isles estate development will be published here."
+        />
+      )
+    }
+
+--- ROUTE: /opportunities/housing/housing-opportunities
+    FILE:  app/opportunities/housing/housing-opportunities/page.tsx
+    export const metadata = {
+      title: 'Housing Opportunities | Ibeju-Lekki Local Government',
+      description:
+        'Housing development opportunities in Ibeju-Lekki, Lagos State, supported by landmark projects and strategic government investment.',
+    }
+
+--- ROUTE: /opportunities/housing
+    FILE:  app/opportunities/housing/page.tsx
+    export const metadata = {
+      title: 'Housing | Ibeju-Lekki Local Government',
+      description:
+        'Housing opportunities and estate developments across Ibeju-Lekki Local Government Area, Lagos State.',
+    }
+
+--- ROUTE: /opportunities/investment/[slug]
+    FILE:  app/opportunities/investment/[slug]/page.tsx
+    [dynamic] generateMetadata:
+    export function generateMetadata({ params }: { params: { slug: string } }) {
+      const inv = getInvestment(params.slug)
+      if (!inv) return { title: 'Investment Opportunities | Ibeju-Lekki Local Government' }
+      return {
+        title: `${inv.name} | Investment Opportunities | Ibeju-Lekki Local Government`,
+        description: inv.blurb,
+        openGraph: {
+          title: inv.name,
+          description: inv.blurb,
+          ...(inv.image ? { images: [{ url: inv.image }] } : {}),
+        },
+      }
+    }
+
+--- ROUTE: /opportunities/investment
+    FILE:  app/opportunities/investment/page.tsx
+    export const metadata = {
+      title: 'Investment Opportunities | Ibeju-Lekki Local Government',
+      description:
+        'The landmark projects powering Ibeju-Lekki, Lagos State: Dangote Refinery, Lekki Free Trade Zone, Lekki Deep Seaport and more.',
+    }
+
+--- ROUTE: /opportunities/tourism
+    FILE:  app/opportunities/tourism/page.tsx
+    export const metadata = {
+      title: 'Tourism | Ibeju-Lekki Local Government',
+      description:
+        'Tourism development and investment opportunities in Ibeju-Lekki, Lagos State: beaches, eco-tourism, culture, hospitality and marine tourism.',
+    }
+
+--- ROUTE: /
+    FILE:  app/page.tsx
+    NO METADATA DEFINED (inherits the root layout)
+
+--- ROUTE: /privacy
+    FILE:  app/privacy/page.tsx
+    export const metadata = { title: 'Privacy Policy | Ibeju-Lekki Local Government' }
+    
+    export default function Page() {
+      return (
+        <PagePlaceholder
+          title="Privacy Policy"
+          description="How the Ibeju-Lekki website handles your data and privacy."
+        />
+      )
+    }
+
+--- ROUTE: /programmes/agenda-2029
+    FILE:  app/programmes/agenda-2029/page.tsx
+    export const metadata = { title: 'Agenda 2029 | Ibeju-Lekki Local Government' }
+    
+    export default function Page() {
+      return (
+        <PagePlaceholder
+          title="Agenda 2029"
+          sectionLabel="Programmes"
+          description="The development roadmap and Agenda 2029 commitments."
+        />
+      )
+    }
+
+--- ROUTE: /programmes/budget
+    FILE:  app/programmes/budget/page.tsx
+    export const metadata = {
+      title: 'Budget Summary & Performance Report | Ibeju-Lekki Local Government',
+      description:
+        'The Ibeju-Lekki Local Government budget summary and the 2021-2025 performance report.',
+    }
+
+--- ROUTE: /programmes/performance-report
+    FILE:  app/programmes/performance-report/page.tsx
+    export const metadata = {
+      title: 'Performance Report 2021–2025 | Ibeju-Lekki Local Government',
+      description:
+        'A summary of the Ibeju-Lekki Local Government performance report, 2021 to 2025, Making Ibeju-Lekki Great for Everyone.',
+    }
+
+--- ROUTE: /programmes/shieeld/[slug]
+    FILE:  app/programmes/shieeld/[slug]/page.tsx
+    [dynamic] generateMetadata:
+    export function generateMetadata({ params }: { params: { slug: string } }) {
+      const p = PILLARS.find((x) => x.slug === params.slug)
+      return {
+        title: p
+          ? `${p.title} - SHIEELD Agenda | Ibeju-Lekki Local Government`
+          : 'SHIEELD Agenda | Ibeju-Lekki Local Government',
+      }
+    }
+
+--- ROUTE: /programmes/shieeld
+    FILE:  app/programmes/shieeld/page.tsx
+    export const metadata = {
+      title: 'The SHIEELD Agenda | Ibeju-Lekki Local Government',
+      description:
+        'The seven pillars of the SHIEELD Agenda, the 2025-2029 manifesto for Ibeju-Lekki Local Government.',
+    }
+
+--- ROUTE: /report
+    FILE:  app/report/page.tsx
+    export const metadata = { title: 'Report an Issue | Ibeju-Lekki Local Government' }
+    
+    export default function Page() {
+      return (
+        <PagePlaceholder
+          title="Report an Issue"
+          description="Report an issue or submit a complaint to the council."
+        />
+      )
+    }
+
+--- ROUTE: /resources/birth-certification
+    FILE:  app/resources/birth-certification/page.tsx
+    export const metadata = {
+      title: 'Birth Certification | Ibeju-Lekki Local Government',
+      description:
+        'Register a birth and obtain a birth attestation or certificate from Ibeju-Lekki Local Government Area, Lagos State.',
+    }
+
+--- ROUTE: /resources/careers/[slug]
+    FILE:  app/resources/careers/[slug]/page.tsx
+    [dynamic] generateMetadata:
+    export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+      const p = await getProgramme(params.slug)
+      if (!p) return { title: 'Programme Not Found | Ibeju-Lekki Local Government' }
+      return {
+        title: `${p.title} | Career & Jobs | Ibeju-Lekki Local Government`,
+        description: p.summary,
+        openGraph: {
+          title: p.title,
+          description: p.summary,
+          ...(p.coverImage?.asset
+            ? { images: [{ url: urlFor(p.coverImage).width(1200).height(630).fit('crop').auto('format').url(), width: 1200, height: 630 }] }
+            : {}),
+        },
+      }
+    }
+
+--- ROUTE: /resources/careers
+    FILE:  app/resources/careers/page.tsx
+    export const metadata = {
+      title: 'Career & Jobs | Ibeju-Lekki Local Government',
+      description:
+        'Job opportunities, recruitment notices and vacancies from Ibeju-Lekki Local Government Area and partner agencies.',
+    }
+
+--- ROUTE: /resources/forms
+    FILE:  app/resources/forms/page.tsx
+    export const metadata = { title: 'Download Forms | Ibeju-Lekki Local Government' }
+    
+    export default function Page() {
+      return (
+        <PagePlaceholder
+          title="Download Forms"
+          sectionLabel="Resources"
+          variant="listing"
+          description="Official LGA documents and downloadable forms."
+        />
+      )
+    }
+--- ROUTE: /resources/marriage-registry
+    FILE:  app/resources/marriage-registry/page.tsx
+    export const metadata = {
+      title: 'Marriage Registry | Ibeju-Lekki Local Government',
+      description:
+        'Court marriage registration, marriage certificates and related services at Ibeju-Lekki Local Government Area, Lagos State.',
+    }
+
+--- ROUTE: /resources/revenue
+    FILE:  app/resources/revenue/page.tsx
+    export const metadata = { title: 'Revenue Portal | Ibeju-Lekki Local Government' }
+    
+    export default function Page() {
+      return (
+        <PagePlaceholder
+          title="Revenue Portal"
+          sectionLabel="Resources"
+          variant="form"
+          placeholderTitle="The revenue portal will be linked here shortly"
+          placeholderBody="Where a portal login or payment form is required, it will be accessible from this page. We are finalising this integration to ensure secure and seamless payments."
+          description="Pay levies and access the council revenue portal."
+        />
+      )
+    }
+--- ROUTE: /resources/street-naming
+    FILE:  app/resources/street-naming/page.tsx
+    export const metadata = {
+      title: 'Street Naming | Ibeju-Lekki Local Government',
+      description:
+        'Apply for street naming and street name validation in Ibeju-Lekki Local Government Area, Lagos State.',
+    }
+
+--- ROUTE: /resources/waste
+    FILE:  app/resources/waste/page.tsx
+    export const metadata = { title: 'Waste Collection | Ibeju-Lekki Local Government' }
+    
+    export default function Page() {
+      return (
+        <PagePlaceholder
+          title="Waste Collection"
+          sectionLabel="Resources"
+          variant="form"
+          description="Waste collection and the Keke Jaja tricycle service."
+        />
+      )
+    }
+===== H1 HEADINGS PER PAGE =====
+/about/culture  ->  [dynamic h1]
+/about/history  ->  [dynamic h1]
+/about  ->  [dynamic h1]
+/about/traditional-rulers/[slug]  ->  [dynamic h1]
+/about/traditional-rulers  ->  [dynamic h1]
+/accessibility  ->  [dynamic h1]
+/contact  ->  [dynamic h1]
+/government/chairman  ->  [dynamic h1]
+/government/executive-council  ->  [dynamic h1]
+/government/legislative-council  ->  [dynamic h1]
+/government/management-team  ->  [dynamic h1]
+/government/vision  ->  [dynamic h1]
+/housing-tourism  ->  [dynamic h1]
+/news/[slug]  ->  [dynamic h1]
+/news  ->  News &amp; Events
+/opportunities/housing/citrus-garden  ->  [dynamic h1]
+/opportunities/housing/eleko-isles  ->  [dynamic h1]
+/opportunities/housing/housing-opportunities  ->  [dynamic h1]
+/opportunities/housing  ->  [dynamic h1]
+/opportunities/investment/[slug]  ->  [dynamic h1]
+/opportunities/investment  ->  [dynamic h1]
+/opportunities/tourism  ->  [dynamic h1]
+/  ->  [dynamic h1]
+/privacy  ->  [dynamic h1]
+/programmes/agenda-2029  ->  [dynamic h1]
+/programmes/budget  ->  [dynamic h1]
+/programmes/performance-report  ->  [dynamic h1]
+/programmes/shieeld/[slug]  ->  [dynamic h1]
+/programmes/shieeld  ->  [dynamic h1]
+/report  ->  [dynamic h1]
+/resources/birth-certification  ->  [dynamic h1]
+/resources/careers/[slug]  ->  [dynamic h1]
+/resources/careers  ->  Career &amp; Jobs
+/resources/forms  ->  [dynamic h1]
+/resources/marriage-registry  ->  [dynamic h1]
+/resources/revenue  ->  [dynamic h1]
+/resources/street-naming  ->  [dynamic h1]
+/resources/waste  ->  [dynamic h1]
+
+===== PAGES USING PagePlaceholder (thin content) =====
+/accessibility
+/opportunities/housing/eleko-isles
+/privacy
+/programmes/agenda-2029
+/report
+/resources/birth-certification
+/resources/forms
+/resources/marriage-registry
+/resources/revenue
+/resources/street-naming
+/resources/waste
+
+===== SITEMAP AND ROBOTS =====
+import type { MetadataRoute } from 'next'
+import { groq } from 'next-sanity'
+import { client } from '@/lib/sanity'
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://ibejulekki-demo.vercel.app'
+
+const STATIC_ROUTES = [
+  '', '/news', '/about', '/about/history', '/about/culture', '/about/traditional-rulers',
+  '/about/traditional-rulers/orimedu', '/about/traditional-rulers/araromi',
+  '/about/traditional-rulers/kayetoro', '/about/traditional-rulers/debojo',
+  '/about/traditional-rulers/waliu-rasak', '/about/traditional-rulers/itedo',
+  '/about/traditional-rulers/lakowe', '/about/traditional-rulers/akodo',
+  '/about/traditional-rulers/ogunfayo',
+  '/government/vision', '/government/chairman', '/government/executive-council',
+  '/government/legislative-council', '/government/management-team',
+  '/programmes/shieeld', '/programmes/budget', '/programmes/performance-report',
+  '/resources/careers', '/resources/revenue', '/resources/waste', '/resources/forms',
+  '/opportunities/housing', '/opportunities/housing/housing-opportunities',
+  '/opportunities/housing/citrus-garden', '/opportunities/housing/eleko-isles',
+  '/opportunities/tourism',
+  '/opportunities/investment',
+  '/opportunities/investment/dangote-refinery', '/opportunities/investment/lekki-free-trade-zone',
+  '/opportunities/investment/lekki-deep-seaport', '/opportunities/investment/pan-atlantic-university',
+  '/opportunities/investment/lekki-international-airport', '/opportunities/investment/eleganza-industrial-city',
+  '/contact', '/report', '/privacy', '/accessibility',
+]
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  let posts: { slug: string; publishedAt?: string }[] = []
+  try {
+    posts =
+      (await client.fetch(
+        groq`*[_type == "news" && defined(slug.current)]{ "slug": slug.current, publishedAt }`,
+      )) ?? []
+  } catch {}
+
+  const now = new Date()
+  const staticEntries: MetadataRoute.Sitemap = STATIC_ROUTES.map((r) => ({
+    url: SITE_URL + r,
+    lastModified: now,
+    changeFrequency: (r === '' || r === '/news' ? 'daily' : 'weekly') as 'daily' | 'weekly',
+    priority: r === '' ? 1 : 0.7,
+  }))
+  const newsEntries: MetadataRoute.Sitemap = posts.map((p) => ({
+    url: SITE_URL + '/news/' + p.slug,
+    lastModified: p.publishedAt ? new Date(p.publishedAt) : now,
+    changeFrequency: 'monthly' as const,
+    priority: 0.6,
+  }))
+  return [...staticEntries, ...newsEntries]
+}
+
+import type { MetadataRoute } from 'next'
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://ibejulekki-demo.vercel.app'
+
+export default function robots(): MetadataRoute.Robots {
+  return {
+    rules: [{ userAgent: '*', allow: '/', disallow: ['/studio', '/studio/', '/api/'] }],
+    sitemap: SITE_URL + '/sitemap.xml',
+    host: SITE_URL,
+  }
+}
+
+===== SITE URL IN USE =====
+app/layout.tsx:16:  process.env.NEXT_PUBLIC_SITE_URL ?? "https://ibejulekki-demo.vercel.app";
+app/news/[slug]/page.tsx:81:  const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://ibejulekki-demo.vercel.app'
+app/robots.ts:3:const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://ibejulekki-demo.vercel.app'
+app/sitemap.ts:5:const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://ibejulekki-demo.vercel.app'
+
+===== NEWS METADATA (dynamic articles) =====
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+  const post = await getPost(params.slug)
+  if (!post) return { title: 'Article Not Found | Ibeju-Lekki Local Government' }
+  const ogImage = post.coverImage?.asset
+    ? urlFor(post.coverImage).width(1200).height(630).fit('crop').auto('format').url()
+    : undefined
+  return {
+    title: `${post.title} | Ibeju-Lekki Local Government`,
+    description: post.summary,
+    openGraph: {
+      type: 'article',
+      title: post.title,
+      description: post.summary,
+      publishedTime: post.publishedAt,
+      ...(ogImage ? { images: [{ url: ogImage, width: 1200, height: 630 }] } : {}),
+    },
+    twitter: {
+      card: ogImage ? 'summary_large_image' : 'summary',
+      title: post.title,
+      description: post.summary,
+    },
+  }
+}
+
+===== DONE =====
+

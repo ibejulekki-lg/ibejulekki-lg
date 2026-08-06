@@ -78,7 +78,7 @@ export default async function NewsPost({ params }: { params: { slug: string } })
     ? urlFor(post.coverImage).width(1200).height(675).fit('crop').auto('format').url()
     : null
 
-  const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://ibejulekki-demo.vercel.app'
+  const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://ibejulekki.lg.gov.ng'
   const newsJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'NewsArticle',
