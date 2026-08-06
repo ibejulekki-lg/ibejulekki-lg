@@ -40,8 +40,8 @@ export const EXECUTIVE_SECTIONS: Section[] = [
       { name: 'Hon. Balogun Abdulwaliu Oluwagbemi',  role: 'Supervisor for Budget, Planning & Statistics', image: '/leadership/balogun-abdulwaliu-oluwagbemi.webp' },
       { name: 'Hon. Fatai Alonge',                   role: 'Supervisor for Housing & Tourism', image: '/leadership/fatai-alonge.webp' },
       { name: 'Hon. Ogungbo Sofwan Temitope',        role: 'Supervisor for Environmental Services and Waste Management', image: '/leadership/ogungbo-sofwan-temitope.webp' },
-      { name: 'Hon. Olusola Edalere',                role: 'Supervisor for Agric. & Social Services' },
-      { name: 'Hon. Balogun Hakeem Oluwole',         role: 'Supervisor for Youth & Sports' },
+      { name: 'Hon. Olusola Edalere',                role: 'Supervisor for Agric. & Social Services', image: '/leadership/olusola-edalere.webp' },
+      { name: 'Hon. Balogun Hakeem Oluwole',         role: 'Supervisor for Youth & Sports', image: '/leadership/balogun-hakeem-oluwole.webp' },
     ],
   },
   {
@@ -51,7 +51,7 @@ export const EXECUTIVE_SECTIONS: Section[] = [
       { name: 'Hon. Yusuf Mujaidu',                  role: 'Special Adviser on Chieftaincy Matters', image: '/leadership/yusuf-mujaidu.webp' },
       { name: 'Hon. Shakirat Bisola Musari',         role: 'Special Adviser on Business & Economic Development', image: '/leadership/shakirat-bisola-musari.webp' },
       { name: 'Hon. Nurudeen Adeboyejo',             role: 'Special Adviser on Political Affairs', image: '/leadership/nurudeen-adeboyejo.webp' },
-      { name: 'Hon. Saheed Yusuf',                   role: 'Special Adviser for Agric & Social Services' },
+      { name: 'Hon. Saheed Yusuf',                   role: 'Special Adviser for Agric & Social Services', image: '/leadership/saheed-yusuf.webp' },
     ],
   },
   {

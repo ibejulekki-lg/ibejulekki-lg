@@ -1,0 +1,7 @@
+# Send the temporary netlify.app address to the official domain, so the site
+# is only ever indexed at one address.
+[[redirects]]
+  from = "https://ibeju-lekki.netlify.app/*"
+  to = "https://ibejulekki.lg.gov.ng/:splat"
+  status = 301
+  force = true
