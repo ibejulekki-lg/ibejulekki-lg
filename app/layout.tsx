@@ -20,6 +20,9 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
+  verification: {
+    google: 'xPOj1m7ePeIt2tprMxj60MEnBzLkeeyJQQYSaIYGJ7o',
+  },
   metadataBase: new URL(SITE_URL),
   title: "Ibeju-Lekki Local Government | Official Website",
   description:
