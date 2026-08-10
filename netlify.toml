@@ -1,7 +1,208 @@
-# Send the temporary netlify.app address to the official domain, so the site
-# is only ever indexed at one address.
+# ============================================================================
+# Redirects from the old WordPress URLs to their new equivalents.
+#
+# Google still holds most of this site ranking authority on the old addresses.
+# Without these rules every one of those results leads to a 404, which loses
+# the visitor and eventually the ranking too.
+#
+# Netlify applies rules top to bottom and stops at the first match, so the
+# specific rules come before the wildcards.
+#
+# Years are written out explicitly rather than using a :year placeholder.
+# Netlify placeholders match ANY single path segment, so /:year/ would also
+# have swallowed /about/ and /contact/.
+# ============================================================================
+
+# --- Send the temporary Netlify address to the official domain -------------
 [[redirects]]
   from = "https://ibeju-lekki.netlify.app/*"
   to = "https://ibejulekki.lg.gov.ng/:splat"
   status = 301
   force = true
+
+# --- Old WordPress section pages -------------------------------------------
+[[redirects]]
+  from = "/executives"
+  to = "/government/executive-council"
+  status = 301
+
+[[redirects]]
+  from = "/supervisors-special-advisers"
+  to = "/government/executive-council"
+  status = 301
+
+[[redirects]]
+  from = "/traditional-rulers"
+  to = "/about/traditional-rulers"
+  status = 301
+
+[[redirects]]
+  from = "/the-people"
+  to = "/about/culture"
+  status = 301
+
+[[redirects]]
+  from = "/management-team"
+  to = "/government/management-team"
+  status = 301
+
+[[redirects]]
+  from = "/legislative"
+  to = "/government/legislative-council"
+  status = 301
+
+[[redirects]]
+  from = "/chairman"
+  to = "/government/chairman"
+  status = 301
+
+[[redirects]]
+  from = "/history"
+  to = "/about/history"
+  status = 301
+
+[[redirects]]
+  from = "/vision-mission"
+  to = "/government/vision"
+  status = 301
+
+[[redirects]]
+  from = "/projects"
+  to = "/news"
+  status = 301
+
+# --- WordPress category, tag and author archives ----------------------------
+[[redirects]]
+  from = "/category/job-opportunity/*"
+  to = "/resources/careers"
+  status = 301
+
+[[redirects]]
+  from = "/category/*"
+  to = "/news"
+  status = 301
+
+[[redirects]]
+  from = "/tag/*"
+  to = "/news"
+  status = 301
+
+[[redirects]]
+  from = "/author/*"
+  to = "/news"
+  status = 301
+
+[[redirects]]
+  from = "/feed/*"
+  to = "/news"
+  status = 301
+
+# --- Individual posts -------------------------------------------------------
+# WordPress published at /YYYY/MM/DD/the-slug/ and the migration kept the
+# slug, so only the date prefix needs stripping.
+[[redirects]]
+  from = "/2018/:month/:day/:slug"
+  to = "/news/:slug"
+  status = 301
+
+[[redirects]]
+  from = "/2019/:month/:day/:slug"
+  to = "/news/:slug"
+  status = 301
+
+[[redirects]]
+  from = "/2020/:month/:day/:slug"
+  to = "/news/:slug"
+  status = 301
+
+[[redirects]]
+  from = "/2021/:month/:day/:slug"
+  to = "/news/:slug"
+  status = 301
+
+[[redirects]]
+  from = "/2022/:month/:day/:slug"
+  to = "/news/:slug"
+  status = 301
+
+[[redirects]]
+  from = "/2023/:month/:day/:slug"
+  to = "/news/:slug"
+  status = 301
+
+[[redirects]]
+  from = "/2024/:month/:day/:slug"
+  to = "/news/:slug"
+  status = 301
+
+[[redirects]]
+  from = "/2025/:month/:day/:slug"
+  to = "/news/:slug"
+  status = 301
+
+[[redirects]]
+  from = "/2026/:month/:day/:slug"
+  to = "/news/:slug"
+  status = 301
+
+# --- Year and month archives ------------------------------------------------
+[[redirects]]
+  from = "/2018/*"
+  to = "/news"
+  status = 301
+
+[[redirects]]
+  from = "/2019/*"
+  to = "/news"
+  status = 301
+
+[[redirects]]
+  from = "/2020/*"
+  to = "/news"
+  status = 301
+
+[[redirects]]
+  from = "/2021/*"
+  to = "/news"
+  status = 301
+
+[[redirects]]
+  from = "/2022/*"
+  to = "/news"
+  status = 301
+
+[[redirects]]
+  from = "/2023/*"
+  to = "/news"
+  status = 301
+
+[[redirects]]
+  from = "/2024/*"
+  to = "/news"
+  status = 301
+
+[[redirects]]
+  from = "/2025/*"
+  to = "/news"
+  status = 301
+
+[[redirects]]
+  from = "/2026/*"
+  to = "/news"
+  status = 301
+
+# --- WordPress internals ----------------------------------------------------
+[[redirects]]
+  from = "/wp-admin/*"
+  to = "/"
+  status = 301
+
+[[redirects]]
+  from = "/wp-login.php"
+  to = "/"
+  status = 301
+
+[[redirects]]
+  from = "/xmlrpc.php"
+  to = "/"
+  status = 301
