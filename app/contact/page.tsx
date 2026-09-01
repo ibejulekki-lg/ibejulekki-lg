@@ -11,8 +11,8 @@ export const metadata = {
 }
 
 const DIRECTORY = [
-  { role: 'Executive Chairman', lines: ['08083472704', '08073352019'] },
-  { role: 'Council Manager', lines: ['08079792040'] },
+  { role: 'Executive Chairman', lines: ['08164742229'] },
+  { role: 'Council Manager', lines: ['08023255386'] },
   { role: 'Information Officer', lines: ['08027243687 (WhatsApp)', '09167148716'] },
 ]
 
