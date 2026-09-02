@@ -11,18 +11,18 @@ export const metadata = {
 const CATEGORIES = [
   {
     icon: MapPinned,
-    title: 'New Street Name Registration',
-    body: 'Applicable to streets that are not yet named or registered.',
+    title: 'New street name registration',
+    body: 'This is applicable to streets that are not yet named or registered.',
   },
   {
     icon: FileCheck2,
-    title: 'Validation of an Existing Registration',
-    body: 'For streets that are already named, but the names are not yet properly captured in the official local government street registry.',
+    title: 'Validation of an existing registration',
+    body: 'These are for streets that are already named, but the names are not yet properly captured in the official local government street registry.',
   },
   {
     icon: RefreshCcw,
-    title: 'Renewal of an Expired Registration',
-    body: 'To retain a name whose registration has lapsed.',
+    title: 'Renewal of an expired registration',
+    body: 'This is to retain a name whose registration has lapsed.',
   },
 ]
 
@@ -55,8 +55,9 @@ export default function Page() {
             </h1>
             <p className="mt-4 max-w-2xl text-[15px] sm:text-[16px] text-black/60 leading-[1.85]">
               SNRMS is the official digital platform for street naming in Ibeju-Lekki Local Government
-              Area. Apply for street names online, track every stage of the process, pay securely
-              through the gateway, and receive automated notifications and certificates &mdash; without
+              Area. It allows residents, community associations, and all interested persons to apply
+              for street names online, track every stage of the street naming process, pay securely
+              through the gateway, and receive automated notifications and certificates, without
               making repeated trips to the council.
             </p>
             <a
