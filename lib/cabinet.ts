@@ -37,7 +37,7 @@ export const EXECUTIVE_SECTIONS: Section[] = [
       { name: 'Hon. Ajibola Elemoro',                role: 'Supervisor for Market & Revenue', image: '/leadership/ajibola-elemoro.webp' },
       { name: 'Hon. Agbaje Sodiq Olajide',           role: 'Supervisor for Education & Library Services', image: '/leadership/photo2.webp' },
       { name: 'Hon. Lasiru Sule',                    role: 'Supervisor for Information, Communication & Technology', image: '/leadership/lasiru-sule.webp' },
-      { name: 'Hon. Balogun Abdulwaliu Oluwagbemi',  role: 'Supervisor for Budget, Planning & Statistics', image: '/leadership/balogun-abdulwaliu-oluwagbemi.webp' },
+      { name: 'Hon. Balogun Abdul-waliu Oluwagbemi',  role: 'Supervisor for Budget, Planning & Statistics', image: '/leadership/balogun-abdulwaliu-oluwagbemi.webp' },
       { name: 'Hon. Fatai Alonge',                   role: 'Supervisor for Housing & Tourism', image: '/leadership/fatai-alonge.webp' },
       { name: 'Hon. Ogungbo Sofwan Temitope',        role: 'Supervisor for Environmental Services and Waste Management', image: '/leadership/ogungbo-sofwan-temitope.webp' },
       { name: 'Hon. Olusola Edalere',                role: 'Supervisor for Agric. & Social Services', image: '/leadership/olusola-edalere.webp' },
