@@ -4,6 +4,11 @@ export type Member = {
   ward?: string  // legislative councillors only
   image?: string // /path.webp in public/
   bio?: string   // short profile, two or three sentences; shown on the team card
+  /* Set when the member comes from Sanity. Takes priority over image, so a
+     portrait uploaded in the studio overrides the file-based fallback. */
+  photo?: { asset?: unknown; alt?: string; hotspot?: unknown }
+  section?: string
+  featured?: boolean
 }
 
 export type Section = {

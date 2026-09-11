@@ -1,0 +1,769 @@
+
+===== GIT =====
+c0d1d29 renamed adbulwasiu to abdul-wasiu from the team page
+b7b4416 adjusted some misplaced words in services
+27c2fee feat(resources): add street naming (SNRMS) page Add /resources/street-naming page for the Street Naming & Registration Management System, following the design system used on the investment opportunities page (brand colors, card grid, section rhythm). - Overview of SNRMS and what it does - Three application category cards (new registration, validation, renewal) - In-person assistance callout for the Secretariat - Administrative contact cards (Chairman, Treasurer, Committee) - CTA buttons linking to https://snrms.com
+4972b5a Merge branch 'main' of https://github.com/AfeezTemitope/ibejulekki-demo
+312ce1f replaced some executive images and also editted the previous numbers on contact us page
+?? cabinet-inspect.txt
+
+===== CABINET DATA (the whole file, this is what moves into Sanity) =====
+
+----- lib/cabinet.ts (104 lines) -----
+export type Member = {
+  name: string   // "To be confirmed" shows a neutral placeholder card
+  role?: string  // portfolio or office; omitted for non-cabinet members
+  ward?: string  // legislative councillors only
+  image?: string // /path.webp in public/
+  bio?: string   // short profile, two or three sentences; shown on the team card
+}
+
+export type Section = {
+  title: string
+  blurb?: string
+  members: Member[]
+}
+
+/* Official leadership data, from the council Protocol List and the printed
+   Management, Supervisors and Special Advisers roster (2026).
+   Portraits live in public/leadership/. People without a portrait yet render
+   as clean initials cards; adding a photo later is a one-line change. */
+
+/* --- Executive arm: sectioned (Leadership, Supervisors, Advisers, etc.) --- */
+export const EXECUTIVE_SECTIONS: Section[] = [
+  {
+    title: 'Executive Members',
+    members: [
+      { name: 'Hon. Engr. Abdullahi Sesan Olowa', role: 'Executive Chairman', image: '/chairman_native.webp' },
+      { name: 'Hon. Isiaka Yusuf Olatunji (IYO)', role: 'Vice Chairman / Supervisor for Works & Infrastructure', image: '/leadership/vice-chairman.webp' },
+      // { name: 'Hon. Olayinka Mojeed Oluwafemi', role: 'Leader of the House', image: '/leadership/olayinka-mojeed-oluwafemi.webp' },
+      { name: 'Hon. Adewale Fasali Adebanjo', role: 'Secretary to the Local Government', image: '/leadership/secretary.webp' },
+    ],
+  },
+  {
+    title: 'Supervisors',
+    blurb: 'Supervisory councillors appointed to lead the council portfolios.',
+    members: [
+      { name: 'Hon. Abisola Raolat Azeez',           role: 'Supervisor for WAPA', image: '/leadership/abisola-raolat-azeez.webp' },
+      { name: 'Hon. Aje Saheed',                     role: 'Supervisor for Health', image: '/leadership/aje-saheed.webp' },
+      { name: 'Hon. Ajibola Elemoro',                role: 'Supervisor for Market & Revenue', image: '/leadership/ajibola-elemoro.webp' },
+      { name: 'Hon. Agbaje Sodiq Olajide',           role: 'Supervisor for Education & Library Services', image: '/leadership/photo2.webp' },
+      { name: 'Hon. Lasiru Sule',                    role: 'Supervisor for Information, Communication & Technology', image: '/leadership/lasiru-sule.webp' },
+      { name: 'Hon. Balogun Abdul-waliu Oluwagbemi',  role: 'Supervisor for Budget, Planning & Statistics', image: '/leadership/balogun-abdulwaliu-oluwagbemi.webp' },
+      { name: 'Hon. Fatai Alonge',                   role: 'Supervisor for Housing & Tourism', image: '/leadership/fatai-alonge.webp' },
+      { name: 'Hon. Ogungbo Sofwan Temitope',        role: 'Supervisor for Environmental Services and Waste Management', image: '/leadership/ogungbo-sofwan-temitope.webp' },
+      { name: 'Hon. Olusola Edalere',                role: 'Supervisor for Agric. & Social Services', image: '/leadership/olusola-edalere.webp' },
+      { name: 'Hon. Balogun Hakeem Oluwole',         role: 'Supervisor for Youth & Sports', image: '/leadership/balogun-hakeem-oluwole.webp' },
+    ],
+  },
+  {
+    title: 'Special Advisers',
+    members: [
+      { name: 'Hon. Mrs. Wakilat Remilekun Odupe',   role: 'Special Adviser on Wealth Creation', image: '/leadership/wakilat-remilekun-odupe.webp' },
+      { name: 'Hon. Yusuf Mujaidu',                  role: 'Special Adviser on Chieftaincy Matters', image: '/leadership/yusuf-mujaidu.webp' },
+      { name: 'Hon. Shakirat Bisola Musari',         role: 'Special Adviser on Business & Economic Development', image: '/leadership/shakirat-bisola-musari.webp' },
+      { name: 'Hon. Nurudeen Adeboyejo',             role: 'Special Adviser on Political Affairs', image: '/leadership/nurudeen-adeboyejo.webp' },
+      { name: 'Hon. Saheed Yusuf',                   role: 'Special Adviser for Agric & Social Services', image: '/leadership/saheed-yusuf.webp' },
+    ],
+  },
+  {
+    title: 'Non-Cabinet Members',
+    members: [
+      { name: 'Rafiu Sanni Eleku', image: '/leadership/rafiu-sanni-eleku.webp' },
+      { name: 'Jimoh Azeez', image: '/leadership/jimoh-azeez.webp' },
+      { name: 'Kazeem Rilwan Abolaji', image: '/leadership/kazeem-riliwan-abolaji.webp' },
+    ],
+  },
+]
+
+/* --- Legislative arm --- */
+export const LEGISLATIVE: Member[] = [
+  { name: 'Hon. Olayinka Mojeed Oluwafemi', role: 'Leader of the Council', ward: 'Ward F',  image: '/leadership/olayinka-mojeed-oluwafemi.webp' },
+  { name: 'Hon. Musibau Shuaibu Olorunju',  role: 'Deputy Leader',         ward: 'Ward D',  image: '/leadership/musibau-shuaibu-olorunju.webp' },
+  { name: 'Hon. Eletu Zainab Ayobola',      role: 'Majority Leader',       ward: 'Ward E',  image: '/leadership/eletu-zainab-ayobola.webp' },
+  { name: 'Hon. Lawal Sebiu Alaba',         role: 'Chief Whip',            ward: 'Ward C2', image: '/leadership/lawal-sebiu-alaba.webp' },
+  { name: 'Hon. Aromire Rasaki Abidemi',    role: 'Member',                ward: 'Ward A',  image: '/leadership/aromire-rasaki-abidemi.webp' },
+  { name: 'Hon. Ogungbo Nurudeen Tunde',    role: 'Member',                ward: 'Ward B',  image: '/leadership/ogungbo-nurudeen-tunde.webp' },
+  { name: 'Hon. Rufai Kafayat Abosede',     role: 'Member',                ward: 'Ward C1', image: '/leadership/rufai-kafayat-abosede.webp' },
+]
+
+/* --- Management arm: career civil service, in official roster order --- */
+export const MANAGEMENT: Member[] = [
+  { name: 'Dr. Adekoya Adesanya Augustine',        role: 'Council Manager', image: '/leadership/council-manager.webp' },
+  { name: 'Mrs. Osun Yetunde Shakirat',            role: 'Council Treasurer', image: '/leadership/council-treasurer.webp' },
+  { name: 'Mr. Lagbalu Adesegun',                  role: 'HOD, Environment Services',                      image: '/leadership/lagbalu-adesegun.webp' },
+  { name: 'Mr. Ajayi Babajide Muhammed',           role: 'Deputy Director, Administration & Human Resources', image: '/leadership/ajayi-babajide-muhammed.webp' },
+  { name: 'Mrs. Belo Ganiat Abiola',               role: 'HOD, Education & Library Studies',                 image: '/leadership/belo-ganiat-abiola.webp' },
+  { name: 'Dr. Agboola Bidemi',                    role: 'Medical Officer of Health',                        image: '/leadership/agboola-bidemi.webp' },
+  { name: 'Mrs. Temitope Adesokan',                role: 'Internal Auditor',                                 image: '/leadership/temitope-adesokan.webp' },
+  { name: 'Mrs. AbdulAzeez Funmilola B.',          role: 'HOD, Agric. Rural & Social Services',              image: '/leadership/abdulazeez-funmilola-b.webp' },
+  { name: 'Mr. Badmus Hamzat',                     role: 'Clerk of the House' },
+  { name: 'Barr. Damilola Lawson',                 role: 'Legal Officer',                                    image: '/leadership/damilola-lawson.webp' },
+  { name: 'Engr. Kamiyo Adetola Tijani',           role: 'Council Engineer',                                 image: '/leadership/kamiyo-adetola-tijani.webp' },
+  { name: 'Mrs. Bokoh Sewanu Abosede',             role: 'HOD, WAPA',                                        image: '/leadership/bokoh-sewanu-abosede.webp' },
+  { name: 'Mr. Balogun Adewale Alli',              role: 'Area Officer (Bogije)' },
+  { name: 'Miss Issa R. Titilola',                 role: 'HOU, Procurement',                                 image: '/leadership/issa-r-titilola.webp' },
+  { name: 'Mrs. Ibraheem-Edunjobi Moriam Olaide',  role: 'HOD, Budget, Planning and Statistics',            image: '/leadership/ibraheem-edunjobi-moriam-olaide.webp' },
+  { name: 'Mr. Oladjobu Nathaniel Idowu',          role: 'Public Affairs Officer',                           image: '/leadership/oladjobu-nathaniel-idowu.webp' },
+  { name: 'Mrs. Aragbada Omolola Taiwo',           role: 'Area Officer (Ogunfayo)',                          image: '/leadership/aragbada-omolola-taiwo.webp' },
+  { name: 'Mr. Okesanya Olumide Adedapo',          role: 'Area Officer (Coastal)' },
+  { name: 'Mr. Odumokun Olusegun',                 role: 'Area Officer (Ibeju)',                             image: '/leadership/odumokun-olusegun.webp' },
+  { name: 'Mrs. Sarumi Oluwatosin Abidemi',        role: 'HOU, ICT',                                         image: '/leadership/sarumi-oluwatosin-abidemi.webp' },
+  { name: 'Mr. Adewale Omole Sheriff',             role: 'Tourism Officer',                                  image: '/leadership/adewale-omole-sheriff.webp' },
+  { name: 'Mr. Edalere Oladeinde Wasiu',           role: 'Second Signatory' },
+  { name: 'Mrs. Oketoyinbo Taiwo Adebowale',       role: 'Marriage Registrar',                               image: '/leadership/oketoyinbo-taiwo-adebowale.webp' },
+  { name: 'Mr. Lawal Liafis Adaranijo',            role: 'NULGE Chairman' ,                                  image: '/leadership/photo1.webp' },
+]
+
+===== TEAM PAGE COMPONENT =====
+
+----- components/TeamPage.tsx (137 lines) -----
+import Link from 'next/link'
+import Image from 'next/image'
+import { User } from 'lucide-react'
+import Footer from '@/components/Footer'
+import type { Member, Section } from '@/lib/cabinet'
+
+const HONORIFICS = ['Hon.', 'Engr.', 'Dr.', 'Mr.', 'Mrs.', 'Ms.', 'Miss', 'Barr.', 'Alh.', 'Chief', 'Prince', 'Princess', 'Pastor', 'Arc.', 'Surv.', 'Mallam']
+
+function initials(name: string) {
+  const parts = name.split(' ').filter((w) => w && !HONORIFICS.includes(w))
+  return parts.slice(0, 2).map((w) => w[0] || '').join('').toUpperCase()
+}
+
+function Portrait({ m }: { m: Member }) {
+  if (m.image) {
+    return (
+      <Image
+        src={m.image}
+        alt={m.role ? `${m.name}, ${m.role}` : m.name}
+        fill
+        className="object-cover object-top"
+        sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+      />
+    )
+  }
+  if (m.name === 'To be confirmed') {
+    return (
+      <div className="absolute inset-0 flex items-center justify-center bg-black/[0.04] text-black/25">
+        <User size={44} strokeWidth={1.4} />
+      </div>
+    )
+  }
+  return (
+    <div className="absolute inset-0 flex items-center justify-center bg-brand-yellow">
+      <span className="text-[clamp(2rem,6vw,2.8rem)] font-extrabold tracking-tight text-black/80">{initials(m.name)}</span>
+    </div>
+  )
+}
+
+function Card({ m }: { m: Member }) {
+  return (
+    <div className="group overflow-hidden rounded-2xl border border-black/10 bg-white hover:border-brand-yellow/50 hover:shadow-md transition-all duration-200">
+      <div className="relative aspect-[3/4] overflow-hidden bg-[#F4F4F4]">
+        <Portrait m={m} />
+      </div>
+      <div className="p-3 sm:p-4">
+        <div className="text-[12.5px] sm:text-[13.5px] font-bold text-brand-ink leading-snug">{m.name}</div>
+        {m.role ? (
+          <div className="mt-0.5 text-[11px] sm:text-[12px] font-medium text-brand-amber leading-snug">{m.role}</div>
+        ) : null}
+        {m.ward ? (
+          <span className="mt-2 inline-block rounded-full bg-black/[0.05] px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-black/50">
+            {m.ward}
+          </span>
+        ) : null}
+        {m.bio ? (
+          <p className="mt-2 text-[11px] sm:text-[11.5px] leading-[1.65] text-black/50">{m.bio}</p>
+        ) : null}
+      </div>
+    </div>
+  )
+}
+
+function Grid({ members }: { members: Member[] }) {
+  return (
+    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
+      {members.map((m, i) => (
+        <Card key={i} m={m} />
+      ))}
+    </div>
+  )
+}
+
+export default function TeamPage({
+  eyebrow, title, intro, members, sections, group, lead,
+}: {
+  eyebrow: string
+  title: string
+  intro: string
+  members?: Member[]
+  sections?: Section[]
+  group: string
+  lead?: Member
+}) {
+  return (
+    <>
+      <main className="min-h-screen bg-white">
+        <section className="border-b border-black/10 bg-brand-cream">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-10 py-10 sm:py-14">
+            <nav className="flex items-center flex-wrap gap-1.5 text-[11px] sm:text-[12px] text-black/45 mb-5" aria-label="Breadcrumb">
+              <Link href="/" className="hover:text-brand-ink transition-colors">Home</Link>
+              <span className="text-black/30">/</span>
+              <span>Government</span>
+              <span className="text-black/30">/</span>
+              <span className="text-brand-ink font-semibold">{group}</span>
+            </nav>
+            <div className="flex items-center gap-3 mb-3">
+              <span className="h-px w-8 bg-brand-yellow" aria-hidden="true" />
+              <span className="text-[10.5px] font-bold uppercase tracking-[0.25em] text-black/45">{eyebrow}</span>
+            </div>
+            <h1 className="text-[clamp(1.8rem,5vw,2.8rem)] font-extrabold text-brand-ink tracking-tight leading-tight">{title}</h1>
+            <p className="mt-4 max-w-2xl text-[14px] sm:text-[15px] text-black/55 leading-[1.8]">{intro}</p>
+          </div>
+        </section>
+
+        <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-10 py-12 sm:py-16">
+          {lead ? (
+            <div className="mb-10 sm:mb-12">
+              <div className="mx-auto max-w-xs">
+                <Card m={lead} />
+              </div>
+            </div>
+          ) : null}
+          {sections ? (
+            <div className="space-y-12 sm:space-y-16">
+              {sections.map((sec) => (
+                <div key={sec.title}>
+                  <div className="mb-6">
+                    <h2 className="text-[clamp(1.15rem,2.5vw,1.5rem)] font-extrabold text-brand-ink tracking-tight">{sec.title}</h2>
+                    {sec.blurb ? (
+                      <p className="mt-1.5 text-[13px] text-black/50 leading-relaxed max-w-2xl">{sec.blurb}</p>
+                    ) : null}
+                    <div className="mt-3 h-px w-full bg-black/10" />
+                  </div>
+                  <Grid members={sec.members} />
+                </div>
+              ))}
+            </div>
+          ) : members ? (
+            <Grid members={members} />
+          ) : null}
+        </section>
+      </main>
+      <Footer />
+    </>
+  )
+}
+
+===== THE THREE LEADERSHIP PAGES =====
+
+----- app/government/executive-council/page.tsx (20 lines) -----
+import TeamPage from '@/components/TeamPage'
+import { EXECUTIVE_SECTIONS } from '@/lib/cabinet'
+
+export const metadata = {
+  title: 'Executive Council | Ibeju-Lekki Local Government',
+  description:
+    'The executive arm of Ibeju-Lekki Local Government: the Executive Chairman, supervisors leading each portfolio, special advisers, and non-cabinet members.',
+}
+
+export default function Page() {
+  return (
+    <TeamPage
+      group="Executive Council"
+      eyebrow="Government · Executive"
+      title="Executive Council"
+      intro="The executive arm carries out the day-to-day administration of Ibeju-Lekki Local Government. It is led by the Executive Chairman and made up of supervisors who lead each portfolio, special advisers, and non-cabinet members."
+      sections={EXECUTIVE_SECTIONS}
+    />
+  )
+}
+
+----- app/government/legislative-council/page.tsx (21 lines) -----
+import TeamPage from '@/components/TeamPage'
+import { LEGISLATIVE } from '@/lib/cabinet'
+
+export const metadata = {
+  title: 'Legislative Council | Ibeju-Lekki Local Government',
+  description:
+    'The legislative arm of Ibeju-Lekki Local Government: councillors elected to represent the wards, with the leadership of the house.',
+}
+
+export default function Page() {
+  return (
+    <TeamPage
+      group="Legislative Council"
+      eyebrow="Government · Legislative"
+      title="Legislative Council"
+      intro="The legislative arm makes local laws, approves the budget and provides oversight. It is made up of councillors elected to represent the wards of Ibeju-Lekki, with the leadership of the house."
+      lead={LEGISLATIVE[0]}
+      members={LEGISLATIVE.slice(1)}
+    />
+  )
+}
+
+----- app/government/management-team/page.tsx (20 lines) -----
+import TeamPage from '@/components/TeamPage'
+import { MANAGEMENT } from '@/lib/cabinet'
+
+export const metadata = {
+  title: 'Management Team | Ibeju-Lekki Local Government',
+  description:
+    'The management team of Ibeju-Lekki Local Government: the career civil service that delivers council services day to day.',
+}
+
+export default function Page() {
+  return (
+    <TeamPage
+      group="Management Team"
+      eyebrow="Government · Management"
+      title="Management Team"
+      intro="The management team is the career civil service that delivers council services day to day, from environment and health to education, budget and revenue."
+      members={MANAGEMENT}
+    />
+  )
+}
+
+===== ANYTHING ELSE IMPORTING FROM lib/cabinet =====
+app/government/executive-council/page.tsx:2:import { EXECUTIVE_SECTIONS } from '@/lib/cabinet'
+app/government/legislative-council/page.tsx:2:import { LEGISLATIVE } from '@/lib/cabinet'
+app/government/management-team/page.tsx:2:import { MANAGEMENT } from '@/lib/cabinet'
+components/TeamPage.tsx:5:import type { Member, Section } from '@/lib/cabinet'
+
+===== SCHEMA INDEX =====
+
+----- schemas/index.ts (10 lines) -----
+import news             from './news'
+import quickService     from './quickService'
+import chairmanMessage  from './chairmanMessage'
+import siteSettings     from './siteSettings'
+import subscriber       from './subscriber'
+import pushSubscription from './pushSubscription'
+import contactMessage    from './contactMessage'
+import programme        from './programme'
+
+export const schemaTypes = [news, programme, quickService, chairmanMessage, siteSettings, subscriber, pushSubscription, contactMessage]
+
+===== SANITY CONFIG (structure, so Claude can slot the new section in) =====
+
+----- sanity.config.ts (243 lines) -----
+import { defineConfig } from 'sanity'
+import { structureTool } from 'sanity/structure'
+import { visionTool } from '@sanity/vision'
+import {
+  BellIcon,
+  DocumentTextIcon,
+  CogIcon,
+  UserIcon,
+  UsersIcon,
+  EnvelopeIcon,
+  HomeIcon,
+  WarningOutlineIcon,
+  StarIcon,
+  TagIcon,
+  RocketIcon,
+} from '@sanity/icons'
+
+import { schemaTypes }     from './schemas'
+import { theme }           from './studio/theme'
+import StudioLogo          from './studio/StudioLogo'
+import StudioNavbar        from './studio/StudioNavbar'
+import StudioDashboard     from './studio/StudioDashboard'
+
+/* Category list kept in step with schemas/news.ts so the studio can offer a
+   folder per category. Update both together if a category is added. */
+const NEWS_CATEGORIES: { title: string; value: string }[] = [
+  { title: 'Governance',     value: 'governance' },
+  { title: 'Infrastructure', value: 'infrastructure' },
+  { title: 'Health',         value: 'health' },
+  { title: 'Education',      value: 'education' },
+  { title: 'Environment',    value: 'environment' },
+  { title: 'Economy',        value: 'economy' },
+  { title: 'Careers',        value: 'careers' },
+  { title: 'Security',       value: 'security' },
+  { title: 'Community',      value: 'community' },
+  { title: 'Events',         value: 'events' },
+]
+
+const NEWS_DESC = [{ field: 'publishedAt', direction: 'desc' as const }]
+
+export default defineConfig({
+  name:    'ibeju-lekki-lga',
+  title:   'Ibeju-Lekki LGA',
+  // Guarded so a missing environment variable degrades gracefully in the
+  // studio UI instead of crashing the whole /studio route.
+  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || 'missing-project-id',
+  dataset:   process.env.NEXT_PUBLIC_SANITY_DATASET || 'production',
+  basePath:  '/studio',
+
+  theme,
+
+  studio: {
+    components: {
+      logo:    StudioLogo,
+      navbar:  StudioNavbar,
+    },
+  },
+
+  plugins: [
+    structureTool({
+      structure: (S) =>
+        S.list()
+          .title('Ibeju-Lekki CMS')
+          .items([
+            S.listItem()
+              .title('Dashboard')
+              .icon(HomeIcon)
+              .child(
+                S.component(StudioDashboard)
+                  .title('Welcome - Ibeju-Lekki Content Studio')
+              ),
+
+            S.divider(),
+
+            S.listItem()
+              .title('News & Events')
+              .icon(DocumentTextIcon)
+              .child(
+                S.list()
+                  .title('News & Events')
+                  .items([
+                    S.listItem()
+                      .id('all-articles')
+                      .title('All Articles')
+                      .icon(DocumentTextIcon)
+                      .child(
+                        S.documentTypeList('news')
+                          .title('All Articles')
+                          .defaultOrdering(NEWS_DESC)
+                      ),
+                    S.listItem()
+                      .id('needs-attention')
+                      .title('Needs Attention')
+                      .icon(WarningOutlineIcon)
+                      .child(
+                        S.documentList()
+                          .id('news-needs-attention')
+                          .title('Missing Cover Image, Alt Text or Summary')
+                          .schemaType('news')
+                          .filter('_type == "news" && (!defined(coverImage.asset) || !defined(coverImage.alt) || !defined(summary))')
+                          .defaultOrdering(NEWS_DESC)
+                      ),
+                    S.listItem()
+                      .id('featured-posts')
+                      .title('Featured')
+                      .icon(StarIcon)
+                      .child(
+                        S.documentList()
+                          .id('news-featured')
+                          .title('Featured Posts')
+                          .schemaType('news')
+                          .filter('_type == "news" && featured == true')
+                          .defaultOrdering(NEWS_DESC)
+                      ),
+                    S.divider(),
+                    S.listItem()
+                      .id('by-category')
+                      .title('By Category')
+                      .icon(TagIcon)
+                      .child(
+                        S.list()
+                          .title('By Category')
+                          .items(
+                            NEWS_CATEGORIES.map((c) =>
+                              S.listItem()
+                                .id(c.value)
+                                .title(c.title)
+                                .child(
+                                  S.documentList()
+                                    .id('news-cat-' + c.value)
+                                    .title(c.title)
+                                    .schemaType('news')
+                                    .filter('_type == "news" && category == $cat')
+                                    .params({ cat: c.value })
+                                    .defaultOrdering(NEWS_DESC)
+                                )
+                            )
+                          )
+                      ),
+                  ])
+              ),
+
+            S.divider(),
+
+            S.listItem()
+              .title('Programmes')
+              .icon(RocketIcon)
+              .child(
+                S.documentTypeList('programme')
+                  .title('Career & Skills Programmes')
+                  .defaultOrdering([{ field: 'order', direction: 'asc' }])
+              ),
+
+            S.listItem()
+              .title('Quick Services')
+              .icon(BellIcon)
+              .child(
+                S.documentTypeList('quickService')
+                  .title('Government Services')
+                  .defaultOrdering([{ field: 'order', direction: 'asc' }])
+              ),
+
+            S.listItem()
+              .title("Chairman's Message")
+              .icon(UserIcon)
+              .child(
+                S.document()
+                  .schemaType('chairmanMessage')
+                  .documentId('chairmanMessage')
+                  .title("Chairman's Message")
+              ),
+
+            S.divider(),
+
+            S.listItem()
+              .title('Audience')
+              .icon(UsersIcon)
+              .child(
+                S.list()
+                  .title('Audience')
+                  .items([
+                    S.listItem()
+                      .title('Newsletter Subscribers')
+                      .icon(EnvelopeIcon)
+                      .child(
+                        S.documentTypeList('subscriber')
+                          .title('Newsletter Subscribers')
+                          .defaultOrdering([{ field: 'subscribedAt', direction: 'desc' }])
+                      ),
+                    S.listItem()
+                      .title('Contact Messages')
+                      .icon(EnvelopeIcon)
+                      .child(
+                        S.documentTypeList('contactMessage')
+                          .title('Contact Messages')
+                          .defaultOrdering([{ field: 'receivedAt', direction: 'desc' }])
+                      ),
+                    S.listItem()
+                      .title('Push Subscriptions')
+                      .icon(BellIcon)
+                      .child(
+                        S.documentTypeList('pushSubscription')
+                          .title('Push Subscriptions')
+                          .defaultOrdering([{ field: 'subscribedAt', direction: 'desc' }])
+                      ),
+                  ])
+              ),
+
+            S.divider(),
+
+            S.listItem()
+              .title('Site Settings')
+              .icon(CogIcon)
+              .child(
+                S.document()
+                  .schemaType('siteSettings')
+                  .documentId('siteSettings')
+                  .title('Site Settings')
+              ),
+          ]),
+
+      defaultDocumentNode: (S, { schemaType }) => {
+        return S.document().views([S.view.form()])
+      },
+    }),
+
+    visionTool({
+      defaultApiVersion: '2024-01-01',
+    }),
+  ],
+
+  schema: { types: schemaTypes },
+
+  document: {
+    productionUrl: async (prev, { document }) => {
+      const slug = (document as any)?.slug?.current
+      if (document._type === 'news' && slug) {
+        return `${process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000'}/news/${slug}`
+      }
+      return prev
+    },
+  },
+})
+
+===== EXISTING QUERIES =====
+
+----- lib/queries.ts (62 lines) -----
+import { groq } from 'next-sanity'
+
+export const homepageNewsQuery = groq`
+  *[_type == "news"] | order(publishedAt desc) [0...8] {
+    _id, title, slug, category, publishedAt, featured, summary,
+    "coverImage": coverImage { asset, alt, hotspot }
+  }
+`
+
+export const quickServicesQuery = groq`
+  *[_type == "quickService" && active == true] | order(order asc) {
+    _id, label, description, icon, href, external
+  }
+`
+
+export const chairmanQuery = groq`
+  *[_type == "chairmanMessage"][0] {
+    name, title, pullQuote, fullMessage,
+    "photo": photo { asset, alt, hotspot },
+    stats
+  }
+`
+
+export const siteSettingsQuery = groq`
+  *[_type == "siteSettings"][0] {
+    siteName, tagline, address, phone, email, officeHours, socials, emergencyLines
+  }
+`
+
+export const newsPostBySlugQuery = groq`
+  *[_type == "news" && slug.current == $slug][0] {
+    _id, title, slug, category, publishedAt, _updatedAt, summary, author, tags,
+    body[]{
+      ...,
+      _type == "fileDownload" => {
+        _type, label, "url": asset->url, "fileName": asset->originalFilename, "size": asset->size
+      }
+    },
+    cta {
+      label, href,
+      "fileUrl": file.asset->url,
+      "fileName": file.asset->originalFilename
+    },
+    "coverImage": coverImage { asset, alt, hotspot }
+  }
+`
+
+export const programmesQuery = groq`
+  *[_type == "programme" && active == true] | order(order asc, title asc) {
+    _id, title, slug, summary, status, audience, venue, deadline, partners,
+    "coverImage": coverImage { asset, alt, hotspot }
+  }
+`
+
+export const programmeBySlugQuery = groq`
+  *[_type == "programme" && slug.current == $slug && active == true][0] {
+    _id, title, slug, summary, status, audience, venue, deadline, contact,
+    outcomes, partners, body, howToApply, applyLink,
+    "applyFileUrl": applyFile.asset->url,
+    "coverImage": coverImage { asset, alt, hotspot }
+  }
+`
+
+===== SANITY CLIENT =====
+
+----- lib/sanity.ts (23 lines) -----
+import { createClient } from 'next-sanity'
+import imageUrlBuilder from '@sanity/image-url'
+import type { SanityImageSource } from '@sanity/image-url/lib/types/types'
+
+export const projectId  = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID
+export const dataset    = process.env.NEXT_PUBLIC_SANITY_DATASET || 'production'
+export const apiVersion = '2024-01-01'
+
+// When Sanity is not connected yet (no project id in the environment), use a
+// stub client so pages render their built-in placeholder content instead of
+// crashing at import time.
+export const client: any = projectId
+  ? createClient({ projectId, dataset, apiVersion, useCdn: true })
+  : { fetch: async () => null }
+
+const builder = projectId
+  ? imageUrlBuilder(createClient({ projectId, dataset, apiVersion, useCdn: true }))
+  : null
+
+export function urlFor(source: SanityImageSource): any {
+  if (!builder) return { url: () => '' }
+  return builder.image(source)
+}
+
+===== PORTRAIT FILES ON DISK =====
+abisola-raolat-azeez.webp
+adewale-omole-sheriff.webp
+agbaje-sodiq-olajide.webp
+agboola-bidemi.webp
+ajayi-babajide-muhammed.webp
+aje-saheed.webp
+ajibola-elemoro.webp
+aragbada-omolola-taiwo.webp
+aromire-rasaki-abidemi.webp
+balogun-abdulwaliu-oluwagbemi.webp
+balogun-hakeem-oluwole.webp
+belo-ganiat-abiola.webp
+bokoh-sewanu-abosede.webp
+council-manager.webp
+council-treasurer.webp
+damilola-lawson.webp
+eletu-zainab-ayobola.webp
+fatai-alonge.webp
+ibraheem-edunjobi-moriam-olaide.webp
+issa-r-titilola.webp
+jimoh-azeez.webp
+kamiyo-adetola-tijani.webp
+kazeem-riliwan-abolaji.webp
+lagbalu-adesegun.webp
+lasiru-sule.webp
+lawal-sebiu-alaba.webp
+musibau-shuaibu-olorunju.webp
+nurudeen-adeboyejo.webp
+oba-arowolo-araromi.webp
+oba-bakare-kayetoro.webp
+oba-elemoro-itedo.webp
+oba-idogun-ogunfayo.webp
+oba-odugbesan-debojo.webp
+oba-ojomu-lakowe.webp
+oba-olokodano-akodo.webp
+oba-onimedu-orimedu.webp
+oba-rasak.webp
+odumokun-olusegun.webp
+ogungbo-nurudeen-tunde.webp
+ogungbo-sofwan-temitope.webp
+oketoyinbo-taiwo-adebowale.webp
+oladjobu-nathaniel-idowu.webp
+olayinka-mojeed-oluwafemi.webp
+olusola-edalere.webp
+onisolu.webp
+photo1.webp
+photo2.webp
+rafiu-sanni-eleku.webp
+rufai-kafayat-abosede.webp
+saheed-yusuf.webp
+sarumi-oluwatosin-abidemi.webp
+secretary.webp
+shakirat-bisola-musari.webp
+shieeld-pillars.webp
+temitope-adesokan.webp
+vice-chairman.webp
+wakilat-remilekun-odupe.webp
+yusuf-mujaidu.webp
+--- count ---
+58
+--- other portraits at the root of public ---
+public/OIP.webp
+public/apc-logo.webp
+public/chairman.webp
+public/chairman_native.webp
+public/chairman_on_landingpage.webp
+public/ibeju-lekki-logo-sm.webp
+public/ibeju-lekki-logo.webp
+public/shieeld-pillars.webp
+
+===== ENV VAR NAMES ONLY =====
+NEXT_PUBLIC_SANITY_DATASET
+NEXT_PUBLIC_SANITY_PROJECT_ID
+NEXT_PUBLIC_SITE_URL
+NEXT_PUBLIC_VAPID_PUBLIC_KEY
+PUSH_SECRET
+SANITY_API_TOKEN
+VAPID_PRIVATE_KEY
+
+===== DONE =====
+

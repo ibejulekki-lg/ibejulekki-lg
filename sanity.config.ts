@@ -13,6 +13,8 @@ import {
   StarIcon,
   TagIcon,
   RocketIcon,
+  MasterDetailIcon,
+  EyeClosedIcon,
 } from '@sanity/icons'
 
 import { schemaTypes }     from './schemas'
@@ -37,6 +39,16 @@ const NEWS_CATEGORIES: { title: string; value: string }[] = [
 ]
 
 const NEWS_DESC = [{ field: 'publishedAt', direction: 'desc' as const }]
+
+/* The four blocks the Executive Council page renders, in page order. */
+const EXEC_SECTIONS: { title: string; value: string }[] = [
+  { title: 'Executive Members',   value: 'executive-members' },
+  { title: 'Supervisors',         value: 'supervisors' },
+  { title: 'Special Advisers',    value: 'special-advisers' },
+  { title: 'Non-Cabinet Members', value: 'non-cabinet' },
+]
+
+const LEADER_ORDER = [{ field: 'order', direction: 'asc' as const }]
 
 export default defineConfig({
   name:    'ibeju-lekki-lga',
@@ -141,6 +153,90 @@ export default defineConfig({
               ),
 
             S.divider(),
+
+            S.listItem()
+              .title('Leadership')
+              .icon(MasterDetailIcon)
+              .child(
+                S.list()
+                  .title('Leadership')
+                  .items([
+                    S.listItem()
+                      .id('exec-council')
+                      .title('Executive Council')
+                      .icon(UsersIcon)
+                      .child(
+                        S.list()
+                          .title('Executive Council')
+                          .items(
+                            EXEC_SECTIONS.map((sec) =>
+                              S.listItem()
+                                .id(sec.value)
+                                .title(sec.title)
+                                .child(
+                                  S.documentList()
+                                    .id('leader-' + sec.value)
+                                    .title(sec.title)
+                                    .schemaType('leader')
+                                    .filter('_type == "leader" && arm == "executive" && section == $sec && active == true')
+                                    .params({ sec: sec.value })
+                                    .defaultOrdering(LEADER_ORDER)
+                                    .initialValueTemplates([])
+                                )
+                            )
+                          )
+                      ),
+                    S.listItem()
+                      .id('legislative-council')
+                      .title('Legislative Council')
+                      .icon(UsersIcon)
+                      .child(
+                        S.documentList()
+                          .id('leader-legislative')
+                          .title('Councillors')
+                          .schemaType('leader')
+                          .filter('_type == "leader" && arm == "legislative" && active == true')
+                          .defaultOrdering(LEADER_ORDER)
+                      ),
+                    S.listItem()
+                      .id('management-team')
+                      .title('Management Team')
+                      .icon(UsersIcon)
+                      .child(
+                        S.documentList()
+                          .id('leader-management')
+                          .title('Management Team')
+                          .schemaType('leader')
+                          .filter('_type == "leader" && arm == "management" && active == true')
+                          .defaultOrdering(LEADER_ORDER)
+                      ),
+                    S.divider(),
+                    S.listItem()
+                      .id('leader-all')
+                      .title('Everyone')
+                      .icon(MasterDetailIcon)
+                      .child(
+                        S.documentTypeList('leader')
+                          .title('Every Leadership Member')
+                          .defaultOrdering([
+                            { field: 'arm', direction: 'asc' },
+                            { field: 'order', direction: 'asc' },
+                          ])
+                      ),
+                    S.listItem()
+                      .id('leader-hidden')
+                      .title('No Longer in Office')
+                      .icon(EyeClosedIcon)
+                      .child(
+                        S.documentList()
+                          .id('leader-inactive')
+                          .title('Hidden from the website')
+                          .schemaType('leader')
+                          .filter('_type == "leader" && active != true')
+                          .defaultOrdering(LEADER_ORDER)
+                      ),
+                  ])
+              ),
 
             S.listItem()
               .title('Programmes')

@@ -2,6 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { User } from 'lucide-react'
 import Footer from '@/components/Footer'
+import { urlFor } from '@/lib/sanity'
 import type { Member, Section } from '@/lib/cabinet'
 
 const HONORIFICS = ['Hon.', 'Engr.', 'Dr.', 'Mr.', 'Mrs.', 'Ms.', 'Miss', 'Barr.', 'Alh.', 'Chief', 'Prince', 'Princess', 'Pastor', 'Arc.', 'Surv.', 'Mallam']
@@ -11,12 +12,27 @@ function initials(name: string) {
   return parts.slice(0, 2).map((w) => w[0] || '').join('').toUpperCase()
 }
 
+/* A portrait comes either from Sanity (photo) or from the public folder
+   (image). Sanity wins when both are present, so a CMS upload immediately
+   overrides whatever the file-based fallback held. */
+function portraitSrc(m: Member): string | null {
+  if (m.photo?.asset) {
+    try {
+      return urlFor(m.photo).width(600).height(800).fit('crop').auto('format').url()
+    } catch {
+      return null
+    }
+  }
+  return m.image ?? null
+}
+
 function Portrait({ m }: { m: Member }) {
-  if (m.image) {
+  const src = portraitSrc(m)
+  if (src) {
     return (
       <Image
-        src={m.image}
-        alt={m.role ? `${m.name}, ${m.role}` : m.name}
+        src={src}
+        alt={m.photo?.alt || (m.role ? `${m.name}, ${m.role}` : m.name)}
         fill
         className="object-cover object-top"
         sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
@@ -135,3 +151,4 @@ export default function TeamPage({
     </>
   )
 }
+
