@@ -1,0 +1,412 @@
+
+===== GIT =====
+9f916e6 Move leadership roster into Sanity so council staff can manage it
+c0d1d29 renamed adbulwasiu to abdul-wasiu from the team page
+b7b4416 adjusted some misplaced words in services
+27c2fee feat(resources): add street naming (SNRMS) page Add /resources/street-naming page for the Street Naming & Registration Management System, following the design system used on the investment opportunities page (brand colors, card grid, section rhythm). - Overview of SNRMS and what it does - Three application category cards (new registration, validation, renewal) - In-person assistance callout for the Secretariat - Administrative contact cards (Chairman, Treasurer, Committee) - CTA buttons linking to https://snrms.com
+?? rulers-inspect.txt
+
+===== WHERE RULER DATA LIVES =====
+cabinet.ts
+investments.ts
+leadership.ts
+queries.ts
+rulers.ts
+sanity.ts
+sanityWrite.ts
+settings.ts
+shieeld.ts
+--- files mentioning rulers ---
+app/about/culture/page.tsx
+app/about/history/page.tsx
+app/about/traditional-rulers/[slug]/page.tsx
+app/about/traditional-rulers/page.tsx
+app/opportunities/tourism/page.tsx
+app/sitemap.ts
+components/AboutPage.tsx
+components/BottomNav.tsx
+components/Footer.tsx
+components/Header.tsx
+lib/rulers.ts
+lib/shieeld.ts
+
+===== RULER DATA FILE =====
+
+----- lib/rulers.ts (144 lines) -----
+export interface RulerSection {
+  heading?: string
+  paras: string[]
+}
+
+export interface Ruler {
+  slug: string
+  name: string
+  title: string
+  image: string
+  history?: RulerSection[]
+}
+
+const RULERS_RAW: Ruler[] = [
+    {
+    slug: 'ibeju',
+    name: 'HRM Oba Waliu Rasak',
+    title: 'The Onibeju of Ibeju Kingdom',
+    image: '/leadership/oba-rasak.webp',
+  },
+  {
+    slug: 'orimedu',
+    name: 'HRM Oba Amb. Abidemi Toheeb Yissa Oyedele',
+    title: 'Onimedu of Orimedu Kingdom, Oyetu I',
+    image: '/leadership/oba-onimedu-orimedu.webp',
+    history: [
+      {
+        paras: [
+          `Orimedu Kingdom is a historic settlement located in the Ibeju-Lekki Local Government Area of Lagos State, South West Nigeria. Situated in a region that serves as a vibrant commercial nerve centre for Nigeria and Africa, Orimedu boasts a rich cultural heritage deeply rooted in Yoruba traditions.`,
+        ],
+      },
+      {
+        heading: 'Origin of the Name and the Founder',
+        paras: [
+          `The name Orimedu was coined by its founder, Prince Ladejobi, after discovering that the vast majority of the land consisted of rich, dark humus soil known locally as Imedu (or Ile dudu). Prince Ladejobi, a direct descendant of Oba Oranmiyan of Ile-Ife, migrated to the area in the late 14th century in search of a suitable settlement. His choice of location was guided by an oracle, which instructed that the new kingdom must lie between a river and the sea.`,
+        ],
+      },
+      {
+        heading: 'The Migration Journey',
+        paras: [
+          `A bold and skilled hunter, Prince Ladejobi embarked on the journey from Ile-Ife accompanied by his relatives, Ogbe, Sobokunrin, and Sifiyon, along with their followers and slaves. During the migration, he passed through the Oyo Empire, where he was received with royal honour as a blood relative. He later continued to Ijebu-Ode and settled temporarily at the Idewon Quarters.`,
+          `Consulting the oracle once again, he was reminded that his final destination must be between a river and the sea. The group proceeded to the Epe riverbank, crossed to Oju-Ota (now Ojota), hunted through what is today known as Oke-Ogun Village, and finally arrived at Ebute-Orimedu.`,
+        ],
+      },
+      {
+        heading: 'Settlement and Key Events',
+        paras: [
+          `Upon reaching the bank of Orimedu Creek, Prince Ladejobi left his companions to scout for a suitable camping site. While he was away, his sister Ogbe was attacked and swallowed by a large fish. Prince Ladejobi tracked and killed the fish, retrieved the body of his sister from its belly, and performed traditional burial rites. The site of her burial is still known today as Oju Ogbe.`,
+          `As a result of this tragedy, the consumption of Eja Osan (a species of fish) became a taboo in Orimedu.`,
+          `Prince Ladejobi eventually moved his people to the chosen site, which he named Orimedu. He reigned as the first Oba and established the worship of several deities, including Oro and Olokun.`,
+          `One notable event during this period involved his brothers, Sobokunrin and Sifiyon. While hunting on a sunny day, they discovered the tracks of a large wild animal at the bank of Orimedu River. They tracked and killed the animal at the bank of another nearby river, which they named Odo-Ogun Yo (the river where the god of iron answered their prayer). This river lies between present-day Ijede and Eleko towns. They carried parts of the animal back to Prince Ladejobi as proof of their success. With his permission and after further consultation with the oracle, Sobokunrin and Sifiyon settled in the area, naming it Ibere Kodo. To this day, Orimedu and Iberekodo maintain strong historical, cultural, and social ties.`,
+        ],
+      },
+      {
+        heading: '19th-Century Historical Context',
+        paras: [
+          `In 1859, during the reign of Kosoko (who was then in exile from Lagos Island), the Epe and Orimedu seashore served as a major slave port. Portuguese and other European traders came here to purchase slaves, who were then shipped to foreign lands. This occurred after the proclamation of the abolition of slavery by Oba Akintoye, backed by the British government, which led to conflict. Kosoko later returned to Lagos Island (settling at Epetedo) following a reconciliation with Oba Akintoye, while some of his entourage remained in the area.`,
+        ],
+      },
+      {
+        heading: 'Modern Orimedu',
+        paras: [
+          `Contemporary Orimedu is divided into two main quarters, Ijebu and Eko, with six sub-quarters: Oko-Ekun, Oke-Oshodi, Abejoye, Oke-Oba, Ipatun, and Oke-Popo.`,
+        ],
+      },
+    ],
+  },
+  {
+    slug: 'araromi',
+    name: 'HRM Oba Olayemi Lukman Arowolo',
+    title: 'Oba Gbadewolu of Araromi Kingdom',
+    image: '/leadership/oba-arowolo-araromi.webp',
+  },
+    {
+    slug: 'onisolu',
+    name: 'HRM Oba Muideen Babatunde Adebowale Balogun',
+    title: 'The onisolu of Solu-Alade kingdom',
+    image: '/leadership/onisolu.webp',
+  },
+  {
+    slug: 'kayetoro',
+    name: 'HRM Oba Saka Bakare',
+    title: 'The Olu Kayetoro of Kayetoro Land',
+    image: '/leadership/oba-bakare-kayetoro.webp',
+  },
+  {
+    slug: 'debojo',
+    name: 'Oba Ajibola Talabi Odugbesan',
+    title: 'Onidebojo of Debojo Kingdom',
+    image: '/leadership/oba-odugbesan-debojo.webp',
+  },
+  {
+    slug: 'itedo',
+    name: 'HRM Oba Tajudeen Afolabi Elemoro',
+    title: 'The Onitedo of Itedo',
+    image: '/leadership/oba-elemoro-itedo.webp',
+  },
+  {
+    slug: 'lakowe',
+    name: 'HRM Oba Akeem Olusegun Adisa Ojomu',
+    title: 'The Onilakowe of Lakowe Kingdom',
+    image: '/leadership/oba-ojomu-lakowe.webp',
+  },
+  {
+    slug: 'akodo',
+    name: 'HRM Oba Abdulhakeem Babatunde Olokodano',
+    title: 'The Alakodo of Akodo',
+    image: '/leadership/oba-olokodano-akodo.webp',
+  },
+  {
+    slug: 'ogunfayo',
+    name: 'Oba Dr. Mufutau Olanrewaju Adewunmi Idogun Larrys (Tunwase I)',
+    title: 'Ologunfayo of Ogunfayo Kingdom',
+    image: '/leadership/oba-idogun-ogunfayo.webp',
+  },
+]
+
+/* Official order of the traditional rulers as supplied by the council.
+   Rulers not yet matched to a stool on this list appear after these, in their
+   existing order. Add new slugs here as further rulers are confirmed. */
+/* Official order of the traditional rulers as supplied by the council. */
+const DISPLAY_ORDER = [
+  'ibeju',        // 1 — Oníbẹ̀jù
+  'orimedu',      // 2 — Onimedu
+  'itedo',        // 3 — Elemoro
+  'onisolu',      // 4 — Onisolu
+  'araromi',      // 5 — Araromi
+  'ogunfayo',     // 6 — Ologunfayo
+  'lakowe',       // 7 — Onilakowe
+  'debojo',       // 8 — Onidebojo
+  'akodo',        // 9 — Alakodo
+  'kayetoro',     // 10 — Onímòpó
+]
+
+const rank = (slug: string) => {
+  const i = DISPLAY_ORDER.indexOf(slug)
+  return i === -1 ? DISPLAY_ORDER.length + 1 : i
+}
+
+export const RULERS: Ruler[] = [...RULERS_RAW].sort((a, b) => rank(a.slug) - rank(b.slug))
+
+export function getRuler(slug: string): Ruler | undefined {
+  return RULERS.find((r) => r.slug === slug)
+}
+
+----- lib/traditionalRulers.ts : MISSING -----
+
+----- lib/traditional-rulers.ts : MISSING -----
+
+----- data/rulers.ts : MISSING -----
+
+===== RULERS LANDING PAGE =====
+
+----- app/about/traditional-rulers/page.tsx (73 lines) -----
+import Link from 'next/link'
+import Image from 'next/image'
+import { ArrowRight } from 'lucide-react'
+import Footer from '@/components/Footer'
+import { RULERS } from '@/lib/rulers'
+
+export const metadata = {
+  title: 'Traditional Rulers | Ibeju-Lekki Local Government',
+  description:
+    'The traditional rulers of Ibeju-Lekki Local Government Area, Lagos State: the Obas and custodians of the customs and heritage of our kingdoms.',
+}
+
+export default function Page() {
+  return (
+    <>
+      <main className="min-h-screen bg-white">
+        <section className="border-b border-black/10 bg-brand-cream">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-10 py-10 sm:py-14">
+            <nav className="flex items-center flex-wrap gap-1.5 text-[11px] sm:text-[12px] text-black/45 mb-5" aria-label="Breadcrumb">
+              <Link href="/" className="hover:text-brand-ink transition-colors">Home</Link>
+              <span className="text-black/30">/</span>
+              <span>About</span>
+              <span className="text-black/30">/</span>
+              <span className="text-brand-ink font-semibold">Traditional Rulers</span>
+            </nav>
+            <div className="flex items-center gap-3 mb-3">
+              <span className="h-px w-8 bg-brand-yellow" aria-hidden="true" />
+              <span className="text-[10.5px] font-bold uppercase tracking-[0.25em] text-black/45">About Ibeju-Lekki</span>
+            </div>
+            <h1 className="text-[clamp(1.8rem,5vw,2.9rem)] font-extrabold text-brand-ink tracking-tight leading-tight">
+              Traditional Rulers
+            </h1>
+            <p className="mt-4 max-w-2xl text-[15px] sm:text-[16px] text-black/60 leading-[1.85]">
+              The royal fathers of Ibeju-Lekki: the Obas of our kingdoms, custodians of the
+              customs, history and heritage of the communities that make up the local
+              government area.
+            </p>
+          </div>
+        </section>
+
+        <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-10 py-12 sm:py-16">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+            {RULERS.map((r) => (
+              <Link
+                key={r.slug}
+                href={`/about/traditional-rulers/${r.slug}`}
+                className="group flex flex-col overflow-hidden rounded-2xl border border-black/10 bg-white transition-all hover:border-brand-yellow hover:shadow-md"
+              >
+                <div className="relative aspect-[3/4] w-full bg-[#F4F4F4]">
+                  <Image
+                    src={r.image}
+                    alt={r.name}
+                    fill
+                    className="object-cover object-top"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  />
+                </div>
+                <div className="flex flex-col flex-1 p-5">
+                  <h2 className="text-[14px] font-bold text-brand-ink leading-snug">{r.name}</h2>
+                  <p className="mt-1 text-[11.5px] font-semibold uppercase tracking-wide text-brand-amber">{r.title}</p>
+                  <span className="mt-3 inline-flex items-center gap-1 text-[12px] font-semibold text-brand-amber transition-all group-hover:gap-2">
+                    Read more <ArrowRight size={13} strokeWidth={2.5} />
+                  </span>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
+      </main>
+      <Footer />
+    </>
+  )
+}
+
+===== RULER DETAIL PAGE =====
+
+----- app/about/traditional-rulers/[slug]/page.tsx (99 lines) -----
+import Link from 'next/link'
+import Image from 'next/image'
+import { notFound } from 'next/navigation'
+import { ArrowLeft } from 'lucide-react'
+import Footer from '@/components/Footer'
+import { RULERS, getRuler } from '@/lib/rulers'
+
+export function generateStaticParams() {
+  return RULERS.map((r) => ({ slug: r.slug }))
+}
+
+export function generateMetadata({ params }: { params: { slug: string } }) {
+  const ruler = getRuler(params.slug)
+  if (!ruler) return { title: 'Traditional Rulers | Ibeju-Lekki Local Government' }
+  return {
+    title: `${ruler.name} | Traditional Rulers | Ibeju-Lekki Local Government`,
+    description: `${ruler.name}, ${ruler.title}, Ibeju-Lekki Local Government Area, Lagos State.`,
+  }
+}
+
+export default function Page({ params }: { params: { slug: string } }) {
+  const ruler = getRuler(params.slug)
+  if (!ruler) notFound()
+
+  return (
+    <>
+      <main className="min-h-screen bg-white">
+        <section className="border-b border-black/10 bg-brand-cream">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-10 py-10 sm:py-14">
+            <nav className="flex items-center flex-wrap gap-1.5 text-[11px] sm:text-[12px] text-black/45 mb-5" aria-label="Breadcrumb">
+              <Link href="/" className="hover:text-brand-ink transition-colors">Home</Link>
+              <span className="text-black/30">/</span>
+              <Link href="/about/traditional-rulers" className="hover:text-brand-ink transition-colors">Traditional Rulers</Link>
+              <span className="text-black/30">/</span>
+              <span className="text-brand-ink font-semibold">{ruler.title}</span>
+            </nav>
+            <div className="flex flex-col sm:flex-row items-center sm:items-end gap-6 sm:gap-9">
+              <div className="relative aspect-[3/4] w-44 sm:w-52 flex-shrink-0 overflow-hidden rounded-2xl bg-[#F4F4F4] shadow-lg">
+                <Image
+                  src={ruler.image}
+                  alt={ruler.name}
+                  fill
+                  className="object-cover object-top"
+                  sizes="(max-width: 640px) 176px, 208px"
+                  priority
+                />
+              </div>
+              <div className="text-center sm:text-left">
+                <div className="flex items-center justify-center sm:justify-start gap-3 mb-3">
+                  <span className="h-px w-8 bg-brand-yellow" aria-hidden="true" />
+                  <span className="text-[10.5px] font-bold uppercase tracking-[0.25em] text-black/45">Traditional Ruler</span>
+                </div>
+                <h1 className="text-[clamp(1.5rem,4vw,2.3rem)] font-extrabold text-brand-ink tracking-tight leading-tight">
+                  {ruler.name}
+                </h1>
+                <p className="mt-2 text-[13px] font-semibold uppercase tracking-wide text-brand-amber">{ruler.title}</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-10 py-12 sm:py-16">
+          {ruler.history ? (
+            <div className="space-y-10">
+              {ruler.history.map((sec, i) => (
+                <div key={i}>
+                  {sec.heading ? (
+                    <h2 className="mb-4 text-[17px] sm:text-[19px] font-extrabold text-brand-ink tracking-tight">
+                      {sec.heading}
+                    </h2>
+                  ) : null}
+                  {sec.paras.map((p, j) => (
+                    <p key={j} className="mb-4 text-[14.5px] leading-[1.9] text-black/70">
+                      {p}
+                    </p>
+                  ))}
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p className="text-[14.5px] leading-[1.9] text-black/60">
+              The history of this kingdom will be published here.
+            </p>
+          )}
+
+          <div className="mt-12">
+            <Link
+              href="/about/traditional-rulers"
+              className="inline-flex items-center gap-2 rounded-full border border-black/15 px-5 py-2.5 text-[12.5px] font-semibold text-brand-ink transition-colors hover:border-brand-yellow hover:bg-brand-yellow/10"
+            >
+              <ArrowLeft size={14} strokeWidth={2.5} /> All Traditional Rulers
+            </Link>
+          </div>
+        </section>
+      </main>
+      <Footer />
+    </>
+  )
+}
+
+===== ROUTES UNDER traditional-rulers =====
+app/about/traditional-rulers
+app/about/traditional-rulers/[slug]
+app/about/traditional-rulers/[slug]/page.tsx
+app/about/traditional-rulers/page.tsx
+
+===== RULER PORTRAITS ON DISK =====
+oba-arowolo-araromi.webp
+oba-bakare-kayetoro.webp
+oba-elemoro-itedo.webp
+oba-idogun-ogunfayo.webp
+oba-odugbesan-debojo.webp
+oba-ojomu-lakowe.webp
+oba-olokodano-akodo.webp
+oba-onimedu-orimedu.webp
+oba-rasak.webp
+onisolu.webp
+--- any rulers folder? ---
+no public/rulers dir
+
+===== SITEMAP RULER ENTRIES =====
+19:  '/about/traditional-rulers',
+41:const RULERS = [
+82:    ...RULERS.map((s) => entry('/about/traditional-rulers/' + s, 0.6, 'monthly')),
+const RULERS = [
+  'orimedu', 'araromi', 'kayetoro', 'debojo', 'itedo',
+  'lakowe', 'akodo', 'ogunfayo', 'ibeju', 'onisolu',
+]
+
+===== SCHEMA INDEX (in case rulers should follow leadership into Sanity) =====
+
+----- schemas/index.ts (11 lines) -----
+import news             from './news'
+import quickService     from './quickService'
+import chairmanMessage  from './chairmanMessage'
+import siteSettings     from './siteSettings'
+import subscriber       from './subscriber'
+import pushSubscription from './pushSubscription'
+import contactMessage    from './contactMessage'
+import programme        from './programme'
+import leader           from './leader'
+
+export const schemaTypes = [news, programme, leader, quickService, chairmanMessage, siteSettings, subscriber, pushSubscription, contactMessage]
+
+===== DONE =====
+

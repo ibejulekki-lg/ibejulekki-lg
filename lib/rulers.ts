@@ -113,6 +113,12 @@ const RULERS_RAW: Ruler[] = [
     title: 'Ologunfayo of Ogunfayo Kingdom',
     image: '/leadership/oba-idogun-ogunfayo.webp',
   },
+  {
+    slug: 'lagasa',
+    name: 'HRM Oba Adeleke Ayinde Nasir',
+    title: 'Alajasa of Lagasa',
+    image: '/leadership/oba-adeleke-ayinde-nasir-lagasa.webp',
+  },
 ]
 
 /* Official order of the traditional rulers as supplied by the council.
@@ -130,6 +136,7 @@ const DISPLAY_ORDER = [
   'debojo',       // 8 — Onidebojo
   'akodo',        // 9 — Alakodo
   'kayetoro',     // 10 — Onímòpó
+  'lagasa',       // 11 — Alajasa
 ]
 
 const rank = (slug: string) => {

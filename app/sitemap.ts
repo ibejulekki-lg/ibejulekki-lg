@@ -40,7 +40,7 @@ const STATIC_ROUTES = [
 /* Traditional ruler pages, matching the routes the build actually generates. */
 const RULERS = [
   'orimedu', 'araromi', 'kayetoro', 'debojo', 'itedo',
-  'lakowe', 'akodo', 'ogunfayo', 'ibeju', 'onisolu',
+  'lakowe', 'akodo', 'ogunfayo', 'ibeju', 'onisolu', 'lagasa',
 ]
 
 /* SHIEELD pillar pages. */
