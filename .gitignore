@@ -42,3 +42,4 @@ inspect.sh
 .env.local.backup
 seed-leadership.cjs
 .seed-leader-assets.json
+add-chief-of-staff.cjs
