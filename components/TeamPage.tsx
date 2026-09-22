@@ -110,6 +110,41 @@ function FeaturedCard({ m, label }: { m: Member; label?: string }) {
   )
 }
 
+/* A larger upright card, used when two people share the top of a page. */
+function FeaturedTall({ m }: { m: Member }) {
+  return (
+    <div className="group overflow-hidden rounded-2xl border border-black/10 bg-white transition-all duration-200 hover:border-brand-yellow/50 hover:shadow-md">
+      <div className="relative aspect-[3/4] w-full overflow-hidden bg-[#F4F4F4]">
+        <Portrait m={m} />
+      </div>
+      <div className="p-5 sm:p-6">
+        <div className="text-[15px] sm:text-[18px] font-extrabold text-brand-ink leading-tight">{m.name}</div>
+        {m.role ? (
+          <div className="mt-1.5 text-[12px] sm:text-[13px] font-semibold uppercase tracking-wide text-brand-amber leading-snug">{m.role}</div>
+        ) : null}
+        {m.bio ? (
+          <p className="mt-3 text-[12.5px] leading-[1.7] text-black/55">{m.bio}</p>
+        ) : null}
+      </div>
+    </div>
+  )
+}
+
+/* The people at the top of a page. One gets the wide card; two get a pair
+   of larger upright cards. On a phone both stack, which is how they
+   already read there. */
+function FeaturedRow({ people, label }: { people: Member[]; label?: string }) {
+  if (people.length === 0) return null
+  if (people.length === 1) return <FeaturedCard m={people[0]} label={label} />
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6 max-w-3xl">
+      {people.map((m, i) => (
+        <FeaturedTall key={i} m={m} />
+      ))}
+    </div>
+  )
+}
+
 function Grid({ members }: { members: Member[] }) {
   return (
     <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
@@ -122,7 +157,7 @@ function Grid({ members }: { members: Member[] }) {
 
 export default function TeamPage({
   eyebrow, title, intro, members, sections, group, lead,
-  featureFirst = false, featureLabel,
+  featureFirst = false, featureCount = 1, featureLabel,
 }: {
   eyebrow: string
   title: string
@@ -134,16 +169,25 @@ export default function TeamPage({
   /* Lift the first person out of the first section and show them in the
      wide featured card, with the rest of that section in the grid below. */
   featureFirst?: boolean
+  /* How many people to lift out of the first section. The Executive
+     Council lifts two: the Chairman and the Vice Chairman. */
+  featureCount?: number
   featureLabel?: string
 }) {
-  const head = lead ?? (featureFirst ? sections?.[0]?.members?.[0] : undefined)
+  /* Who sits at the top: either an explicitly passed leader, or the first
+     featureCount people of the first section. */
+  const headline: Member[] = lead
+    ? [lead]
+    : featureFirst
+      ? (sections?.[0]?.members ?? []).slice(0, featureCount)
+      : []
 
-  /* When the head came out of a section, that section is rendered without
-     them so nobody appears twice. */
+  /* Those people are then removed from the section below, so nobody
+     appears twice on the page. */
   const shown =
     featureFirst && !lead && sections
       ? sections.map((sec, i) =>
-          i === 0 ? { ...sec, members: sec.members.slice(1) } : sec,
+          i === 0 ? { ...sec, members: sec.members.slice(featureCount) } : sec,
         )
       : sections
 
@@ -169,9 +213,9 @@ export default function TeamPage({
         </section>
 
         <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-10 py-12 sm:py-16">
-          {head ? (
+          {headline.length ? (
             <div className="mb-10 sm:mb-14">
-              <FeaturedCard m={head} label={featureLabel} />
+              <FeaturedRow people={headline} label={featureLabel} />
             </div>
           ) : null}
           {shown ? (
