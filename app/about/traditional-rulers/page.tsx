@@ -11,6 +11,10 @@ export const metadata = {
 }
 
 export default function Page() {
+  /* RULERS is already sorted by the council protocol order, so the first
+     entry is the paramount ruler. */
+  const [paramount, ...others] = RULERS
+
   return (
     <>
       <main className="min-h-screen bg-white">
@@ -39,8 +43,42 @@ export default function Page() {
         </section>
 
         <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-10 py-12 sm:py-16">
+          {/* The Onibeju is first in the protocol order, so he is shown on his
+              own in a larger card above the other royal fathers. */}
+          {paramount ? (
+            <Link
+              href={`/about/traditional-rulers/${paramount.slug}`}
+              className="group mb-10 sm:mb-14 grid grid-cols-1 sm:grid-cols-[minmax(0,320px)_1fr] gap-6 sm:gap-8 overflow-hidden rounded-2xl border border-black/10 bg-white transition-all hover:border-brand-yellow hover:shadow-md"
+            >
+              <div className="relative aspect-[3/4] w-full bg-[#F4F4F4]">
+                <Image
+                  src={paramount.image}
+                  alt={paramount.name}
+                  fill
+                  className="object-cover object-top"
+                  sizes="(max-width: 640px) 100vw, 320px"
+                  priority
+                />
+              </div>
+              <div className="flex flex-col justify-center p-5 sm:p-8 sm:pl-0">
+                <span className="mb-3 inline-flex w-fit items-center rounded-full bg-brand-yellow px-3 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-black">
+                  Paramount Ruler
+                </span>
+                <h2 className="text-[clamp(1.2rem,3vw,1.7rem)] font-extrabold text-brand-ink leading-tight">
+                  {paramount.name}
+                </h2>
+                <p className="mt-2 text-[13px] font-semibold uppercase tracking-wide text-brand-amber">
+                  {paramount.title}
+                </p>
+                <span className="mt-5 inline-flex items-center gap-1 text-[12.5px] font-semibold text-brand-amber transition-all group-hover:gap-2">
+                  Read more <ArrowRight size={13} strokeWidth={2.5} />
+                </span>
+              </div>
+            </Link>
+          ) : null}
+
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
-            {RULERS.map((r) => (
+            {others.map((r) => (
               <Link
                 key={r.slug}
                 href={`/about/traditional-rulers/${r.slug}`}

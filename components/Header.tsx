@@ -65,7 +65,6 @@ const NAV_ITEMS: NavItem[] = [
       { label: 'Birth Certification', href: '/resources/birth-certification' },
       { label: 'Marriage Registry',    href: '/resources/marriage-registry' },
       { label: 'Waste Collection',    href: '/resources/waste' },
-      { label: 'Career & Jobs',       href: '/resources/careers' },
     ],
   },
 ];

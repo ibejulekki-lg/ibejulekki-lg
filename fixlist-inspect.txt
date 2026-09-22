@@ -1,0 +1,1059 @@
+
+===== GIT =====
+aaaefe9 Add Hon. Issa Moruf Olayinka, Chief of Staff
+c3f5ce4 Add HRM Oba Adeleke Ayinde Nasir, Alajasa of Lagasa
+9f916e6 Move leadership roster into Sanity so council staff can manage it
+c0d1d29 renamed adbulwasiu to abdul-wasiu from the team page
+?? fixlist-inspect.txt
+
+===== HEADER NAV =====
+const NAV_ITEMS: NavItem[] = [
+  { label: 'Home', href: '/' },
+    {
+    label: 'About',
+    href: '#',
+    children: [
+      { label: 'Historic Background',        href: '/about/history' },
+      { label: 'The People, Arts & Culture', href: '/about/culture' },
+      { label: 'Traditional Rulers',         href: '/about/traditional-rulers' },
+    ],
+  },
+  {
+    label: 'Government',
+    href: '#',
+    children: [
+      { label: 'Overview',            href: '/about' },
+      { label: 'Vision & Mission',    href: '/government/vision' },
+      { label: 'Executive Chairman',  href: '/government/chairman' },
+      { label: 'Executive Council',   href: '/government/executive-council' },
+      { label: 'Legislative Council', href: '/government/legislative-council' },
+      { label: 'Management Team',     href: '/government/management-team' },
+    ],
+  },
+  {
+    label: 'Programmes',
+    href: '#',
+    children: [
+      { label: 'SHIEELD Agenda',      href: '/programmes/shieeld' },
+      { label: '2025 Budget Summary', href: '/programmes/budget' },
+      { label: 'Performance Report',  href: '/programmes/performance-report' },
+      // { label: 'Agenda 2029',         href: '/programmes/agenda-2029' },
+    ],
+  },
+  {
+    label: 'Opportunities',
+    href: '#',
+    children: [
+      { label: 'Housing',                href: '/opportunities/housing' },
+      // { label: 'Housing Opportunities',  href: '/opportunities/housing/housing-opportunities' },
+      // { label: 'Citrus Garden',          href: '/opportunities/housing/citrus-garden' },
+      // { label: 'Eleko Isles',             href: '/opportunities/housing/eleko-isles' },
+      { label: 'Tourism',                href: '/opportunities/tourism' },
+      { label: 'Investment Opportunities', href: '/opportunities/investment' },
+      { label: 'Career & Jobs',          href: '/resources/careers' },
+    ],
+  },
+  { label: 'News & Events', href: '/news' },
+  {
+    label: 'Services',
+    href: '#',
+    children: [
+      { label: 'Pay Levies',          href: 'https://portal.ibejulekkilga.com', external: true },
+      { label: 'Street Naming',       href: '/resources/street-naming' },
+      { label: 'Birth Certification', href: '/resources/birth-certification' },
+      { label: 'Marriage Registry',    href: '/resources/marriage-registry' },
+      { label: 'Waste Collection',    href: '/resources/waste' },
+      { label: 'Career & Jobs',       href: '/resources/careers' },
+    ],
+  },
+];
+function DesktopNavItem({ item }: { item: (typeof NAV_ITEMS)[number] }) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+    };
+    document.addEventListener('mousedown', handler);
+    return () => document.removeEventListener('mousedown', handler);
+  }, []);
+
+  if (!('children' in item) || !item.children) {
+    return (
+      <Link
+        href={item.href}
+        className="relative whitespace-nowrap text-[11.5px] font-semibold uppercase tracking-wide text-brand-ink transition-colors hover:text-black after:absolute after:-bottom-1.5 after:left-0 after:h-[2px] after:w-0 after:bg-brand-yellow after:transition-all after:duration-300 hover:after:w-full"
+      >
+        {item.label}
+      </Link>
+    );
+  }
+
+  return (
+    <div
+      ref={ref}
+      className="relative"
+      onMouseEnter={() => setOpen(true)}
+      onMouseLeave={() => setOpen(false)}
+    >
+      <button
+        className="flex items-center gap-1 whitespace-nowrap text-[11.5px] font-semibold uppercase tracking-wide text-brand-ink transition-colors hover:text-black"
+        onClick={() => setOpen((v) => !v)}
+      >
+        {item.label}
+        <ChevronDown
+          size={13}
+          strokeWidth={2.5}
+          className={`transition-transform duration-200 ${open ? 'rotate-180' : ''}`}
+        />
+      </button>
+
+      {/* transparent bridge so the menu stays open when moving the cursor down */}
+      <div className={`absolute left-1/2 top-full z-50 -translate-x-1/2 pt-3 ${open ? 'block' : 'hidden'}`}>
+        <div className="min-w-[230px] overflow-hidden rounded-xl border border-black/10 bg-white py-2 shadow-xl">
+          {item.children.map((child) => {
+            const cls =
+              'block px-4 py-2.5 text-[12.5px] font-medium text-brand-ink/80 transition-colors hover:bg-brand-yellow/10 hover:text-brand-ink';
+            const isExternal = child.external || /^https?:\/\//.test(child.href);
+            return isExternal ? (
+              <a
+                key={child.href}
+                href={child.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={cls + ' flex items-center justify-between gap-2'}
+              >
+                {child.label}
+                <ExternalLink size={11} className="text-black/30" />
+              </a>
+            ) : (
+              <Link key={child.href} href={child.href} className={cls}>
+                {child.label}
+              </Link>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+interface HeaderProps {
+  email?: string;
+  officeHours?: string;
+}
+
+export default function Header({
+  email = 'info@ibejulekki.lg.gov.ng',
+  officeHours = 'Mon - Fri, 8am - 4pm',
+}: HeaderProps) {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener('scroll', onScroll);
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  return (
+    <header className="sticky top-0 z-[200] w-full">
+      <BrandStripe />
+
+      {/* utility bar */}
+      <div className="hidden md:block bg-brand-ink text-white">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 lg:px-8 py-1.5 text-[11px]">
+          <div className="flex items-center gap-5">
+            <a href={`mailto:${email}`} className="flex items-center gap-1.5 text-white/70 transition-colors hover:text-brand-yellow">
+              <Mail size={12} /> {email}
+            </a>
+            <span className="flex items-center gap-1.5 text-white/70">
+              <Clock size={12} /> {officeHours}
+            </span>
+          </div>
+          <div className="flex items-center gap-4">
+            <span className="flex items-center gap-1.5 font-semibold text-brand-yellow">
+              <Phone size={12} /> Emergency: 112
+            </span>
+            <span className="flex items-center gap-1">
+              <Circle size={6} className="fill-brand-yellow text-brand-yellow" />
+              <button className="font-semibold tracking-wide transition-colors hover:text-brand-yellow">EN</button>
+              <span className="text-white/30">&middot;</span>
+              <button className="text-white/50 transition-colors hover:text-brand-yellow">YO</button>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      {/* main bar */}
+      <div className={`w-full bg-white transition-shadow duration-300 ${scrolled ? 'shadow-md' : 'shadow-sm'}`}>
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 lg:px-8 py-3">
+          <Link href="/" className="flex items-center gap-3">
+            <Image
+              src="/ibeju-lekki-logo-sm.webp"
+              alt="IBEJU LEKKI"
+              width={44}
+              height={44}
+              className="h-11 w-11 flex-shrink-0 object-contain"
+            />
+            <span className="leading-tight">
+              <span className="block text-[15px] sm:text-[17px] font-extrabold tracking-tight text-brand-ink">
+                IBEJU LEKKI 
+              </span>
+              <span className="block text-[9.5px] sm:text-[10px] font-medium uppercase tracking-[0.18em] text-black/45">
+                Local Government<br />Lagos State
+              </span>
+            </span>
+          </Link>
+
+          <nav className="hidden xl:flex items-center gap-5 2xl:gap-7">
+            {NAV_ITEMS.map((item) => (
+              <DesktopNavItem key={item.label} item={item} />
+            ))}
+          </nav>
+
+          <Link
+            href="https://portal.ibejulekkilga.com" target="_blank" rel="noopener noreferrer"
+            className="hidden xl:inline-flex items-center gap-2 rounded-full bg-brand-yellow px-5 py-2.5 text-[12px] font-bold text-black transition-colors hover:bg-brand-ink hover:text-brand-yellow"
+          >
+            <CreditCard size={15} strokeWidth={2.5} /> Pay Levies
+          </Link>
+        </div>
+      </div>
+    </header>
+  );
+}
+
+===== FOOTER NAV =====
+const FOOTER_NAV: {
+  heading: string
+  links: { label: string; href: string; external?: boolean }[]
+}[] = [
+  {
+    heading: 'Government',
+    links: [
+      { label: 'Overview',            href: '/about' },
+      { label: 'Vision & Mission',    href: '/government/vision' },
+      { label: 'Executive Chairman',  href: '/government/chairman' },
+      { label: 'Executive Council',   href: '/government/executive-council' },
+      { label: 'Legislative Council', href: '/government/legislative-council' },
+      { label: 'Management Team',     href: '/government/management-team' },
+    ],
+  },
+  {
+    heading: 'Programmes',
+    links: [
+      { label: 'SHIEELD Agenda',      href: '/programmes/shieeld' },
+      { label: '2025 Budget',         href: '/programmes/budget' },
+      { label: 'Performance Report',  href: '/programmes/performance-report' },
+    ],
+  },
+  {
+    heading: 'Opportunities',
+    links: [
+      { label: 'Housing',              href: '/opportunities/housing' },
+      { label: 'Citrus Gardens',       href: '/opportunities/housing/citrus-garden' },
+      { label: 'Eleko Isles',          href: '/opportunities/housing/eleko-isles' },
+      { label: 'Tourism',              href: '/opportunities/tourism' },
+      { label: 'Investment Opportunities', href: '/opportunities/investment' },
+      { label: 'Career & Jobs',        href: '/resources/careers' },
+    ],
+  },
+  {
+    heading: 'Services',
+    links: [
+      { label: 'Pay Levies',          href: 'https://portal.ibejulekkilga.com', external: true },
+      { label: 'Street Naming',       href: '/resources/street-naming' },
+      { label: 'Birth Certification', href: '/resources/birth-certification' },
+      { label: 'Marriage Registry',    href: '/resources/marriage-registry' },
+      { label: 'Waste Collection',    href: '/resources/waste' },
+      { label: 'Download Forms',      href: '/resources/forms' },
+      { label: 'Report an Issue',     href: '/report' },
+    ],
+  },
+  {
+    heading: 'Information',
+    links: [
+      { label: 'News & Events',              href: '/news' },
+      { label: 'Historic Background',        href: '/about/history' },
+      { label: 'The People, Arts & Culture', href: '/about/culture' },
+      { label: 'Traditional Rulers',         href: '/about/traditional-rulers' },
+      { label: 'Contact Us',                 href: '/contact' },
+    ],
+  },
+]
+          {FOOTER_NAV.map((col) => (
+            <div key={col.heading}>
+              <div className="text-[10px] font-bold uppercase tracking-[0.22em] text-brand-yellow mb-4">
+                {col.heading}
+              </div>
+              <ul className="space-y-2.5">
+                {col.links.map((link) => (
+                  <li key={link.href}>
+                    {link.external ? (
+                      <a
+                        href={link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[12.5px] hover:text-white hover:translate-x-0.5 transition-all duration-150 inline-flex items-center gap-1"
+                      >
+                        {link.label}
+                        <ExternalLink size={9} />
+                      </a>
+                    ) : (
+                      <Link
+                        href={link.href}
+                        className="text-[12.5px] hover:text-white hover:translate-x-0.5 transition-all duration-150 inline-block"
+                      >
+                        {link.label}
+                      </Link>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+
+        {/* Bottom bar */}
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 py-5 text-[10.5px]">
+          <span>&copy; {new Date().getFullYear()} Ibeju-Lekki Local Government Area. All rights reserved.</span>
+          <div className="flex items-center gap-4">
+            <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
+            <Link href="/accessibility" className="hover:text-white transition-colors">Accessibility</Link>
+            <a href="https://lagosstate.gov.ng" target="_blank" rel="noopener noreferrer"
+              className="flex items-center gap-1 hover:text-white transition-colors">
+              Lagos State Govt <ExternalLink size={10} />
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {/* Color stripe (official Lagos motif), matched to the header stripe */}
+      <div className="flex h-[5px]" aria-hidden="true">
+        <div className="flex-1 bg-brand-red" />
+        <div className="flex-1 bg-[#14377D]" />
+        <div className="flex-1 bg-brand-yellow" />
+        <div className="flex-1 bg-[#1E7A3D]" />
+      </div>
+    </footer>
+  )
+}
+
+===== BOTTOM NAV =====
+54:      { label: 'Career & Jobs',          href: '/resources/careers' },
+
+===== HISTORY PAGE =====
+
+----- app/about/history/page.tsx (76 lines) -----
+import AboutPage from '@/components/AboutPage'
+import type { Block } from '@/components/AboutPage'
+
+export const metadata = {
+  title: 'History of Ibeju-Lekki | Ibeju-Lekki Local Government',
+  description:
+    'The history of Ibeju-Lekki Local Government Area, Lagos State: its creation, name, geography, towns and modern transformation.',
+}
+
+const FACTS = [
+  { label: 'Created', value: '1990' },
+  { label: 'Headquarters', value: 'Igando-Oloja' },
+  { label: 'Land area', value: 'About 646 km²' },
+  { label: 'Coast', value: 'Atlantic Ocean, south' },
+]
+
+const BLOCKS: Block[] = [
+  {
+    kind: 'section',
+    heading: 'Creation',
+    paras: [
+      `It was created in 1990 by the then military president, General Ibrahim Badamasi Babangida, as one of four new local governments excised from the old Epe Local Government Area. At inception, its headquarters was located at Akodo.`,
+      `In October 2003, the Lagos State Government under Governor Bola Ahmed Tinubu carved out the Lekki Local Council Development Area (LCDA) from parts of Ibeju-Lekki. This administrative change led to the relocation of the headquarters from Akodo to its present site at Igando-Oloja, along the Lekki-Epe Expressway.`,
+    ],
+  },
+  {
+    kind: 'section',
+    heading: 'The Name and the Land',
+    paras: [
+      `The name Ibeju-Lekki is derived from the combination of two prominent autonomous communities: Ibeju-Agbe and Lekki. Situated along the coastal plain of Nigeria, the area is characterised by numerous creeks and lagoons, which have historically supported fishing, farming and trading among its people.`,
+    ],
+  },
+  {
+    kind: 'section',
+    heading: 'Geography',
+    paras: [
+      `Ibeju-Lekki is bounded by Eti-Osa East LCDA to the west, Epe Local Government Area to the east, and the Atlantic Ocean to the south. It stretches approximately 75 kilometres in length and 20 kilometres at its widest point, covering an expansive land area of about 646 square kilometres, roughly a quarter of the total land mass of Lagos State. This strategic coastal location has positioned it as an important corridor for both traditional livelihoods and modern development.`,
+    ],
+  },
+  {
+    kind: 'section',
+    heading: 'Towns and Communities',
+    paras: [
+      `The local government is home to many towns and settlements spread across its wards, reflecting the rich heritage of its people and serving as hubs for residential, agricultural and emerging commercial activity.`,
+    ],
+  },
+  {
+    kind: 'chips',
+    label: 'Major Towns and Communities',
+    items: [
+      'Ibeju-Agbe', 'Magbon-Alade', 'Iberekodo', 'Igando-Oloja', 'Aiyeteju', 'Awoyaya',
+      'Bogije', 'Akodo', 'Eleran-Igbe', 'Eleko', 'Elemoro', 'Idi-Orogbo', 'Lakowe',
+      'Orimedu', 'Abijo', 'Mopo-Ijebu', 'Eputu', 'Badore', 'Idado', 'Solu-Alade',
+    ],
+  },
+  {
+    kind: 'section',
+    heading: 'Modern Transformation',
+    paras: [
+      `In recent decades, Ibeju-Lekki has undergone significant transformation and rapid urbanisation. Its proximity to key infrastructure such as the Lekki-Epe Expressway, the Dangote Refinery and numerous large-scale real estate projects has greatly enhanced its economic potential. Today it blends its traditional coastal identity with modern opportunities in industry, tourism and residential expansion.`,
+    ],
+  },
+]
+
+export default function Page() {
+  return (
+    <AboutPage
+      crumb="History"
+      eyebrow="About · History"
+      title="History of Ibeju-Lekki"
+      lead="Ibeju-Lekki Local Government Area is one of the 20 Local Government Areas in Lagos State, Nigeria, and one of the fastest-growing regions in the state."
+      facts={FACTS}
+      blocks={BLOCKS}
+    />
+  )
+}
+--- any separate history data file? ---
+
+----- lib/history.ts : MISSING -----
+
+----- lib/about.ts : MISSING -----
+--- where does Isese appear? ---
+app/about/culture/page.tsx:13:  { label: 'Faiths', value: 'Islam, Christianity, Isese' },
+app/about/culture/page.tsx:41:      `Muslims, organised under bodies such as the Ibeju-Lekki League of Imams and Alfas, promote unity, self-discipline and respect for all faiths. Christians, represented by the Christian Association of Nigeria (CAN) and the Pentecostal Fellowship of Nigeria (PFN), engage in worship, crusades and community outreach. Traditional Worshippers (Isese) maintain ancestral practices, including the veneration of deities such as Olokun, and take part in masquerade traditions and Isese Day celebrations.`,
+app/about/culture/page.tsx:70:      { term: 'Festivals', text: `The annual Igi Meta Ibeju Day celebrates heritage, unity and the leadership of the Onibeju, with cultural displays, music including Fuji, prayers from various faiths, dispute resolution and spiritual cleansing. Other events include beach fiestas, masquerade processions, Olokun festivals and Isese celebrations, drawing on grand Ijebu traditions such as Ojude Oba and Agemo.` },
+
+===== LEGISLATIVE PAGE (item 1: leader above the rest) =====
+
+----- app/government/legislative-council/page.tsx (24 lines) -----
+import TeamPage from '@/components/TeamPage'
+import { getLegislative } from '@/lib/leadership'
+
+export const metadata = {
+  title: 'Legislative Council | Ibeju-Lekki Local Government',
+  description:
+    'The legislative arm of Ibeju-Lekki Local Government: councillors elected to represent the wards, with the leadership of the house.',
+}
+
+export const revalidate = 60
+
+export default async function Page() {
+  const { lead, members } = await getLegislative()
+  return (
+    <TeamPage
+      group="Legislative Council"
+      eyebrow="Government · Legislative"
+      title="Legislative Council"
+      intro="The legislative arm makes local laws, approves the budget and provides oversight. It is made up of councillors elected to represent the wards of Ibeju-Lekki, with the leadership of the house."
+      lead={lead}
+      members={members}
+    />
+  )
+}
+
+===== EXECUTIVE PAGE (item 4: chairman and vice at the top) =====
+
+----- app/government/executive-council/page.tsx (23 lines) -----
+import TeamPage from '@/components/TeamPage'
+import { getExecutiveSections } from '@/lib/leadership'
+
+export const metadata = {
+  title: 'Executive Council | Ibeju-Lekki Local Government',
+  description:
+    'The executive arm of Ibeju-Lekki Local Government: the Executive Chairman, supervisors leading each portfolio, special advisers, and non-cabinet members.',
+}
+
+export const revalidate = 60
+
+export default async function Page() {
+  const sections = await getExecutiveSections()
+  return (
+    <TeamPage
+      group="Executive Council"
+      eyebrow="Government · Executive"
+      title="Executive Council"
+      intro="The executive arm carries out the day-to-day administration of Ibeju-Lekki Local Government. It is led by the Executive Chairman and made up of supervisors who lead each portfolio, special advisers, and non-cabinet members."
+      sections={sections}
+    />
+  )
+}
+
+===== MANAGEMENT PAGE (item 7: council manager first) =====
+
+----- app/government/management-team/page.tsx (23 lines) -----
+import TeamPage from '@/components/TeamPage'
+import { getManagement } from '@/lib/leadership'
+
+export const metadata = {
+  title: 'Management Team | Ibeju-Lekki Local Government',
+  description:
+    'The management team of Ibeju-Lekki Local Government: the career civil service that delivers council services day to day.',
+}
+
+export const revalidate = 60
+
+export default async function Page() {
+  const members = await getManagement()
+  return (
+    <TeamPage
+      group="Management Team"
+      eyebrow="Government · Management"
+      title="Management Team"
+      intro="The management team is the career civil service that delivers council services day to day, from environment and health to education, budget and revenue."
+      members={members}
+    />
+  )
+}
+
+===== TEAM PAGE COMPONENT (how lead and cards render) =====
+
+----- components/TeamPage.tsx (154 lines) -----
+import Link from 'next/link'
+import Image from 'next/image'
+import { User } from 'lucide-react'
+import Footer from '@/components/Footer'
+import { urlFor } from '@/lib/sanity'
+import type { Member, Section } from '@/lib/cabinet'
+
+const HONORIFICS = ['Hon.', 'Engr.', 'Dr.', 'Mr.', 'Mrs.', 'Ms.', 'Miss', 'Barr.', 'Alh.', 'Chief', 'Prince', 'Princess', 'Pastor', 'Arc.', 'Surv.', 'Mallam']
+
+function initials(name: string) {
+  const parts = name.split(' ').filter((w) => w && !HONORIFICS.includes(w))
+  return parts.slice(0, 2).map((w) => w[0] || '').join('').toUpperCase()
+}
+
+/* A portrait comes either from Sanity (photo) or from the public folder
+   (image). Sanity wins when both are present, so a CMS upload immediately
+   overrides whatever the file-based fallback held. */
+function portraitSrc(m: Member): string | null {
+  if (m.photo?.asset) {
+    try {
+      return urlFor(m.photo).width(600).height(800).fit('crop').auto('format').url()
+    } catch {
+      return null
+    }
+  }
+  return m.image ?? null
+}
+
+function Portrait({ m }: { m: Member }) {
+  const src = portraitSrc(m)
+  if (src) {
+    return (
+      <Image
+        src={src}
+        alt={m.photo?.alt || (m.role ? `${m.name}, ${m.role}` : m.name)}
+        fill
+        className="object-cover object-top"
+        sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+      />
+    )
+  }
+  if (m.name === 'To be confirmed') {
+    return (
+      <div className="absolute inset-0 flex items-center justify-center bg-black/[0.04] text-black/25">
+        <User size={44} strokeWidth={1.4} />
+      </div>
+    )
+  }
+  return (
+    <div className="absolute inset-0 flex items-center justify-center bg-brand-yellow">
+      <span className="text-[clamp(2rem,6vw,2.8rem)] font-extrabold tracking-tight text-black/80">{initials(m.name)}</span>
+    </div>
+  )
+}
+
+function Card({ m }: { m: Member }) {
+  return (
+    <div className="group overflow-hidden rounded-2xl border border-black/10 bg-white hover:border-brand-yellow/50 hover:shadow-md transition-all duration-200">
+      <div className="relative aspect-[3/4] overflow-hidden bg-[#F4F4F4]">
+        <Portrait m={m} />
+      </div>
+      <div className="p-3 sm:p-4">
+        <div className="text-[12.5px] sm:text-[13.5px] font-bold text-brand-ink leading-snug">{m.name}</div>
+        {m.role ? (
+          <div className="mt-0.5 text-[11px] sm:text-[12px] font-medium text-brand-amber leading-snug">{m.role}</div>
+        ) : null}
+        {m.ward ? (
+          <span className="mt-2 inline-block rounded-full bg-black/[0.05] px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-black/50">
+            {m.ward}
+          </span>
+        ) : null}
+        {m.bio ? (
+          <p className="mt-2 text-[11px] sm:text-[11.5px] leading-[1.65] text-black/50">{m.bio}</p>
+        ) : null}
+      </div>
+    </div>
+  )
+}
+
+function Grid({ members }: { members: Member[] }) {
+  return (
+    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
+      {members.map((m, i) => (
+        <Card key={i} m={m} />
+      ))}
+    </div>
+  )
+}
+
+export default function TeamPage({
+  eyebrow, title, intro, members, sections, group, lead,
+}: {
+  eyebrow: string
+  title: string
+  intro: string
+  members?: Member[]
+  sections?: Section[]
+  group: string
+  lead?: Member
+}) {
+  return (
+    <>
+      <main className="min-h-screen bg-white">
+        <section className="border-b border-black/10 bg-brand-cream">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-10 py-10 sm:py-14">
+            <nav className="flex items-center flex-wrap gap-1.5 text-[11px] sm:text-[12px] text-black/45 mb-5" aria-label="Breadcrumb">
+              <Link href="/" className="hover:text-brand-ink transition-colors">Home</Link>
+              <span className="text-black/30">/</span>
+              <span>Government</span>
+              <span className="text-black/30">/</span>
+              <span className="text-brand-ink font-semibold">{group}</span>
+            </nav>
+            <div className="flex items-center gap-3 mb-3">
+              <span className="h-px w-8 bg-brand-yellow" aria-hidden="true" />
+              <span className="text-[10.5px] font-bold uppercase tracking-[0.25em] text-black/45">{eyebrow}</span>
+            </div>
+            <h1 className="text-[clamp(1.8rem,5vw,2.8rem)] font-extrabold text-brand-ink tracking-tight leading-tight">{title}</h1>
+            <p className="mt-4 max-w-2xl text-[14px] sm:text-[15px] text-black/55 leading-[1.8]">{intro}</p>
+          </div>
+        </section>
+
+        <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-10 py-12 sm:py-16">
+          {lead ? (
+            <div className="mb-10 sm:mb-12">
+              <div className="mx-auto max-w-xs">
+                <Card m={lead} />
+              </div>
+            </div>
+          ) : null}
+          {sections ? (
+            <div className="space-y-12 sm:space-y-16">
+              {sections.map((sec) => (
+                <div key={sec.title}>
+                  <div className="mb-6">
+                    <h2 className="text-[clamp(1.15rem,2.5vw,1.5rem)] font-extrabold text-brand-ink tracking-tight">{sec.title}</h2>
+                    {sec.blurb ? (
+                      <p className="mt-1.5 text-[13px] text-black/50 leading-relaxed max-w-2xl">{sec.blurb}</p>
+                    ) : null}
+                    <div className="mt-3 h-px w-full bg-black/10" />
+                  </div>
+                  <Grid members={sec.members} />
+                </div>
+              ))}
+            </div>
+          ) : members ? (
+            <Grid members={members} />
+          ) : null}
+        </section>
+      </main>
+      <Footer />
+    </>
+  )
+}
+
+
+===== RULERS DATA =====
+
+----- lib/rulers.ts (151 lines) -----
+export interface RulerSection {
+  heading?: string
+  paras: string[]
+}
+
+export interface Ruler {
+  slug: string
+  name: string
+  title: string
+  image: string
+  history?: RulerSection[]
+}
+
+const RULERS_RAW: Ruler[] = [
+    {
+    slug: 'ibeju',
+    name: 'HRM Oba Waliu Rasak',
+    title: 'The Onibeju of Ibeju Kingdom',
+    image: '/leadership/oba-rasak.webp',
+  },
+  {
+    slug: 'orimedu',
+    name: 'HRM Oba Amb. Abidemi Toheeb Yissa Oyedele',
+    title: 'Onimedu of Orimedu Kingdom, Oyetu I',
+    image: '/leadership/oba-onimedu-orimedu.webp',
+    history: [
+      {
+        paras: [
+          `Orimedu Kingdom is a historic settlement located in the Ibeju-Lekki Local Government Area of Lagos State, South West Nigeria. Situated in a region that serves as a vibrant commercial nerve centre for Nigeria and Africa, Orimedu boasts a rich cultural heritage deeply rooted in Yoruba traditions.`,
+        ],
+      },
+      {
+        heading: 'Origin of the Name and the Founder',
+        paras: [
+          `The name Orimedu was coined by its founder, Prince Ladejobi, after discovering that the vast majority of the land consisted of rich, dark humus soil known locally as Imedu (or Ile dudu). Prince Ladejobi, a direct descendant of Oba Oranmiyan of Ile-Ife, migrated to the area in the late 14th century in search of a suitable settlement. His choice of location was guided by an oracle, which instructed that the new kingdom must lie between a river and the sea.`,
+        ],
+      },
+      {
+        heading: 'The Migration Journey',
+        paras: [
+          `A bold and skilled hunter, Prince Ladejobi embarked on the journey from Ile-Ife accompanied by his relatives, Ogbe, Sobokunrin, and Sifiyon, along with their followers and slaves. During the migration, he passed through the Oyo Empire, where he was received with royal honour as a blood relative. He later continued to Ijebu-Ode and settled temporarily at the Idewon Quarters.`,
+          `Consulting the oracle once again, he was reminded that his final destination must be between a river and the sea. The group proceeded to the Epe riverbank, crossed to Oju-Ota (now Ojota), hunted through what is today known as Oke-Ogun Village, and finally arrived at Ebute-Orimedu.`,
+        ],
+      },
+      {
+        heading: 'Settlement and Key Events',
+        paras: [
+          `Upon reaching the bank of Orimedu Creek, Prince Ladejobi left his companions to scout for a suitable camping site. While he was away, his sister Ogbe was attacked and swallowed by a large fish. Prince Ladejobi tracked and killed the fish, retrieved the body of his sister from its belly, and performed traditional burial rites. The site of her burial is still known today as Oju Ogbe.`,
+          `As a result of this tragedy, the consumption of Eja Osan (a species of fish) became a taboo in Orimedu.`,
+          `Prince Ladejobi eventually moved his people to the chosen site, which he named Orimedu. He reigned as the first Oba and established the worship of several deities, including Oro and Olokun.`,
+          `One notable event during this period involved his brothers, Sobokunrin and Sifiyon. While hunting on a sunny day, they discovered the tracks of a large wild animal at the bank of Orimedu River. They tracked and killed the animal at the bank of another nearby river, which they named Odo-Ogun Yo (the river where the god of iron answered their prayer). This river lies between present-day Ijede and Eleko towns. They carried parts of the animal back to Prince Ladejobi as proof of their success. With his permission and after further consultation with the oracle, Sobokunrin and Sifiyon settled in the area, naming it Ibere Kodo. To this day, Orimedu and Iberekodo maintain strong historical, cultural, and social ties.`,
+        ],
+      },
+      {
+        heading: '19th-Century Historical Context',
+        paras: [
+          `In 1859, during the reign of Kosoko (who was then in exile from Lagos Island), the Epe and Orimedu seashore served as a major slave port. Portuguese and other European traders came here to purchase slaves, who were then shipped to foreign lands. This occurred after the proclamation of the abolition of slavery by Oba Akintoye, backed by the British government, which led to conflict. Kosoko later returned to Lagos Island (settling at Epetedo) following a reconciliation with Oba Akintoye, while some of his entourage remained in the area.`,
+        ],
+      },
+      {
+        heading: 'Modern Orimedu',
+        paras: [
+          `Contemporary Orimedu is divided into two main quarters, Ijebu and Eko, with six sub-quarters: Oko-Ekun, Oke-Oshodi, Abejoye, Oke-Oba, Ipatun, and Oke-Popo.`,
+        ],
+      },
+    ],
+  },
+  {
+    slug: 'araromi',
+    name: 'HRM Oba Olayemi Lukman Arowolo',
+    title: 'Oba Gbadewolu of Araromi Kingdom',
+    image: '/leadership/oba-arowolo-araromi.webp',
+  },
+    {
+    slug: 'onisolu',
+    name: 'HRM Oba Muideen Babatunde Adebowale Balogun',
+    title: 'The onisolu of Solu-Alade kingdom',
+    image: '/leadership/onisolu.webp',
+  },
+  {
+    slug: 'kayetoro',
+    name: 'HRM Oba Saka Bakare',
+    title: 'The Olu Kayetoro of Kayetoro Land',
+    image: '/leadership/oba-bakare-kayetoro.webp',
+  },
+  {
+    slug: 'debojo',
+    name: 'Oba Ajibola Talabi Odugbesan',
+    title: 'Onidebojo of Debojo Kingdom',
+    image: '/leadership/oba-odugbesan-debojo.webp',
+  },
+  {
+    slug: 'itedo',
+    name: 'HRM Oba Tajudeen Afolabi Elemoro',
+    title: 'The Onitedo of Itedo',
+    image: '/leadership/oba-elemoro-itedo.webp',
+  },
+  {
+    slug: 'lakowe',
+    name: 'HRM Oba Akeem Olusegun Adisa Ojomu',
+    title: 'The Onilakowe of Lakowe Kingdom',
+    image: '/leadership/oba-ojomu-lakowe.webp',
+  },
+  {
+    slug: 'akodo',
+    name: 'HRM Oba Abdulhakeem Babatunde Olokodano',
+    title: 'The Alakodo of Akodo',
+    image: '/leadership/oba-olokodano-akodo.webp',
+  },
+  {
+    slug: 'ogunfayo',
+    name: 'Oba Dr. Mufutau Olanrewaju Adewunmi Idogun Larrys (Tunwase I)',
+    title: 'Ologunfayo of Ogunfayo Kingdom',
+    image: '/leadership/oba-idogun-ogunfayo.webp',
+  },
+  {
+    slug: 'lagasa',
+    name: 'HRM Oba Adeleke Ayinde Nasir',
+    title: 'Alajasa of Lagasa',
+    image: '/leadership/oba-adeleke-ayinde-nasir-lagasa.webp',
+  },
+]
+
+/* Official order of the traditional rulers as supplied by the council.
+   Rulers not yet matched to a stool on this list appear after these, in their
+   existing order. Add new slugs here as further rulers are confirmed. */
+/* Official order of the traditional rulers as supplied by the council. */
+const DISPLAY_ORDER = [
+  'ibeju',        // 1 — Oníbẹ̀jù
+  'orimedu',      // 2 — Onimedu
+  'itedo',        // 3 — Elemoro
+  'onisolu',      // 4 — Onisolu
+  'araromi',      // 5 — Araromi
+  'ogunfayo',     // 6 — Ologunfayo
+  'lakowe',       // 7 — Onilakowe
+  'debojo',       // 8 — Onidebojo
+  'akodo',        // 9 — Alakodo
+  'kayetoro',     // 10 — Onímòpó
+  'lagasa',       // 11 — Alajasa
+]
+
+const rank = (slug: string) => {
+  const i = DISPLAY_ORDER.indexOf(slug)
+  return i === -1 ? DISPLAY_ORDER.length + 1 : i
+}
+
+export const RULERS: Ruler[] = [...RULERS_RAW].sort((a, b) => rank(a.slug) - rank(b.slug))
+
+export function getRuler(slug: string): Ruler | undefined {
+  return RULERS.find((r) => r.slug === slug)
+}
+
+===== RULERS LANDING PAGE =====
+
+----- app/about/traditional-rulers/page.tsx (73 lines) -----
+import Link from 'next/link'
+import Image from 'next/image'
+import { ArrowRight } from 'lucide-react'
+import Footer from '@/components/Footer'
+import { RULERS } from '@/lib/rulers'
+
+export const metadata = {
+  title: 'Traditional Rulers | Ibeju-Lekki Local Government',
+  description:
+    'The traditional rulers of Ibeju-Lekki Local Government Area, Lagos State: the Obas and custodians of the customs and heritage of our kingdoms.',
+}
+
+export default function Page() {
+  return (
+    <>
+      <main className="min-h-screen bg-white">
+        <section className="border-b border-black/10 bg-brand-cream">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-10 py-10 sm:py-14">
+            <nav className="flex items-center flex-wrap gap-1.5 text-[11px] sm:text-[12px] text-black/45 mb-5" aria-label="Breadcrumb">
+              <Link href="/" className="hover:text-brand-ink transition-colors">Home</Link>
+              <span className="text-black/30">/</span>
+              <span>About</span>
+              <span className="text-black/30">/</span>
+              <span className="text-brand-ink font-semibold">Traditional Rulers</span>
+            </nav>
+            <div className="flex items-center gap-3 mb-3">
+              <span className="h-px w-8 bg-brand-yellow" aria-hidden="true" />
+              <span className="text-[10.5px] font-bold uppercase tracking-[0.25em] text-black/45">About Ibeju-Lekki</span>
+            </div>
+            <h1 className="text-[clamp(1.8rem,5vw,2.9rem)] font-extrabold text-brand-ink tracking-tight leading-tight">
+              Traditional Rulers
+            </h1>
+            <p className="mt-4 max-w-2xl text-[15px] sm:text-[16px] text-black/60 leading-[1.85]">
+              The royal fathers of Ibeju-Lekki: the Obas of our kingdoms, custodians of the
+              customs, history and heritage of the communities that make up the local
+              government area.
+            </p>
+          </div>
+        </section>
+
+        <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-10 py-12 sm:py-16">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+            {RULERS.map((r) => (
+              <Link
+                key={r.slug}
+                href={`/about/traditional-rulers/${r.slug}`}
+                className="group flex flex-col overflow-hidden rounded-2xl border border-black/10 bg-white transition-all hover:border-brand-yellow hover:shadow-md"
+              >
+                <div className="relative aspect-[3/4] w-full bg-[#F4F4F4]">
+                  <Image
+                    src={r.image}
+                    alt={r.name}
+                    fill
+                    className="object-cover object-top"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  />
+                </div>
+                <div className="flex flex-col flex-1 p-5">
+                  <h2 className="text-[14px] font-bold text-brand-ink leading-snug">{r.name}</h2>
+                  <p className="mt-1 text-[11.5px] font-semibold uppercase tracking-wide text-brand-amber">{r.title}</p>
+                  <span className="mt-3 inline-flex items-center gap-1 text-[12px] font-semibold text-brand-amber transition-all group-hover:gap-2">
+                    Read more <ArrowRight size={13} strokeWidth={2.5} />
+                  </span>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
+      </main>
+      <Footer />
+    </>
+  )
+}
+
+===== IS THERE ALREADY A TECHNICAL ADVISER PAGE? =====
+app/government/chairman/page.tsx:203:          {/* CTA */}
+app/opportunities/housing/citrus-garden/page.tsx:617:              site inspections, contact the Chief Technical Adviser to the Executive Chairman on Housing
+app/opportunities/housing/citrus-garden/page.tsx:623:                CTA, Housing &amp; Tourism Development, Ibeju-Lekki Local Government
+
+===== LEADERSHIP SCHEMA (does it cover advisers already?) =====
+
+----- schemas/leader.ts (153 lines) -----
+import { defineField, defineType } from 'sanity'
+
+/* Every person on the Executive Council, Legislative Council and Management
+   Team. Council staff add, edit, reorder and retire members here; no code
+   change is needed for a reshuffle, an election or a new appointment.
+
+   Retiring someone: switch "Show on website" off. The record and the
+   photograph are kept, so the history survives and the person can be brought
+   back later. Deleting is still possible but rarely the right choice. */
+
+export const ARMS = [
+  { title: 'Executive Council',   value: 'executive' },
+  { title: 'Legislative Council', value: 'legislative' },
+  { title: 'Management Team',     value: 'management' },
+]
+
+export const EXEC_SECTIONS = [
+  { title: 'Executive Members',   value: 'executive-members' },
+  { title: 'Supervisors',         value: 'supervisors' },
+  { title: 'Special Advisers',    value: 'special-advisers' },
+  { title: 'Non-Cabinet Members', value: 'non-cabinet' },
+]
+
+export default defineType({
+  name: 'leader',
+  title: 'Leadership Member',
+  type: 'document',
+  fields: [
+    defineField({
+      name: 'name',
+      title: 'Full Name',
+      type: 'string',
+      description: 'Include the honorific, for example Hon. Engr. Abdullahi Sesan Olowa',
+      validation: (R) => R.required().max(90),
+    }),
+    defineField({
+      name: 'arm',
+      title: 'Arm of Council',
+      type: 'string',
+      description: 'Which page this person appears on.',
+      options: { list: ARMS, layout: 'radio' },
+      validation: (R) => R.required(),
+    }),
+    defineField({
+      name: 'section',
+      title: 'Section',
+      type: 'string',
+      description: 'Executive Council only. Which block on the page this person sits in.',
+      options: { list: EXEC_SECTIONS },
+      hidden: ({ document }) => document?.arm !== 'executive',
+      validation: (R) =>
+        R.custom((value, ctx) => {
+          const doc = ctx.document as { arm?: string } | undefined
+          if (doc?.arm === 'executive' && !value) return 'Choose a section for Executive Council members.'
+          return true
+        }),
+    }),
+    defineField({
+      name: 'role',
+      title: 'Role or Portfolio',
+      type: 'string',
+      description: 'For example Supervisor for Health. Leave empty for non-cabinet members.',
+      validation: (R) => R.max(110),
+    }),
+    defineField({
+      name: 'ward',
+      title: 'Ward',
+      type: 'string',
+      description: 'Legislative councillors only, for example Ward C1.',
+      hidden: ({ document }) => document?.arm !== 'legislative',
+    }),
+    defineField({
+      name: 'photo',
+      title: 'Portrait',
+      type: 'image',
+      options: { hotspot: true },
+      description: 'A head and shoulders photograph. Without one, the card shows the initials.',
+      fields: [
+        defineField({
+          name: 'alt',
+          title: 'Alt Text',
+          type: 'string',
+          description: 'Describe the photograph for screen readers, for example the name and role.',
+          validation: (R) => R.required().warning('Add alt text so screen reader users know who this is.'),
+        }),
+      ],
+    }),
+    defineField({
+      name: 'bio',
+      title: 'Short Profile',
+      type: 'text',
+      rows: 3,
+      description: 'Optional. Two or three sentences shown under the name on the card.',
+      validation: (R) => R.max(400),
+    }),
+    defineField({
+      name: 'featured',
+      title: 'Feature at the top of the page',
+      type: 'boolean',
+      description: 'Legislative Council only. The Leader of the Council is shown alone above the grid.',
+      initialValue: false,
+      hidden: ({ document }) => document?.arm !== 'legislative',
+    }),
+    defineField({
+      name: 'order',
+      title: 'Display Order',
+      type: 'number',
+      description: 'Lower numbers appear first within the section. Leave gaps of 10 so people can be slotted in later.',
+      validation: (R) => R.required().integer().min(0),
+      initialValue: 100,
+    }),
+    defineField({
+      name: 'active',
+      title: 'Show on website',
+      type: 'boolean',
+      description:
+        'Switch off when someone leaves office. They disappear from the website but the record and photograph are kept.',
+      initialValue: true,
+    }),
+  ],
+
+===== GOVERNMENT ROUTES THAT EXIST =====
+app/government/chairman/page.tsx
+app/government/executive-council/page.tsx
+app/government/legislative-council/page.tsx
+app/government/management-team/page.tsx
+app/government/vision/page.tsx
+
+===== PORTRAITS ON DISK =====
+60
+oba-adeleke-ayinde-nasir-lagasa.webp
+oba-arowolo-araromi.webp
+oba-bakare-kayetoro.webp
+oba-elemoro-itedo.webp
+oba-idogun-ogunfayo.webp
+oba-odugbesan-debojo.webp
+oba-ojomu-lakowe.webp
+oba-olokodano-akodo.webp
+oba-onimedu-orimedu.webp
+oba-rasak.webp
+onisolu.webp
+
+===== DONE =====
+

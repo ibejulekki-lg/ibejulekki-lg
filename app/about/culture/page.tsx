@@ -10,7 +10,7 @@ export const metadata = {
 const FACTS = [
   { label: 'Heritage', value: 'Igi-Meta (Three Trees)' },
   { label: 'People', value: 'Ijebu Yoruba' },
-  { label: 'Faiths', value: 'Islam, Christianity, Isese' },
+  { label: 'Faiths', value: 'Islam, Christianity, African Traditional Worship' },
 ]
 
 const BLOCKS: Block[] = [
@@ -38,7 +38,7 @@ const BLOCKS: Block[] = [
     heading: 'Religious Tolerance',
     paras: [
       `A defining hallmark of Ibeju-Lekki is the exemplary religious tolerance among Muslims, Christians and Traditional Worshippers, reflecting the broader Yoruba tradition of interfaith accommodation, where adherents of different faiths live in the same families, participate in one another's celebrations, and collaborate for community progress.`,
-      `Muslims, organised under bodies such as the Ibeju-Lekki League of Imams and Alfas, promote unity, self-discipline and respect for all faiths. Christians, represented by the Christian Association of Nigeria (CAN) and the Pentecostal Fellowship of Nigeria (PFN), engage in worship, crusades and community outreach. Traditional Worshippers (Isese) maintain ancestral practices, including the veneration of deities such as Olokun, and take part in masquerade traditions and Isese Day celebrations.`,
+      `Muslims, organised under bodies such as the Ibeju-Lekki League of Imams and Alfas, promote unity, self-discipline and respect for all faiths. Christians, represented by the Christian Association of Nigeria (CAN) and the Pentecostal Fellowship of Nigeria (PFN), engage in worship, crusades and community outreach. African Traditional Worshippers maintain ancestral practices, including the veneration of deities such as Olokun, and take part in masquerade traditions and African Traditional Worship Day celebrations.`,
     ],
   },
   {
@@ -67,7 +67,7 @@ const BLOCKS: Block[] = [
     kind: 'defs',
     label: 'Key Elements',
     items: [
-      { term: 'Festivals', text: `The annual Igi Meta Ibeju Day celebrates heritage, unity and the leadership of the Onibeju, with cultural displays, music including Fuji, prayers from various faiths, dispute resolution and spiritual cleansing. Other events include beach fiestas, masquerade processions, Olokun festivals and Isese celebrations, drawing on grand Ijebu traditions such as Ojude Oba and Agemo.` },
+      { term: 'Festivals', text: `The annual Igi Meta Ibeju Day celebrates heritage, unity and the leadership of the Onibeju, with cultural displays, music including Fuji, prayers from various faiths, dispute resolution and spiritual cleansing. Other events include beach fiestas, masquerade processions, Olokun festivals and African Traditional Worship celebrations, drawing on grand Ijebu traditions such as Ojude Oba and Agemo.` },
       { term: 'Cuisine and Daily Life', text: `Seafood dominates, with smoked fish as a specialty. Festivals showcase local foods alongside fabrics, crafts and masquerade performances.` },
       { term: 'Social Values', text: `A strong emphasis on hospitality, education, family ties and communal progress, with age-grade systems (regberegbe) historically driving development.` },
     ],

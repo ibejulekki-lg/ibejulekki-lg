@@ -51,6 +51,8 @@ const BLOCKS: Block[] = [
       'Ibeju-Agbe', 'Magbon-Alade', 'Iberekodo', 'Igando-Oloja', 'Aiyeteju', 'Awoyaya',
       'Bogije', 'Akodo', 'Eleran-Igbe', 'Eleko', 'Elemoro', 'Idi-Orogbo', 'Lakowe',
       'Orimedu', 'Abijo', 'Mopo-Ijebu', 'Eputu', 'Badore', 'Idado', 'Solu-Alade',
+      'Lagasa', 'Ogunfayo', 'Araromi', 'Kaiyetoro', 'Iwerekun', 'Abegede',
+      'Arapagi', 'Idi-Ori',
     ],
   },
   {
