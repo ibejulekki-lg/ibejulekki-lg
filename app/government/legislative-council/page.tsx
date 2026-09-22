@@ -18,6 +18,7 @@ export default async function Page() {
       title="Legislative Council"
       intro="The legislative arm makes local laws, approves the budget and provides oversight. It is made up of councillors elected to represent the wards of Ibeju-Lekki, with the leadership of the house."
       lead={lead}
+      featureLabel="Leader of the Council"
       members={members}
     />
   )

@@ -77,6 +77,39 @@ function Card({ m }: { m: Member }) {
   )
 }
 
+/* The lead figure on a page: the Executive Chairman, or the Leader of the
+   House. Shown wide with the portrait beside the name rather than as one
+   of the grid cards, so the hierarchy reads at a glance on desktop as
+   well as on mobile. */
+function FeaturedCard({ m, label }: { m: Member; label?: string }) {
+  return (
+    <div className="group grid grid-cols-1 sm:grid-cols-[minmax(0,300px)_1fr] gap-5 sm:gap-8 overflow-hidden rounded-2xl border border-black/10 bg-white transition-all duration-200 hover:border-brand-yellow/50 hover:shadow-md">
+      <div className="relative aspect-[3/4] w-full overflow-hidden bg-[#F4F4F4]">
+        <Portrait m={m} />
+      </div>
+      <div className="flex flex-col justify-center p-5 sm:p-8 sm:pl-0">
+        {label ? (
+          <span className="mb-3 inline-flex w-fit items-center rounded-full bg-brand-yellow px-3 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-black">
+            {label}
+          </span>
+        ) : null}
+        <div className="text-[clamp(1.2rem,3vw,1.7rem)] font-extrabold text-brand-ink leading-tight">{m.name}</div>
+        {m.role ? (
+          <div className="mt-2 text-[13px] sm:text-[14px] font-semibold uppercase tracking-wide text-brand-amber leading-snug">{m.role}</div>
+        ) : null}
+        {m.ward ? (
+          <span className="mt-3 inline-block w-fit rounded-full bg-black/[0.05] px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-black/50">
+            {m.ward}
+          </span>
+        ) : null}
+        {m.bio ? (
+          <p className="mt-4 max-w-xl text-[13px] sm:text-[13.5px] leading-[1.75] text-black/55">{m.bio}</p>
+        ) : null}
+      </div>
+    </div>
+  )
+}
+
 function Grid({ members }: { members: Member[] }) {
   return (
     <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
@@ -89,6 +122,7 @@ function Grid({ members }: { members: Member[] }) {
 
 export default function TeamPage({
   eyebrow, title, intro, members, sections, group, lead,
+  featureFirst = false, featureLabel,
 }: {
   eyebrow: string
   title: string
@@ -97,7 +131,22 @@ export default function TeamPage({
   sections?: Section[]
   group: string
   lead?: Member
+  /* Lift the first person out of the first section and show them in the
+     wide featured card, with the rest of that section in the grid below. */
+  featureFirst?: boolean
+  featureLabel?: string
 }) {
+  const head = lead ?? (featureFirst ? sections?.[0]?.members?.[0] : undefined)
+
+  /* When the head came out of a section, that section is rendered without
+     them so nobody appears twice. */
+  const shown =
+    featureFirst && !lead && sections
+      ? sections.map((sec, i) =>
+          i === 0 ? { ...sec, members: sec.members.slice(1) } : sec,
+        )
+      : sections
+
   return (
     <>
       <main className="min-h-screen bg-white">
@@ -120,17 +169,15 @@ export default function TeamPage({
         </section>
 
         <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-10 py-12 sm:py-16">
-          {lead ? (
-            <div className="mb-10 sm:mb-12">
-              <div className="mx-auto max-w-xs">
-                <Card m={lead} />
-              </div>
+          {head ? (
+            <div className="mb-10 sm:mb-14">
+              <FeaturedCard m={head} label={featureLabel} />
             </div>
           ) : null}
-          {sections ? (
+          {shown ? (
             <div className="space-y-12 sm:space-y-16">
-              {sections.map((sec) => (
-                <div key={sec.title}>
+              {shown.map((sec) => (
+                <div key={sec.title} className={sec.members.length ? undefined : 'hidden'}>
                   <div className="mb-6">
                     <h2 className="text-[clamp(1.15rem,2.5vw,1.5rem)] font-extrabold text-brand-ink tracking-tight">{sec.title}</h2>
                     {sec.blurb ? (

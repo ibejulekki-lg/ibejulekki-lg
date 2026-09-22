@@ -18,6 +18,8 @@ export default async function Page() {
       title="Executive Council"
       intro="The executive arm carries out the day-to-day administration of Ibeju-Lekki Local Government. It is led by the Executive Chairman and made up of supervisors who lead each portfolio, special advisers, and non-cabinet members."
       sections={sections}
+      featureFirst
+      featureLabel="Executive Chairman"
     />
   )
 }
