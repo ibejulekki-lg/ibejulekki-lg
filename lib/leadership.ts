@@ -74,6 +74,13 @@ export async function getLegislative(): Promise<{ lead?: Member; members: Member
   return { lead: rows[idx], members: rows.filter((_, i) => i !== idx) }
 }
 
+/* Technical Advisers: a single ordered list. There is no file fallback
+   here, because this group only ever existed in the CMS. An empty list
+   simply renders an empty page until staff add them. */
+export async function getAdvisers(): Promise<Member[]> {
+  return fetchArm('advisers')
+}
+
 /* Management Team: a single ordered list. */
 export async function getManagement(): Promise<Member[]> {
   const rows = await fetchArm('management')

@@ -199,6 +199,18 @@ export default defineConfig({
                           .defaultOrdering(LEADER_ORDER)
                       ),
                     S.listItem()
+                      .id('technical-advisers')
+                      .title('Technical Advisers')
+                      .icon(UsersIcon)
+                      .child(
+                        S.documentList()
+                          .id('leader-advisers')
+                          .title('Technical Advisers')
+                          .schemaType('leader')
+                          .filter('_type == "leader" && arm == "advisers" && active == true')
+                          .defaultOrdering(LEADER_ORDER)
+                      ),
+                    S.listItem()
                       .id('management-team')
                       .title('Management Team')
                       .icon(UsersIcon)

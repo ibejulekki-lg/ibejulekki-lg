@@ -29,6 +29,7 @@ const NAV_ITEMS: NavItem[] = [
       { label: 'Executive Chairman',  href: '/government/chairman' },
       { label: 'Executive Council',   href: '/government/executive-council' },
       { label: 'Legislative Council', href: '/government/legislative-council' },
+      { label: 'Technical Advisers',  href: '/government/technical-advisers' },
       { label: 'Management Team',     href: '/government/management-team' },
     ],
   },

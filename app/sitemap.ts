@@ -22,6 +22,7 @@ const STATIC_ROUTES = [
   '/government/chairman',
   '/government/executive-council',
   '/government/legislative-council',
+  '/government/technical-advisers',
   '/government/management-team',
 
   '/programmes/shieeld',

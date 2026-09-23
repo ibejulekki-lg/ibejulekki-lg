@@ -11,6 +11,7 @@ import { defineField, defineType } from 'sanity'
 export const ARMS = [
   { title: 'Executive Council',   value: 'executive' },
   { title: 'Legislative Council', value: 'legislative' },
+  { title: 'Technical Advisers',  value: 'advisers' },
   { title: 'Management Team',     value: 'management' },
 ]
 
