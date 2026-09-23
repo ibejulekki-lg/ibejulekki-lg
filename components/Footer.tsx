@@ -28,17 +28,6 @@ const FOOTER_NAV: {
     ],
   },
   {
-    heading: 'Opportunities',
-    links: [
-      { label: 'Housing',              href: '/opportunities/housing' },
-      { label: 'Citrus Gardens',       href: '/opportunities/housing/citrus-garden' },
-      { label: 'Eleko Isles',          href: '/opportunities/housing/eleko-isles' },
-      { label: 'Tourism',              href: '/opportunities/tourism' },
-      { label: 'Investment Opportunities', href: '/opportunities/investment' },
-      { label: 'Career & Jobs',        href: '/resources/careers' },
-    ],
-  },
-  {
     heading: 'Services',
     links: [
       { label: 'Pay Levies',          href: 'https://portal.ibejulekkilga.com', external: true },
@@ -48,6 +37,17 @@ const FOOTER_NAV: {
       { label: 'Waste Collection',    href: '/resources/waste' },
       { label: 'Download Forms',      href: '/resources/forms' },
       { label: 'Report an Issue',     href: '/report' },
+    ],
+  },
+  {
+    heading: 'Opportunities',
+    links: [
+      { label: 'Housing',              href: '/opportunities/housing' },
+      { label: 'Citrus Gardens',       href: '/opportunities/housing/citrus-garden' },
+      { label: 'Eleko Isles',          href: '/opportunities/housing/eleko-isles' },
+      { label: 'Tourism',              href: '/opportunities/tourism' },
+      { label: 'Investment Opportunities', href: '/opportunities/investment' },
+      { label: 'Career & Jobs',        href: '/resources/careers' },
     ],
   },
   {

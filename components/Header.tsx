@@ -43,6 +43,17 @@ const NAV_ITEMS: NavItem[] = [
     ],
   },
   {
+    label: 'Services',
+    href: '#',
+    children: [
+      { label: 'Pay Levies',          href: 'https://portal.ibejulekkilga.com', external: true },
+      { label: 'Street Naming',       href: '/resources/street-naming' },
+      { label: 'Birth Certification', href: '/resources/birth-certification' },
+      { label: 'Marriage Registry',    href: '/resources/marriage-registry' },
+      { label: 'Waste Collection',    href: '/resources/waste' },
+    ],
+  },
+  {
     label: 'Opportunities',
     href: '#',
     children: [
@@ -56,17 +67,6 @@ const NAV_ITEMS: NavItem[] = [
     ],
   },
   { label: 'News & Events', href: '/news' },
-  {
-    label: 'Services',
-    href: '#',
-    children: [
-      { label: 'Pay Levies',          href: 'https://portal.ibejulekkilga.com', external: true },
-      { label: 'Street Naming',       href: '/resources/street-naming' },
-      { label: 'Birth Certification', href: '/resources/birth-certification' },
-      { label: 'Marriage Registry',    href: '/resources/marriage-registry' },
-      { label: 'Waste Collection',    href: '/resources/waste' },
-    ],
-  },
 ];
 
 function DesktopNavItem({ item }: { item: (typeof NAV_ITEMS)[number] }) {
