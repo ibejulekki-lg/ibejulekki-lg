@@ -1,0 +1,321 @@
+
+===== GIT =====
+3d13b49 Add a Technical Advisers page, managed from the CMS
+1821786 Move Services after Programmes in the header and footer menus
+d31861c Feature both the Chairman and Vice Chairman at the top of Executive Council
+4109164 removed some text form the cabonet.ts
+?? organogram-inspect.txt
+
+===== OVERVIEW PAGE =====
+
+----- app/about/page.tsx (42 lines) -----
+import Link from 'next/link'
+import Organogram from '@/components/Organogram'
+import Footer from '@/components/Footer'
+
+export const metadata = {
+  title: 'About Ibeju-Lekki LGA | Ibeju-Lekki Local Government',
+  description:
+    'About Ibeju-Lekki Local Government Area and how the council is organised to serve its communities.',
+}
+
+export default function Page() {
+  return (
+    <>
+      <main className="min-h-screen bg-white">
+        <section className="border-b border-black/10 bg-brand-cream">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-10 py-10 sm:py-14">
+            <nav className="flex items-center flex-wrap gap-1.5 text-[11px] sm:text-[12px] text-black/45 mb-5" aria-label="Breadcrumb">
+              <Link href="/" className="hover:text-brand-ink transition-colors">Home</Link>
+              <span className="text-black/30">/</span>
+              <span className="text-brand-ink font-semibold">About</span>
+            </nav>
+            <div className="flex items-center gap-3 mb-3">
+              <span className="h-px w-8 bg-brand-yellow" aria-hidden="true" />
+              <span className="text-[10.5px] font-bold uppercase tracking-[0.25em] text-black/45">About</span>
+            </div>
+            <h1 className="text-[clamp(1.9rem,5vw,3rem)] font-extrabold text-brand-ink tracking-tight leading-tight">
+              About Ibeju-Lekki LGA
+            </h1>
+            <p className="mt-4 max-w-2xl text-[14px] sm:text-[15px] text-black/55 leading-[1.8]">
+              Ibeju-Lekki Local Government Area is one of the fastest-growing parts of Lagos State,
+              home to the Dangote Refinery, the Lekki Free Trade Zone and the Lekki Deep Seaport.
+              Below is how the council is organised to serve its communities.
+            </p>
+          </div>
+        </section>
+
+        <Organogram />
+      </main>
+      <Footer />
+    </>
+  )
+}
+
+===== ORGANOGRAM COMPONENT =====
+
+----- components/Organogram.tsx (161 lines) -----
+import Link from 'next/link'
+
+// Senior roles, all on ONE level below the Chairman. Each links to its page.
+const DIRECT: { role: string; note?: string; href: string }[] = [
+  { role: 'Vice Chairman', href: '/government/executive-council' },
+  { role: 'Secretary to the Local Government', note: 'SLG', href: '/government/executive-council' },
+  { role: 'Council Manager', note: 'Oversees all departments & units', href: '/government/management-team' },
+  { role: 'Supervisors', href: '/government/executive-council' },
+  { role: 'Clerk of the House', note: 'Legislative Arm', href: '/government/legislative-council' },
+]
+
+const DEPARTMENTS = [
+  'Admin & Human Resources',
+  'Finance & Accounts',
+  'Works & Infrastructure',
+  'Agric & Social Services',
+  'Education & Library Services',
+  'Planning, Budget, Research & Statistics',
+  'WAPA',
+  'Health Care Services',
+  'Environmental Services',
+]
+
+const UNITS = ['Audit', 'Legal Service', 'Public Affairs', 'Tourism', 'ICT', 'Procurement']
+
+// Departments and units report to the Council Manager, so they link there.
+const DEPT_HREF = '/government/management-team'
+
+function Connector() {
+  return <div className="mx-auto w-px h-7 sm:h-9 bg-black/15" aria-hidden="true" />
+}
+
+export default function Organogram() {
+  return (
+    <section
+      className="bg-brand-cream py-16 sm:py-20 lg:py-24 border-t border-black/[0.06]"
+      aria-labelledby="org-heading"
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
+
+        {/* Header */}
+        <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-14">
+          <div className="flex items-center justify-center gap-3 mb-3">
+            <span className="h-px w-8 bg-brand-yellow" aria-hidden="true" />
+            <span className="text-[10.5px] font-bold uppercase tracking-[0.25em] text-black/45">
+              Government · Structure
+            </span>
+            <span className="h-px w-8 bg-brand-yellow" aria-hidden="true" />
+          </div>
+          <h2
+            id="org-heading"
+            className="text-[clamp(1.6rem,3.5vw,2.2rem)] font-extrabold text-brand-ink tracking-tight leading-tight"
+          >
+            Council Structure
+          </h2>
+          <p className="mt-3 text-[14px] text-black/55 leading-[1.8]">
+            How Ibeju-Lekki Local Government is organised, from the Executive Chairman
+            to the departments and units that deliver services to residents. Tap any role to learn more.
+          </p>
+        </div>
+
+        {/* Tier 0, Executive Chairman */}
+        <div className="flex justify-center">
+          <Link
+            href="/government/chairman"
+            className="group w-full max-w-xs text-center rounded-2xl bg-brand-ink text-white px-6 py-5 shadow-sm transition-colors hover:bg-[#1c1c1c]"
+          >
+            <div className="text-[10px] font-bold uppercase tracking-[0.22em] text-brand-yellow mb-1">
+              Executive Chairman
+            </div>
+            <div className="text-[15px] font-bold leading-tight">Hon. Abdullahi Sesan Olowa</div>
+          </Link>
+        </div>
+
+        <Connector />
+
+        {/* Tier 1, senior roles, all on one level */}
+        <div className="text-center text-[10px] font-bold uppercase tracking-[0.2em] text-black/40 mb-4">
+          Reporting to the Executive Chairman
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4 max-w-5xl mx-auto items-stretch">
+          {DIRECT.map((d) => (
+            <Link
+              key={d.role}
+              href={d.href}
+              className="group flex flex-col justify-center rounded-xl border border-black/[0.12] bg-white px-4 py-4 text-center transition-colors hover:border-brand-yellow hover:bg-brand-yellow/5"
+            >
+              <div className="text-[13px] font-bold text-brand-ink leading-tight group-hover:text-brand-amber transition-colors">
+                {d.role}
+              </div>
+              {d.note && <div className="mt-1 text-[10.5px] text-black/50 leading-snug">{d.note}</div>}
+            </Link>
+          ))}
+        </div>
+
+        <Connector />
+
+        {/* Tier 2, Office of the Council Manager */}
+        <div className="rounded-2xl border border-black/10 bg-white p-5 sm:p-8 max-w-6xl mx-auto">
+          <div className="text-center mb-6">
+            <span className="inline-block text-[10px] font-bold uppercase tracking-[0.2em] text-black/45">
+              Office of the Council Manager
+            </span>
+          </div>
+
+          {/* Departments */}
+          <div className="flex items-center gap-3 mb-4">
+            <span className="h-px flex-1 bg-black/[0.08]" aria-hidden="true" />
+            <span className="text-[10.5px] font-bold uppercase tracking-[0.2em] text-brand-ink">Departments</span>
+            <span className="h-px flex-1 bg-black/[0.08]" aria-hidden="true" />
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-8">
+            {DEPARTMENTS.map((name) => (
+              <Link
+                key={name}
+                href={DEPT_HREF}
+                className="group flex items-start gap-3 rounded-xl border border-black/10 bg-white px-4 py-3 hover:border-brand-yellow/50 transition-colors"
+              >
+                <span className="mt-1 w-1.5 h-1.5 rounded-full bg-brand-yellow flex-shrink-0" aria-hidden="true" />
+                <div>
+                  <div className="text-[9px] font-bold uppercase tracking-[0.16em] text-black/40">Head</div>
+                  <div className="text-[12.5px] font-semibold text-brand-ink leading-snug group-hover:text-brand-amber transition-colors">{name}</div>
+                  <div className="text-[10px] text-black/40">Department</div>
+                </div>
+              </Link>
+            ))}
+          </div>
+
+          {/* Units */}
+          <div className="flex items-center gap-3 mb-4">
+            <span className="h-px flex-1 bg-black/[0.08]" aria-hidden="true" />
+            <span className="text-[10.5px] font-bold uppercase tracking-[0.2em] text-brand-ink">Units</span>
+            <span className="h-px flex-1 bg-black/[0.08]" aria-hidden="true" />
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mb-6">
+            {UNITS.map((name) => (
+              <Link
+                key={name}
+                href={DEPT_HREF}
+                className="group rounded-xl border border-black/10 bg-white px-3 py-3 text-center hover:border-brand-yellow/50 transition-colors"
+              >
+                <div className="text-[9px] font-bold uppercase tracking-[0.16em] text-black/40 mb-0.5">Head</div>
+                <div className="text-[12px] font-semibold text-brand-ink leading-tight group-hover:text-brand-amber transition-colors">{name}</div>
+                <div className="text-[9.5px] text-black/40 mt-0.5">Unit</div>
+              </Link>
+            ))}
+          </div>
+
+          {/* Area Officers */}
+          <Link
+            href={DEPT_HREF}
+            className="group flex items-center justify-center rounded-xl border border-dashed border-black/20 bg-brand-cream px-4 py-3 text-center hover:border-brand-yellow/60 transition-colors"
+          >
+            <span className="text-[9px] font-bold uppercase tracking-[0.16em] text-black/40">Field</span>
+            <span className="ml-2 text-[12.5px] font-semibold text-brand-ink group-hover:text-brand-amber transition-colors">Area Officers</span>
+          </Link>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+===== ANY OTHER ORG CHART FILES =====
+Organogram.tsx
+
+----- lib/organogram.ts : MISSING -----
+
+----- lib/structure.ts : MISSING -----
+
+----- components/CouncilStructure.tsx : MISSING -----
+
+===== WHERE THE ORGANOGRAM IS USED =====
+app/about/page.tsx:2:import Organogram from '@/components/Organogram'
+app/about/page.tsx:37:        <Organogram />
+components/Organogram.tsx:33:export default function Organogram() {
+
+===== DOES IT MENTION THESE ROLES ALREADY? =====
+components/Organogram.tsx:6:  { role: 'Secretary to the Local Government', note: 'SLG', href: '/government/executive-council' },
+components/Organogram.tsx:7:  { role: 'Council Manager', note: 'Oversees all departments & units', href: '/government/management-team' },
+components/Organogram.tsx:9:  { role: 'Clerk of the House', note: 'Legislative Arm', href: '/government/legislative-council' },
+components/Organogram.tsx:26:// Departments and units report to the Council Manager, so they link there.
+components/Organogram.tsx:98:        {/* Tier 2, Office of the Council Manager */}
+components/Organogram.tsx:102:              Office of the Council Manager
+components/Organogram.tsx:149:          {/* Area Officers */}
+components/Organogram.tsx:155:            <span className="ml-2 text-[12.5px] font-semibold text-brand-ink group-hover:text-brand-amber transition-colors">Area Officers</span>
+lib/cabinet.ts:33:      { name: 'Hon. Adewale Fasali Adebanjo', role: 'Secretary to the Local Government', image: '/leadership/secretary.webp' },
+lib/cabinet.ts:34:      { name: 'Hon. Issa Moruf Olayinka', role: 'Chief of Staff', image: '/leadership/issa-moruf-olayinka.webp' },
+lib/cabinet.ts:86:  { name: 'Dr. Adekoya Adesanya Augustine',        role: 'Council Manager', image: '/leadership/council-manager.webp' },
+lib/cabinet.ts:94:  { name: 'Mr. Badmus Hamzat',                     role: 'Clerk of the House' },
+lib/cabinet.ts:98:  { name: 'Mr. Balogun Adewale Alli',              role: 'Area Officer (Bogije)' },
+lib/cabinet.ts:102:  { name: 'Mrs. Aragbada Omolola Taiwo',           role: 'Area Officer (Ogunfayo)',                          image: '/leadership/aragbada-omolola-taiwo.webp' },
+lib/cabinet.ts:103:  { name: 'Mr. Okesanya Olumide Adedapo',          role: 'Area Officer (Coastal)' },
+lib/cabinet.ts:104:  { name: 'Mr. Odumokun Olusegun',                 role: 'Area Officer (Ibeju)',                             image: '/leadership/odumokun-olusegun.webp' },
+app/contact/page.tsx:15:  { role: 'Council Manager', lines: ['08023255386'] },
+
+===== CABINET DATA (roles available to draw on) =====
+30:      { name: 'Hon. Engr. Abdullahi Sesan Olowa', role: '', image: '/chairman_native.webp' },
+31:      { name: 'Hon. Isiaka Yusuf Olatunji (IYO)', role: 'Vice Chairman / Supervisor for Works & Infrastructure', image: '/leadership/vice-chairman.webp' },
+32:      // { name: 'Hon. Olayinka Mojeed Oluwafemi', role: 'Leader of the House', image: '/leadership/olayinka-mojeed-oluwafemi.webp' },
+33:      { name: 'Hon. Adewale Fasali Adebanjo', role: 'Secretary to the Local Government', image: '/leadership/secretary.webp' },
+34:      { name: 'Hon. Issa Moruf Olayinka', role: 'Chief of Staff', image: '/leadership/issa-moruf-olayinka.webp' },
+41:      { name: 'Hon. Abisola Raolat Azeez',           role: 'Supervisor for WAPA', image: '/leadership/abisola-raolat-azeez.webp' },
+42:      { name: 'Hon. Aje Saheed',                     role: 'Supervisor for Health', image: '/leadership/aje-saheed.webp' },
+43:      { name: 'Hon. Ajibola Elemoro',                role: 'Supervisor for Market & Revenue', image: '/leadership/ajibola-elemoro.webp' },
+44:      { name: 'Hon. Agbaje Sodiq Olajide',           role: 'Supervisor for Education & Library Services', image: '/leadership/photo2.webp' },
+45:      { name: 'Hon. Lasiru Sule',                    role: 'Supervisor for Information, Communication & Technology', image: '/leadership/lasiru-sule.webp' },
+46:      { name: 'Hon. Balogun Abdul-waliu Oluwagbemi',  role: 'Supervisor for Budget, Planning & Statistics', image: '/leadership/balogun-abdulwaliu-oluwagbemi.webp' },
+47:      { name: 'Hon. Fatai Alonge',                   role: 'Supervisor for Housing & Tourism', image: '/leadership/fatai-alonge.webp' },
+48:      { name: 'Hon. Ogungbo Sofwan Temitope',        role: 'Supervisor for Environmental Services and Waste Management', image: '/leadership/ogungbo-sofwan-temitope.webp' },
+49:      { name: 'Hon. Olusola Edalere',                role: 'Supervisor for Agric. & Social Services', image: '/leadership/olusola-edalere.webp' },
+50:      { name: 'Hon. Balogun Hakeem Oluwole',         role: 'Supervisor for Youth & Sports', image: '/leadership/balogun-hakeem-oluwole.webp' },
+56:      { name: 'Hon. Mrs. Wakilat Remilekun Odupe',   role: 'Special Adviser on Wealth Creation', image: '/leadership/wakilat-remilekun-odupe.webp' },
+57:      { name: 'Hon. Yusuf Mujaidu',                  role: 'Special Adviser on Chieftaincy Matters', image: '/leadership/yusuf-mujaidu.webp' },
+58:      { name: 'Hon. Shakirat Bisola Musari',         role: 'Special Adviser on Business & Economic Development', image: '/leadership/shakirat-bisola-musari.webp' },
+59:      { name: 'Hon. Nurudeen Adeboyejo',             role: 'Special Adviser on Political Affairs', image: '/leadership/nurudeen-adeboyejo.webp' },
+60:      { name: 'Hon. Saheed Yusuf',                   role: 'Special Adviser for Agric & Social Services', image: '/leadership/saheed-yusuf.webp' },
+75:  { name: 'Hon. Olayinka Mojeed Oluwafemi', role: 'Leader of the Council', ward: 'Ward F',  image: '/leadership/olayinka-mojeed-oluwafemi.webp' },
+76:  { name: 'Hon. Musibau Shuaibu Olorunju',  role: 'Deputy Leader',         ward: 'Ward D',  image: '/leadership/musibau-shuaibu-olorunju.webp' },
+77:  { name: 'Hon. Eletu Zainab Ayobola',      role: 'Majority Leader',       ward: 'Ward E',  image: '/leadership/eletu-zainab-ayobola.webp' },
+78:  { name: 'Hon. Lawal Sebiu Alaba',         role: 'Chief Whip',            ward: 'Ward C2', image: '/leadership/lawal-sebiu-alaba.webp' },
+79:  { name: 'Hon. Aromire Rasaki Abidemi',    role: 'Member',                ward: 'Ward A',  image: '/leadership/aromire-rasaki-abidemi.webp' },
+80:  { name: 'Hon. Ogungbo Nurudeen Tunde',    role: 'Member',                ward: 'Ward B',  image: '/leadership/ogungbo-nurudeen-tunde.webp' },
+81:  { name: 'Hon. Rufai Kafayat Abosede',     role: 'Member',                ward: 'Ward C1', image: '/leadership/rufai-kafayat-abosede.webp' },
+86:  { name: 'Dr. Adekoya Adesanya Augustine',        role: 'Council Manager', image: '/leadership/council-manager.webp' },
+87:  { name: 'Mrs. Osun Yetunde Shakirat',            role: 'Council Treasurer', image: '/leadership/council-treasurer.webp' },
+88:  { name: 'Mr. Lagbalu Adesegun',                  role: 'HOD, Environment Services',                      image: '/leadership/lagbalu-adesegun.webp' },
+89:  { name: 'Mr. Ajayi Babajide Muhammed',           role: 'Deputy Director, Administration & Human Resources', image: '/leadership/ajayi-babajide-muhammed.webp' },
+90:  { name: 'Mrs. Belo Ganiat Abiola',               role: 'HOD, Education & Library Studies',                 image: '/leadership/belo-ganiat-abiola.webp' },
+91:  { name: 'Dr. Agboola Bidemi',                    role: 'Medical Officer of Health',                        image: '/leadership/agboola-bidemi.webp' },
+92:  { name: 'Mrs. Temitope Adesokan',                role: 'Internal Auditor',                                 image: '/leadership/temitope-adesokan.webp' },
+93:  { name: 'Mrs. AbdulAzeez Funmilola B.',          role: 'HOD, Agric. Rural & Social Services',              image: '/leadership/abdulazeez-funmilola-b.webp' },
+94:  { name: 'Mr. Badmus Hamzat',                     role: 'Clerk of the House' },
+95:  { name: 'Barr. Damilola Lawson',                 role: 'Legal Officer',                                    image: '/leadership/damilola-lawson.webp' },
+96:  { name: 'Engr. Kamiyo Adetola Tijani',           role: 'Council Engineer',                                 image: '/leadership/kamiyo-adetola-tijani.webp' },
+97:  { name: 'Mrs. Bokoh Sewanu Abosede',             role: 'HOD, WAPA',                                        image: '/leadership/bokoh-sewanu-abosede.webp' },
+98:  { name: 'Mr. Balogun Adewale Alli',              role: 'Area Officer (Bogije)' },
+99:  { name: 'Miss Issa R. Titilola',                 role: 'HOU, Procurement',                                 image: '/leadership/issa-r-titilola.webp' },
+100:  { name: 'Mrs. Ibraheem-Edunjobi Moriam Olaide',  role: 'HOD, Budget, Planning and Statistics',            image: '/leadership/ibraheem-edunjobi-moriam-olaide.webp' },
+101:  { name: 'Mr. Oladjobu Nathaniel Idowu',          role: 'Public Affairs Officer',                           image: '/leadership/oladjobu-nathaniel-idowu.webp' },
+102:  { name: 'Mrs. Aragbada Omolola Taiwo',           role: 'Area Officer (Ogunfayo)',                          image: '/leadership/aragbada-omolola-taiwo.webp' },
+103:  { name: 'Mr. Okesanya Olumide Adedapo',          role: 'Area Officer (Coastal)' },
+104:  { name: 'Mr. Odumokun Olusegun',                 role: 'Area Officer (Ibeju)',                             image: '/leadership/odumokun-olusegun.webp' },
+105:  { name: 'Mrs. Sarumi Oluwatosin Abidemi',        role: 'HOU, ICT',                                         image: '/leadership/sarumi-oluwatosin-abidemi.webp' },
+106:  { name: 'Mr. Adewale Omole Sheriff',             role: 'Tourism Officer',                                  image: '/leadership/adewale-omole-sheriff.webp' },
+107:  { name: 'Mr. Edalere Oladeinde Wasiu',           role: 'Second Signatory' },
+108:  { name: 'Mrs. Oketoyinbo Taiwo Adebowale',       role: 'Marriage Registrar',                               image: '/leadership/oketoyinbo-taiwo-adebowale.webp' },
+109:  { name: 'Mr. Lawal Liafis Adaranijo',            role: 'NULGE Chairman' ,                                  image: '/leadership/photo1.webp' },
+
+===== BRAND TOKENS (so new boxes match) =====
+      colors: {
+        // Official Ibeju-Lekki palette, grouped under `brand` so the default
+        // Tailwind scales (amber-600, red-700, yellow-400...) keep working.
+        // Existing `bg-brand-yellow` classes resolve to brand.yellow below.
+        brand: {
+          yellow: '#FFBA26', // primary highlight / fills (black text on top)
+          amber:  '#B26B00', // readable yellow text on white; hovers
+          hover:  '#E0A421', // yellow hover state
+          ink:    '#111111', // body text + dark sections
+          red:    '#BE1E2D', // touch of red (alerts, emergencies)
+          cream:  '#FAFAFA', // subtle alternating section background
+        },
+
+===== DONE =====
+

@@ -1,12 +1,20 @@
 import Link from 'next/link'
 
-// Senior roles, all on ONE level below the Chairman. Each links to its page.
-const DIRECT: { role: string; note?: string; href: string }[] = [
-  { role: 'Vice Chairman', href: '/government/executive-council' },
+/* The council hierarchy, top to bottom:
+     Executive Chairman
+     Vice Chairman
+     Legislative Council
+     SLG, Council Manager, Chief of Staff
+     Supervisors
+     Departments
+     Units, including the Clerk of the House
+     Area Officers
+   Each tier links to the page where those people are listed. */
+
+const OFFICE_OF_CHAIRMAN: { role: string; note?: string; href: string }[] = [
   { role: 'Secretary to the Local Government', note: 'SLG', href: '/government/executive-council' },
-  { role: 'Council Manager', note: 'Oversees all departments & units', href: '/government/management-team' },
-  { role: 'Supervisors', href: '/government/executive-council' },
-  { role: 'Clerk of the House', note: 'Legislative Arm', href: '/government/legislative-council' },
+  { role: 'Council Manager', note: 'Oversees all departments and units', href: '/government/management-team' },
+  { role: 'Chief of Staff', href: '/government/executive-council' },
 ]
 
 const DEPARTMENTS = [
@@ -21,13 +29,43 @@ const DEPARTMENTS = [
   'Environmental Services',
 ]
 
-const UNITS = ['Audit', 'Legal Service', 'Public Affairs', 'Tourism', 'ICT', 'Procurement']
+/* The Clerk of the House sits here, as a unit head. */
+const UNITS = [
+  'Audit',
+  'Legal Service',
+  'Public Affairs',
+  'Tourism',
+  'ICT',
+  'Procurement',
+  'Clerk of the House',
+]
 
-// Departments and units report to the Council Manager, so they link there.
-const DEPT_HREF = '/government/management-team'
+const AREA_OFFICES = ['Bogije', 'Ogunfayo', 'Coastal', 'Ibeju']
+
+const MGMT_HREF = '/government/management-team'
 
 function Connector() {
   return <div className="mx-auto w-px h-7 sm:h-9 bg-black/15" aria-hidden="true" />
+}
+
+/* A small label above a tier, so the hierarchy is readable rather than
+   just a stack of boxes. */
+function TierLabel({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="text-center text-[10px] font-bold uppercase tracking-[0.2em] text-black/40 mb-4">
+      {children}
+    </div>
+  )
+}
+
+function BandLabel({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="flex items-center gap-3 mb-4">
+      <span className="h-px flex-1 bg-black/[0.08]" aria-hidden="true" />
+      <span className="text-[10.5px] font-bold uppercase tracking-[0.2em] text-brand-ink">{children}</span>
+      <span className="h-px flex-1 bg-black/[0.08]" aria-hidden="true" />
+    </div>
+  )
 }
 
 export default function Organogram() {
@@ -43,7 +81,7 @@ export default function Organogram() {
           <div className="flex items-center justify-center gap-3 mb-3">
             <span className="h-px w-8 bg-brand-yellow" aria-hidden="true" />
             <span className="text-[10.5px] font-bold uppercase tracking-[0.25em] text-black/45">
-              Government · Structure
+              Government &middot; Structure
             </span>
             <span className="h-px w-8 bg-brand-yellow" aria-hidden="true" />
           </div>
@@ -55,11 +93,12 @@ export default function Organogram() {
           </h2>
           <p className="mt-3 text-[14px] text-black/55 leading-[1.8]">
             How Ibeju-Lekki Local Government is organised, from the Executive Chairman
-            to the departments and units that deliver services to residents. Tap any role to learn more.
+            to the departments, units and area offices that deliver services to residents.
+            Tap any role to learn more.
           </p>
         </div>
 
-        {/* Tier 0, Executive Chairman */}
+        {/* 1. Executive Chairman */}
         <div className="flex justify-center">
           <Link
             href="/government/chairman"
@@ -74,12 +113,41 @@ export default function Organogram() {
 
         <Connector />
 
-        {/* Tier 1, senior roles, all on one level */}
-        <div className="text-center text-[10px] font-bold uppercase tracking-[0.2em] text-black/40 mb-4">
-          Reporting to the Executive Chairman
+        {/* 2. Vice Chairman */}
+        <div className="flex justify-center">
+          <Link
+            href="/government/executive-council"
+            className="group w-full max-w-xs text-center rounded-2xl border border-black/[0.12] bg-white px-6 py-4 transition-colors hover:border-brand-yellow hover:bg-brand-yellow/5"
+          >
+            <div className="text-[13.5px] font-bold text-brand-ink leading-tight group-hover:text-brand-amber transition-colors">
+              Vice Chairman
+            </div>
+          </Link>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4 max-w-5xl mx-auto items-stretch">
-          {DIRECT.map((d) => (
+
+        <Connector />
+
+        {/* 3. Legislative Council */}
+        <div className="flex justify-center">
+          <Link
+            href="/government/legislative-council"
+            className="group w-full max-w-md text-center rounded-2xl border border-black/[0.12] bg-white px-6 py-4 transition-colors hover:border-brand-yellow hover:bg-brand-yellow/5"
+          >
+            <div className="text-[13.5px] font-bold text-brand-ink leading-tight group-hover:text-brand-amber transition-colors">
+              Legislative Council
+            </div>
+            <div className="mt-1 text-[10.5px] text-black/50 leading-snug">
+              The legislative arm of the council
+            </div>
+          </Link>
+        </div>
+
+        <Connector />
+
+        {/* 4. SLG, Council Manager, Chief of Staff */}
+        <TierLabel>Office of the Executive Chairman</TierLabel>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 max-w-3xl mx-auto items-stretch">
+          {OFFICE_OF_CHAIRMAN.map((d) => (
             <Link
               key={d.role}
               href={d.href}
@@ -95,25 +163,32 @@ export default function Organogram() {
 
         <Connector />
 
-        {/* Tier 2, Office of the Council Manager */}
-        <div className="rounded-2xl border border-black/10 bg-white p-5 sm:p-8 max-w-6xl mx-auto">
-          <div className="text-center mb-6">
-            <span className="inline-block text-[10px] font-bold uppercase tracking-[0.2em] text-black/45">
-              Office of the Council Manager
-            </span>
-          </div>
+        {/* 5. Supervisors */}
+        <div className="flex justify-center">
+          <Link
+            href="/government/executive-council"
+            className="group w-full max-w-md text-center rounded-2xl border border-black/[0.12] bg-white px-6 py-4 transition-colors hover:border-brand-yellow hover:bg-brand-yellow/5"
+          >
+            <div className="text-[13.5px] font-bold text-brand-ink leading-tight group-hover:text-brand-amber transition-colors">
+              Supervisors
+            </div>
+            <div className="mt-1 text-[10.5px] text-black/50 leading-snug">
+              Supervisory councillors leading each portfolio
+            </div>
+          </Link>
+        </div>
 
-          {/* Departments */}
-          <div className="flex items-center gap-3 mb-4">
-            <span className="h-px flex-1 bg-black/[0.08]" aria-hidden="true" />
-            <span className="text-[10.5px] font-bold uppercase tracking-[0.2em] text-brand-ink">Departments</span>
-            <span className="h-px flex-1 bg-black/[0.08]" aria-hidden="true" />
-          </div>
+        <Connector />
+
+        {/* 6 to 8. Departments, units and area offices */}
+        <div className="rounded-2xl border border-black/10 bg-white p-5 sm:p-8 max-w-6xl mx-auto">
+
+          <BandLabel>Departments</BandLabel>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-8">
             {DEPARTMENTS.map((name) => (
               <Link
                 key={name}
-                href={DEPT_HREF}
+                href={MGMT_HREF}
                 className="group flex items-start gap-3 rounded-xl border border-black/10 bg-white px-4 py-3 hover:border-brand-yellow/50 transition-colors"
               >
                 <span className="mt-1 w-1.5 h-1.5 rounded-full bg-brand-yellow flex-shrink-0" aria-hidden="true" />
@@ -126,17 +201,12 @@ export default function Organogram() {
             ))}
           </div>
 
-          {/* Units */}
-          <div className="flex items-center gap-3 mb-4">
-            <span className="h-px flex-1 bg-black/[0.08]" aria-hidden="true" />
-            <span className="text-[10.5px] font-bold uppercase tracking-[0.2em] text-brand-ink">Units</span>
-            <span className="h-px flex-1 bg-black/[0.08]" aria-hidden="true" />
-          </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mb-6">
+          <BandLabel>Units</BandLabel>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 mb-8">
             {UNITS.map((name) => (
               <Link
                 key={name}
-                href={DEPT_HREF}
+                href={name === 'Clerk of the House' ? '/government/legislative-council' : MGMT_HREF}
                 className="group rounded-xl border border-black/10 bg-white px-3 py-3 text-center hover:border-brand-yellow/50 transition-colors"
               >
                 <div className="text-[9px] font-bold uppercase tracking-[0.16em] text-black/40 mb-0.5">Head</div>
@@ -146,16 +216,22 @@ export default function Organogram() {
             ))}
           </div>
 
-          {/* Area Officers */}
-          <Link
-            href={DEPT_HREF}
-            className="group flex items-center justify-center rounded-xl border border-dashed border-black/20 bg-brand-cream px-4 py-3 text-center hover:border-brand-yellow/60 transition-colors"
-          >
-            <span className="text-[9px] font-bold uppercase tracking-[0.16em] text-black/40">Field</span>
-            <span className="ml-2 text-[12.5px] font-semibold text-brand-ink group-hover:text-brand-amber transition-colors">Area Officers</span>
-          </Link>
+          <BandLabel>Area Offices</BandLabel>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            {AREA_OFFICES.map((name) => (
+              <Link
+                key={name}
+                href={MGMT_HREF}
+                className="group rounded-xl border border-black/10 bg-brand-cream px-3 py-3 text-center hover:border-brand-yellow/60 transition-colors"
+              >
+                <div className="text-[9px] font-bold uppercase tracking-[0.16em] text-black/40 mb-0.5">Area Officer</div>
+                <div className="text-[12px] font-semibold text-brand-ink leading-tight group-hover:text-brand-amber transition-colors">{name}</div>
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
     </section>
   )
 }
+
