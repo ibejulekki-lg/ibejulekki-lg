@@ -164,13 +164,22 @@ function TierHeading({ title, blurb }: { title: string; blurb?: string }) {
   )
 }
 
-/* Keeps a short tier from stretching the full width, so three cards sit
-   as a tidy group under the pair above rather than spreading out. */
-function tierWidth(count: number) {
-  if (count <= 2) return 'max-w-2xl'
-  if (count === 3) return 'max-w-3xl'
-  if (count === 4) return 'max-w-4xl'
-  return ''
+/* A tier of cards, centred, each exactly the width it would have in the
+   ordinary grid. Constraining the container instead would shrink the
+   cards whenever a tier held fewer people than a full row. */
+function TierGrid({ members }: { members: Member[] }) {
+  return (
+    <div className="flex flex-wrap justify-center gap-3 sm:gap-4">
+      {members.map((m, i) => (
+        <div
+          key={i}
+          className="w-[calc(50%-0.375rem)] sm:w-[calc(33.333%-0.667rem)] lg:w-[calc(25%-0.75rem)]"
+        >
+          <Card m={m} />
+        </div>
+      ))}
+    </div>
+  )
 }
 
 function Grid({ members }: { members: Member[] }) {
@@ -259,9 +268,9 @@ export default function TeamPage({
                     {hierarchy ? (
                       <>
                         <TierConnector />
-                        <div className={`mx-auto ${tierWidth(sec.members.length)}`}>
+                        <div>
                           <TierHeading title={sec.title} blurb={sec.blurb} />
-                          <Grid members={sec.members} />
+                          <TierGrid members={sec.members} />
                         </div>
                       </>
                     ) : (
