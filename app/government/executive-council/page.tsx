@@ -20,6 +20,7 @@ export default async function Page() {
       sections={sections}
       featureFirst
       featureCount={2}
+      hierarchy
     />
   )
 }

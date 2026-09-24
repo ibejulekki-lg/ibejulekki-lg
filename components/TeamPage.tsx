@@ -145,6 +145,34 @@ function FeaturedRow({ people, label }: { people: Member[]; label?: string }) {
   )
 }
 
+/* A vertical line joining one tier to the next. Desktop only: on a phone
+   the sections already read as a simple stack, which is clearer there. */
+function TierConnector() {
+  return <div className="mx-auto hidden sm:block w-px h-9 bg-black/15" aria-hidden="true" />
+}
+
+/* A section heading centred over its tier, used on the hierarchy layout
+   so each level reads as a rung rather than a left-aligned list. */
+function TierHeading({ title, blurb }: { title: string; blurb?: string }) {
+  return (
+    <div className="mb-6 text-center">
+      <h2 className="text-[clamp(1.05rem,2.3vw,1.35rem)] font-extrabold text-brand-ink tracking-tight">{title}</h2>
+      {blurb ? (
+        <p className="mt-1.5 mx-auto max-w-xl text-[12.5px] text-black/50 leading-relaxed">{blurb}</p>
+      ) : null}
+    </div>
+  )
+}
+
+/* Keeps a short tier from stretching the full width, so three cards sit
+   as a tidy group under the pair above rather than spreading out. */
+function tierWidth(count: number) {
+  if (count <= 2) return 'max-w-2xl'
+  if (count === 3) return 'max-w-3xl'
+  if (count === 4) return 'max-w-4xl'
+  return ''
+}
+
 function Grid({ members }: { members: Member[] }) {
   return (
     <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
@@ -157,7 +185,7 @@ function Grid({ members }: { members: Member[] }) {
 
 export default function TeamPage({
   eyebrow, title, intro, members, sections, group, lead,
-  featureFirst = false, featureCount = 1, featureLabel,
+  featureFirst = false, featureCount = 1, featureLabel, hierarchy = false,
 }: {
   eyebrow: string
   title: string
@@ -173,6 +201,10 @@ export default function TeamPage({
      Council lifts two: the Chairman and the Vice Chairman. */
   featureCount?: number
   featureLabel?: string
+  /* Lay the sections out as a top-down hierarchy on desktop, with each
+     tier centred and joined by a connector, matching the organogram.
+     The phone layout is unchanged either way. */
+  hierarchy?: boolean
 }) {
   /* Who sits at the top: either an explicitly passed leader, or the first
      featureCount people of the first section. */
@@ -214,24 +246,38 @@ export default function TeamPage({
 
         <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-10 py-12 sm:py-16">
           {headline.length ? (
-            <div className="mb-10 sm:mb-14">
+            <div className={hierarchy ? 'mb-2 sm:mb-4' : 'mb-10 sm:mb-14'}>
               <FeaturedRow people={headline} label={featureLabel} />
             </div>
           ) : null}
           {shown ? (
-            <div className="space-y-12 sm:space-y-16">
-              {shown.map((sec) => (
-                <div key={sec.title} className={sec.members.length ? undefined : 'hidden'}>
-                  <div className="mb-6">
-                    <h2 className="text-[clamp(1.15rem,2.5vw,1.5rem)] font-extrabold text-brand-ink tracking-tight">{sec.title}</h2>
-                    {sec.blurb ? (
-                      <p className="mt-1.5 text-[13px] text-black/50 leading-relaxed max-w-2xl">{sec.blurb}</p>
-                    ) : null}
-                    <div className="mt-3 h-px w-full bg-black/10" />
+            <div className={hierarchy ? undefined : 'space-y-12 sm:space-y-16'}>
+              {shown
+                .filter((sec) => sec.members.length > 0)
+                .map((sec, i) => (
+                  <div key={sec.title}>
+                    {hierarchy ? (
+                      <>
+                        <TierConnector />
+                        <div className={`mx-auto ${tierWidth(sec.members.length)}`}>
+                          <TierHeading title={sec.title} blurb={sec.blurb} />
+                          <Grid members={sec.members} />
+                        </div>
+                      </>
+                    ) : (
+                      <div className={i > 0 ? 'mt-12 sm:mt-16' : undefined}>
+                        <div className="mb-6">
+                          <h2 className="text-[clamp(1.15rem,2.5vw,1.5rem)] font-extrabold text-brand-ink tracking-tight">{sec.title}</h2>
+                          {sec.blurb ? (
+                            <p className="mt-1.5 text-[13px] text-black/50 leading-relaxed max-w-2xl">{sec.blurb}</p>
+                          ) : null}
+                          <div className="mt-3 h-px w-full bg-black/10" />
+                        </div>
+                        <Grid members={sec.members} />
+                      </div>
+                    )}
                   </div>
-                  <Grid members={sec.members} />
-                </div>
-              ))}
+                ))}
             </div>
           ) : members ? (
             <Grid members={members} />
