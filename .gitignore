@@ -44,3 +44,4 @@ seed-leadership.cjs
 .seed-leader-assets.json
 add-chief-of-staff.cjs
 hide-noncabinet.cjs
+seed-advisers.cjs
