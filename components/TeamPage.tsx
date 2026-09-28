@@ -182,9 +182,13 @@ function TierGrid({ members }: { members: Member[] }) {
   )
 }
 
-function Grid({ members }: { members: Member[] }) {
+/* Four across on a wide screen by default. Pass cols={3} for a page that
+   reads better with fewer, larger cards per row. */
+function Grid({ members, cols = 4 }: { members: Member[]; cols?: 3 | 4 }) {
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
+    <div
+      className={`grid grid-cols-2 sm:grid-cols-3 ${cols === 4 ? 'lg:grid-cols-4' : ''} gap-3 sm:gap-4`}
+    >
       {members.map((m, i) => (
         <Card key={i} m={m} />
       ))}
@@ -194,7 +198,7 @@ function Grid({ members }: { members: Member[] }) {
 
 export default function TeamPage({
   eyebrow, title, intro, members, sections, group, lead,
-  featureFirst = false, featureCount = 1, featureLabel, hierarchy = false,
+  featureFirst = false, featureCount = 1, featureLabel, hierarchy = false, columns = 4,
 }: {
   eyebrow: string
   title: string
@@ -210,6 +214,8 @@ export default function TeamPage({
      Council lifts two: the Chairman and the Vice Chairman. */
   featureCount?: number
   featureLabel?: string
+  /* Cards per row on a wide screen. Four unless a page asks for three. */
+  columns?: 3 | 4
   /* Lay the sections out as a top-down hierarchy on desktop, with each
      tier centred and joined by a connector, matching the organogram.
      The phone layout is unchanged either way. */
@@ -289,7 +295,7 @@ export default function TeamPage({
                 ))}
             </div>
           ) : members ? (
-            <Grid members={members} />
+            <Grid members={members} cols={columns} />
           ) : null}
         </section>
       </main>

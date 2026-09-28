@@ -200,12 +200,12 @@ export default defineConfig({
                       ),
                     S.listItem()
                       .id('technical-advisers')
-                      .title('Technical Advisers')
+                      .title('Chief Technical Advisers')
                       .icon(UsersIcon)
                       .child(
                         S.documentList()
                           .id('leader-advisers')
-                          .title('Technical Advisers')
+                          .title('Chief Technical Advisers')
                           .schemaType('leader')
                           .filter('_type == "leader" && arm == "advisers" && active == true')
                           .defaultOrdering(LEADER_ORDER)

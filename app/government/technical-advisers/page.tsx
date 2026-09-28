@@ -4,7 +4,7 @@ import { getAdvisers } from '@/lib/leadership'
 export const revalidate = 60
 
 export const metadata = {
-  title: 'Technical Advisers | Ibeju-Lekki Local Government',
+  title: 'Chief Technical Advisers | Ibeju-Lekki Local Government',
   description:
     'The Chief Technical Advisers to the Executive Chairman of Ibeju-Lekki Local Government Area, Lagos State.',
 }
@@ -14,11 +14,12 @@ export default async function Page() {
 
   return (
     <TeamPage
-      group="Technical Advisers"
+      group="Chief Technical Advisers"
       eyebrow="Government · Advisory"
-      title="Technical Advisers"
+      title="Chief Technical Advisers"
       intro="Chief Technical Advisers appointed to support the Executive Chairman with specialist guidance across the council's priority areas."
       members={members}
+      columns={3}
     />
   )
 }
