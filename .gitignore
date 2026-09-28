@@ -45,3 +45,4 @@ seed-leadership.cjs
 add-chief-of-staff.cjs
 hide-noncabinet.cjs
 seed-advisers.cjs
+update-advisers.cjs
