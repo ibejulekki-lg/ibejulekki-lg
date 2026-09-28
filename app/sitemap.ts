@@ -36,6 +36,8 @@ const STATIC_ROUTES = [
   '/opportunities/investment',
 
   '/resources/careers',
+  '/resources/marriage-registry',
+  '/resources/waste',
 ]
 
 /* Traditional ruler pages, matching the routes the build actually generates. */

@@ -96,3 +96,13 @@ img  { max-width: 100%; height: auto; }
 @media (max-width: 1279px) {
   body { padding-bottom: calc(4.25rem + env(safe-area-inset-bottom)); }
 }
+
+/* The mobile bottom navigation is fixed, so page content needs room
+   beneath it. Without this the footer sits underneath it and cannot be
+   read. The safe-area inset keeps it clear of the iPhone home indicator.
+   The bar is hidden from xl up, so the space is released there. */
+@media (max-width: 1279px) {
+  body {
+    padding-bottom: calc(76px + env(safe-area-inset-bottom, 0px));
+  }
+}

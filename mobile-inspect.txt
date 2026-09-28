@@ -1,0 +1,832 @@
+
+===== GIT =====
+1fea549 Add Akadiri Ayorinde portrait
+fe9f0cc Rename to Chief Technical Advisers and show three per row
+f00fc72 Add Technical Adviser portraits
+286487c Keep leadership cards at full size in the hierarchy tiers
+e7cd54c Lay out the Executive Council page as a hierarchy on desktop
+6c0e6c3 Rebuild the council organogram to follow the real hierarchy
+?? akadiri-portrait.zip
+?? mobile-inspect.txt
+?? service-page-images.zip
+
+===== ROOT LAYOUT - where header and footer are mounted =====
+
+----- app/layout.tsx (78 lines) -----
+import type { Metadata, Viewport } from "next";
+import { Poppins } from "next/font/google";
+import "./globals.css";
+import Header from "@/components/Header";
+import BottomNav from "@/components/BottomNav";
+import { getSiteSettings } from "@/lib/settings";
+
+const poppins = Poppins({
+  weight: ["300", "400", "500", "600", "700", "800"],
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-poppins",
+});
+
+const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://ibejulekki.lg.gov.ng";
+
+export const viewport: Viewport = {
+  themeColor: "#FFBA26",
+};
+
+export const metadata: Metadata = {
+  verification: {
+    google: 'xPOj1m7ePeIt2tprMxj60MEnBzLkeeyJQQYSaIYGJ7o',
+  },
+  metadataBase: new URL(SITE_URL),
+  title: "Ibeju-Lekki Local Government | Official Website",
+  description:
+    "The official website of Ibeju-Lekki Local Government Area, Lagos State, home to Dangote Refinery and Lekki Free Trade Zone.",
+  openGraph: {
+    type: "website",
+    siteName: "Ibeju-Lekki Local Government",
+    locale: "en_NG",
+    title: "Ibeju-Lekki Local Government | Official Website",
+    description:
+      "The official website of Ibeju-Lekki Local Government Area, Lagos State, Nigeria.",
+  },
+  twitter: { card: "summary_large_image" },
+};
+
+export default async function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const settings = await getSiteSettings();
+  const orgJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'GovernmentOrganization',
+    name: settings.siteName,
+    alternateName: 'Ibeju-Lekki LGA',
+    url: SITE_URL,
+    logo: SITE_URL + '/ibeju-lekki-logo.webp',
+    email: settings.email,
+    telephone: settings.phone,
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: settings.address.replace(/\n/g, ', '),
+      addressRegion: 'Lagos',
+      addressCountry: 'NG',
+    },
+    areaServed: 'Ibeju-Lekki, Lagos State, Nigeria',
+    sameAs: Object.values(settings.socials).filter(Boolean),
+  };
+  return (
+    <html lang="en" className={poppins.variable}>
+      <body className={poppins.className}>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
+        />
+        <Header email={settings.email} officeHours={settings.officeHours} />
+        {children}
+        <BottomNav />
+      </body>
+    </html>
+  );
+}
+
+===== HEADER - full, to find any hidden/md: classes =====
+
+----- components/Header.tsx (229 lines) -----
+'use client';
+
+import Link from 'next/link';
+import Image from 'next/image';
+import { useState, useRef, useEffect } from 'react';
+import { ChevronDown, Phone, Mail, Clock, Circle, CreditCard, ExternalLink } from 'lucide-react';
+import BrandStripe from '@/components/BrandStripe';
+
+type NavChild = { label: string; href: string; external?: boolean };
+type NavItem = { label: string; href: string; children?: NavChild[] };
+
+const NAV_ITEMS: NavItem[] = [
+  { label: 'Home', href: '/' },
+    {
+    label: 'About',
+    href: '#',
+    children: [
+      { label: 'Historic Background',        href: '/about/history' },
+      { label: 'The People, Arts & Culture', href: '/about/culture' },
+      { label: 'Traditional Rulers',         href: '/about/traditional-rulers' },
+    ],
+  },
+  {
+    label: 'Government',
+    href: '#',
+    children: [
+      { label: 'Overview',            href: '/about' },
+      { label: 'Vision & Mission',    href: '/government/vision' },
+      { label: 'Executive Chairman',  href: '/government/chairman' },
+      { label: 'Executive Council',   href: '/government/executive-council' },
+      { label: 'Legislative Council', href: '/government/legislative-council' },
+      { label: 'Chief Technical Advisers', href: '/government/technical-advisers' },
+      { label: 'Management Team',     href: '/government/management-team' },
+    ],
+  },
+  {
+    label: 'Programmes',
+    href: '#',
+    children: [
+      { label: 'SHIEELD Agenda',      href: '/programmes/shieeld' },
+      { label: '2025 Budget Summary', href: '/programmes/budget' },
+      { label: 'Performance Report',  href: '/programmes/performance-report' },
+      // { label: 'Agenda 2029',         href: '/programmes/agenda-2029' },
+    ],
+  },
+  {
+    label: 'Services',
+    href: '#',
+    children: [
+      { label: 'Pay Levies',          href: 'https://portal.ibejulekkilga.com', external: true },
+      { label: 'Street Naming',       href: '/resources/street-naming' },
+      { label: 'Birth Certification', href: '/resources/birth-certification' },
+      { label: 'Marriage Registry',    href: '/resources/marriage-registry' },
+      { label: 'Waste Collection',    href: '/resources/waste' },
+    ],
+  },
+  {
+    label: 'Opportunities',
+    href: '#',
+    children: [
+      { label: 'Housing',                href: '/opportunities/housing' },
+      // { label: 'Housing Opportunities',  href: '/opportunities/housing/housing-opportunities' },
+      // { label: 'Citrus Garden',          href: '/opportunities/housing/citrus-garden' },
+      // { label: 'Eleko Isles',             href: '/opportunities/housing/eleko-isles' },
+      { label: 'Tourism',                href: '/opportunities/tourism' },
+      { label: 'Investment Opportunities', href: '/opportunities/investment' },
+      { label: 'Career & Jobs',          href: '/resources/careers' },
+    ],
+  },
+  { label: 'News & Events', href: '/news' },
+];
+
+function DesktopNavItem({ item }: { item: (typeof NAV_ITEMS)[number] }) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+    };
+    document.addEventListener('mousedown', handler);
+    return () => document.removeEventListener('mousedown', handler);
+  }, []);
+
+  if (!('children' in item) || !item.children) {
+    return (
+      <Link
+        href={item.href}
+        className="relative whitespace-nowrap text-[11.5px] font-semibold uppercase tracking-wide text-brand-ink transition-colors hover:text-black after:absolute after:-bottom-1.5 after:left-0 after:h-[2px] after:w-0 after:bg-brand-yellow after:transition-all after:duration-300 hover:after:w-full"
+      >
+        {item.label}
+      </Link>
+    );
+  }
+
+  return (
+    <div
+      ref={ref}
+      className="relative"
+      onMouseEnter={() => setOpen(true)}
+      onMouseLeave={() => setOpen(false)}
+    >
+      <button
+        className="flex items-center gap-1 whitespace-nowrap text-[11.5px] font-semibold uppercase tracking-wide text-brand-ink transition-colors hover:text-black"
+        onClick={() => setOpen((v) => !v)}
+      >
+        {item.label}
+        <ChevronDown
+          size={13}
+          strokeWidth={2.5}
+          className={`transition-transform duration-200 ${open ? 'rotate-180' : ''}`}
+        />
+      </button>
+
+      {/* transparent bridge so the menu stays open when moving the cursor down */}
+      <div className={`absolute left-1/2 top-full z-50 -translate-x-1/2 pt-3 ${open ? 'block' : 'hidden'}`}>
+        <div className="min-w-[230px] overflow-hidden rounded-xl border border-black/10 bg-white py-2 shadow-xl">
+          {item.children.map((child) => {
+            const cls =
+              'block px-4 py-2.5 text-[12.5px] font-medium text-brand-ink/80 transition-colors hover:bg-brand-yellow/10 hover:text-brand-ink';
+            const isExternal = child.external || /^https?:\/\//.test(child.href);
+            return isExternal ? (
+              <a
+                key={child.href}
+                href={child.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={cls + ' flex items-center justify-between gap-2'}
+              >
+                {child.label}
+                <ExternalLink size={11} className="text-black/30" />
+              </a>
+            ) : (
+              <Link key={child.href} href={child.href} className={cls}>
+                {child.label}
+              </Link>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+interface HeaderProps {
+  email?: string;
+  officeHours?: string;
+}
+
+export default function Header({
+  email = 'info@ibejulekki.lg.gov.ng',
+  officeHours = 'Mon - Fri, 8am - 4pm',
+}: HeaderProps) {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener('scroll', onScroll);
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  return (
+    <header className="sticky top-0 z-[200] w-full">
+      <BrandStripe />
+
+      {/* utility bar */}
+      <div className="hidden md:block bg-brand-ink text-white">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 lg:px-8 py-1.5 text-[11px]">
+          <div className="flex items-center gap-5">
+            <a href={`mailto:${email}`} className="flex items-center gap-1.5 text-white/70 transition-colors hover:text-brand-yellow">
+              <Mail size={12} /> {email}
+            </a>
+            <span className="flex items-center gap-1.5 text-white/70">
+              <Clock size={12} /> {officeHours}
+            </span>
+          </div>
+          <div className="flex items-center gap-4">
+            <span className="flex items-center gap-1.5 font-semibold text-brand-yellow">
+              <Phone size={12} /> Emergency: 112
+            </span>
+            <span className="flex items-center gap-1">
+              <Circle size={6} className="fill-brand-yellow text-brand-yellow" />
+              <button className="font-semibold tracking-wide transition-colors hover:text-brand-yellow">EN</button>
+              <span className="text-white/30">&middot;</span>
+              <button className="text-white/50 transition-colors hover:text-brand-yellow">YO</button>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      {/* main bar */}
+      <div className={`w-full bg-white transition-shadow duration-300 ${scrolled ? 'shadow-md' : 'shadow-sm'}`}>
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 lg:px-8 py-3">
+          <Link href="/" className="flex items-center gap-3">
+            <Image
+              src="/ibeju-lekki-logo-sm.webp"
+              alt="IBEJU LEKKI"
+              width={44}
+              height={44}
+              className="h-11 w-11 flex-shrink-0 object-contain"
+            />
+            <span className="leading-tight">
+              <span className="block text-[15px] sm:text-[17px] font-extrabold tracking-tight text-brand-ink">
+                IBEJU LEKKI 
+              </span>
+              <span className="block text-[9.5px] sm:text-[10px] font-medium uppercase tracking-[0.18em] text-black/45">
+                Local Government<br />Lagos State
+              </span>
+            </span>
+          </Link>
+
+          <nav className="hidden xl:flex items-center gap-5 2xl:gap-7">
+            {NAV_ITEMS.map((item) => (
+              <DesktopNavItem key={item.label} item={item} />
+            ))}
+          </nav>
+
+          <Link
+            href="https://portal.ibejulekkilga.com" target="_blank" rel="noopener noreferrer"
+            className="hidden xl:inline-flex items-center gap-2 rounded-full bg-brand-yellow px-5 py-2.5 text-[12px] font-bold text-black transition-colors hover:bg-brand-ink hover:text-brand-yellow"
+          >
+            <CreditCard size={15} strokeWidth={2.5} /> Pay Levies
+          </Link>
+        </div>
+      </div>
+    </header>
+  );
+}
+
+===== MOBILE MENU / BOTTOM NAV =====
+BottomNav.tsx
+
+----- components/BottomNav.tsx (189 lines) -----
+'use client'
+
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import { useState, useEffect } from 'react'
+import { Home, Newspaper, CreditCard, ShieldCheck, Menu, X, ChevronRight } from 'lucide-react'
+
+type Tab = { href: string; label: string; Icon: typeof Home; primary?: boolean }
+
+const TABS: Tab[] = [
+  { href: '/',                  label: 'Home',    Icon: Home },
+  { href: '/news',              label: 'News',    Icon: Newspaper },
+  { href: 'https://portal.ibejulekkilga.com', label: 'Pay',     Icon: CreditCard, primary: true },
+  { href: '/programmes/shieeld', label: 'SHIEELD', Icon: ShieldCheck },
+]
+
+const MENU: { heading: string; links: { label: string; href: string }[] }[] = [
+  {
+    heading: 'Government',
+    links: [
+      { label: 'Overview',            href: '/about' },
+      { label: 'Vision & Mission',    href: '/government/vision' },
+      { label: 'Executive Chairman',  href: '/government/chairman' },
+      { label: 'Executive Council',   href: '/government/executive-council' },
+      { label: 'Legislative Council', href: '/government/legislative-council' },
+      { label: 'Management Team',     href: '/government/management-team' },
+    ],
+  },
+  {
+    heading: 'Programmes',
+    links: [
+      { label: 'SHIEELD Agenda',      href: '/programmes/shieeld' },
+      { label: '2025 Budget Summary', href: '/programmes/budget' },
+      { label: 'Performance Report',  href: '/programmes/performance-report' },
+      // { label: 'Agenda 2029',         href: '/programmes/agenda-2029' },
+    ],
+  },
+  {
+    heading: 'About',
+    links: [
+      { label: 'Historic Background',        href: '/about/history' },
+      { label: 'The People, Arts & Culture', href: '/about/culture' },
+      { label: 'Traditional Rulers',         href: '/about/traditional-rulers' },
+    ],
+  },
+  {
+    heading: 'Opportunities',
+    links: [
+      { label: 'Housing',                href: '/opportunities/housing' },
+      // { label: 'Housing Opportunities',  href: '/opportunities/housing/housing-opportunities' },
+      // { label: 'Citrus Garden',          href: '/opportunities/housing/citrus-garden' },
+      // { label: 'Eleko Isles',             href: '/opportunities/housing/eleko-isles' },
+      { label: 'Tourism',                href: '/opportunities/tourism' },
+      { label: 'Career & Jobs',          href: '/resources/careers' },
+    ],
+  },
+  {
+    heading: 'More',
+    links: [
+      { label: 'News & Events',     href: '/news' },
+      { label: 'Revenue Portal',    href: 'https://portal.ibejulekkilga.com' },
+      { label: 'Waste Collection',  href: '/resources/waste' },
+      { label: 'Contact Us',        href: '/contact' },
+    ],
+  },
+]
+
+function isActive(pathname: string, href: string) {
+  if (href === '/') return pathname === '/'
+  return pathname === href || pathname.startsWith(href + '/')
+}
+
+export default function BottomNav() {
+  const pathname = usePathname() || '/'
+  const [moreOpen, setMoreOpen] = useState(false)
+
+  useEffect(() => {
+    document.body.style.overflow = moreOpen ? 'hidden' : ''
+    return () => { document.body.style.overflow = '' }
+  }, [moreOpen])
+
+  useEffect(() => { setMoreOpen(false) }, [pathname])
+
+  return (
+    <>
+      {/* backdrop */}
+      <div
+        onClick={() => setMoreOpen(false)}
+        aria-hidden="true"
+        className={`xl:hidden fixed inset-0 z-[185] bg-black/40 backdrop-blur-sm transition-opacity duration-300 ${moreOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
+      />
+
+      {/* slide-up sheet */}
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-label="More menu"
+        className={`xl:hidden fixed inset-x-0 bottom-0 z-[186] flex max-h-[80vh] flex-col rounded-t-3xl bg-white shadow-2xl transition-transform duration-300 ${moreOpen ? 'translate-y-0' : 'translate-y-full'}`}
+      >
+        <div className="flex items-center justify-between border-b border-black/10 px-5 py-4">
+          <span className="text-[13px] font-bold uppercase tracking-[0.15em] text-brand-ink">Menu</span>
+          <button
+            onClick={() => setMoreOpen(false)}
+            aria-label="Close menu"
+            className="flex h-8 w-8 items-center justify-center rounded-full bg-black/[0.06] transition-colors hover:bg-black/10"
+          >
+            <X size={16} strokeWidth={2} className="text-brand-ink" />
+          </button>
+        </div>
+        <div
+          className="overflow-y-auto px-5 py-4"
+          style={{ paddingBottom: 'calc(1rem + env(safe-area-inset-bottom))' }}
+        >
+          {MENU.map((group) => (
+            <div key={group.heading} className="mb-5 last:mb-0">
+              <div className="mb-2 text-[10px] font-bold uppercase tracking-[0.2em] text-brand-amber">
+                {group.heading}
+              </div>
+              <ul className="space-y-0.5">
+                {group.links.map((l) => (
+                  <li key={l.href}>
+                    <Link
+                      href={l.href}
+                      onClick={() => setMoreOpen(false)}
+                      className="flex items-center justify-between py-2.5 text-[13.5px] font-medium text-brand-ink/80 transition-colors hover:text-brand-ink"
+                    >
+                      {l.label}
+                      <ChevronRight size={15} className="text-black/25" />
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* bottom tab bar */}
+      <nav
+        aria-label="Primary mobile navigation"
+        className="xl:hidden fixed bottom-0 inset-x-0 z-[180] border-t border-black/10 bg-white shadow-[0_-2px_14px_rgba(0,0,0,0.07)]"
+        style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
+      >
+        <ul className="grid grid-cols-5">
+          {TABS.map(({ href, label, Icon, primary }) => {
+            const active = isActive(pathname, href)
+            return (
+              <li key={href}>
+                <Link
+                  href={href}
+                  aria-current={active ? 'page' : undefined}
+                  className="flex flex-col items-center justify-center gap-1 py-2"
+                >
+                  <span
+                    className={
+                      primary
+                        ? 'flex h-11 w-11 -mt-5 items-center justify-center rounded-full border-4 border-white bg-brand-yellow text-black shadow-md'
+                        : `flex h-9 w-9 items-center justify-center rounded-full transition-colors ${active ? 'text-brand-ink' : 'text-black/45'}`
+                    }
+                  >
+                    <Icon size={primary ? 21 : 19} strokeWidth={2} />
+                  </span>
+                  <span className={`text-[9.5px] font-semibold tracking-wide ${active ? 'text-brand-ink' : 'text-black/45'}`}>
+                    {label}
+                  </span>
+                </Link>
+              </li>
+            )
+          })}
+          <li>
+            <button
+              onClick={() => setMoreOpen(true)}
+              aria-label="More menu"
+              aria-expanded={moreOpen}
+              className="flex w-full flex-col items-center justify-center gap-1 py-2"
+            >
+              <span className={`flex h-9 w-9 items-center justify-center rounded-full transition-colors ${moreOpen ? 'text-brand-ink' : 'text-black/45'}`}>
+                <Menu size={19} strokeWidth={2} />
+              </span>
+              <span className={`text-[9.5px] font-semibold tracking-wide ${moreOpen ? 'text-brand-ink' : 'text-black/45'}`}>
+                More
+              </span>
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </>
+  )
+}
+
+----- components/MobileMenu.tsx : MISSING -----
+
+----- components/MobileNav.tsx : MISSING -----
+
+===== FOOTER - the outer wrapper only =====
+
+===== ANY hidden CLASSES ON NAV WRAPPERS =====
+components/Header.tsx:116:      <div className={`absolute left-1/2 top-full z-50 -translate-x-1/2 pt-3 ${open ? 'block' : 'hidden'}`}>
+components/Header.tsx:117:        <div className="min-w-[230px] overflow-hidden rounded-xl border border-black/10 bg-white py-2 shadow-xl">
+components/Header.tsx:168:      <div className="hidden md:block bg-brand-ink text-white">
+components/Header.tsx:213:          <nav className="hidden xl:flex items-center gap-5 2xl:gap-7">
+components/Header.tsx:221:            className="hidden xl:inline-flex items-center gap-2 rounded-full bg-brand-yellow px-5 py-2.5 text-[12px] font-bold text-black transition-colors hover:bg-brand-ink hover:text-brand-yellow"
+components/Footer.tsx:186:      <div className="flex h-[5px]" aria-hidden="true">
+components/BottomNav.tsx:78:    document.body.style.overflow = moreOpen ? 'hidden' : ''
+components/BottomNav.tsx:89:        aria-hidden="true"
+components/BottomNav.tsx:90:        className={`xl:hidden fixed inset-0 z-[185] bg-black/40 backdrop-blur-sm transition-opacity duration-300 ${moreOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
+components/BottomNav.tsx:98:        className={`xl:hidden fixed inset-x-0 bottom-0 z-[186] flex max-h-[80vh] flex-col rounded-t-3xl bg-white shadow-2xl transition-transform duration-300 ${moreOpen ? 'translate-y-0' : 'translate-y-full'}`}
+components/BottomNav.tsx:141:        className="xl:hidden fixed bottom-0 inset-x-0 z-[180] border-t border-black/10 bg-white shadow-[0_-2px_14px_rgba(0,0,0,0.07)]"
+
+===== GLOBAL CSS - anything hiding elements at narrow widths =====
+
+----- app/globals.css (98 lines) -----
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Typography ─────────────────────────────────── */
+/* Poppins is self-hosted via next/font in layout.tsx */
+
+body {
+  background: #FFFFFF;
+  color: #111111;
+  font-family: var(--font-poppins), 'Poppins', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Base animations ────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-up { animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; }
+.delay-4 { animation-delay: 0.4s; }
+
+/* ── Scroll reveal ──────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Marquee ────────────────────────────────────── */
+.marquee {
+  display: flex;
+  gap: 3rem;
+  animation: scroll 40s linear infinite;
+}
+@keyframes scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ── Link underline hover ───────────────────────── */
+.link-hover {
+  position: relative;
+  display: inline-block;
+}
+.link-hover::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 0;
+  height: 1px;
+  background: currentColor;
+  transition: width 0.3s ease;
+}
+.link-hover:hover::after { width: 100%; }
+
+/* ── Carousel ring progress ─────────────────────── */
+@keyframes ringProgress {
+  from { stroke-dashoffset: 138.2; }
+  to   { stroke-dashoffset: 0; }
+}
+
+/* ── SHIEELD bar progress ───────────────────────── */
+@keyframes barProgress {
+  from { width: 0%; }
+  to   { width: 100%; }
+}
+
+/* ── Utilities ──────────────────────────────────── */
+html { scroll-behavior: smooth; }
+img  { max-width: 100%; height: auto; }
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ibeju-bottom-nav-space, keep page content clear of the fixed mobile tab bar */
+@media (max-width: 1279px) {
+  body { padding-bottom: calc(4.25rem + env(safe-area-inset-bottom)); }
+}
+
+===== MARRIAGE REGISTRY PAGE =====
+
+----- app/resources/marriage-registry/page.tsx (21 lines) -----
+import PagePlaceholder from '@/components/PagePlaceholder'
+
+export const metadata = {
+  // Placeholder page: keep it out of search results until it has real
+  // content. Delete these two lines when the page is written.
+  robots: { index: false, follow: true },
+  title: 'Marriage Registry | Ibeju-Lekki Local Government',
+  description:
+    'Court marriage registration, marriage certificates and related services at Ibeju-Lekki Local Government Area, Lagos State.',
+}
+
+export default function Page() {
+  return (
+    <PagePlaceholder
+      title="Marriage Registry"
+      sectionLabel="Services"
+      description="Court marriage registration, notice of marriage and marriage certificates for residents of Ibeju-Lekki Local Government Area."
+      variant="form"
+    />
+  )
+}
+
+===== WASTE COLLECTION PAGE =====
+
+----- app/resources/waste/page.tsx (21 lines) -----
+// Waste Collection
+import PagePlaceholder from '@/components/PagePlaceholder'
+
+export const metadata = {
+  // Placeholder page: keep it out of search results until it has real
+  // content. Delete these two lines when the page is written.
+  robots: { index: false, follow: true },
+  title: 'Waste Collection | Ibeju-Lekki Local Government',
+  description:
+    "Waste collection services and the Keke Jaja tricycle service in Ibeju-Lekki Local Government Area.",
+}
+
+export default function Page() {
+  return (
+    <PagePlaceholder
+      title="Waste Collection"
+      sectionLabel="Resources"
+      variant="form"
+      description="Waste collection and the Keke Jaja tricycle service."
+    />
+  )
+}
+===== PAGEPLACEHOLDER COMPONENT =====
+
+----- components/PagePlaceholder.tsx (130 lines) -----
+import Link from 'next/link'
+import { FileText, Newspaper, ArrowRight, ChevronRight, Home } from 'lucide-react'
+import Footer from './Footer'
+
+type Variant = 'form' | 'content' | 'listing'
+
+interface Props {
+  title: string
+  sectionLabel?: string
+  description?: string
+  variant?: Variant
+  placeholderTitle?: string
+  placeholderBody?: string
+}
+
+type VariantCopy = {
+  icon: typeof FileText
+  heading: string
+  body: string
+}
+
+const VARIANT_COPY: Record<Variant, VariantCopy> = {
+  form: {
+    icon: FileText,
+    heading: 'An online form will be available here shortly',
+    body:
+      'Where a form is required to complete this request, it will appear on this page. We are finalising this feature to ensure a smooth submission process, and it will be live shortly.',
+  },
+  content: {
+    icon: Newspaper,
+    heading: 'This information will be published here shortly',
+    body:
+      'We are compiling accurate, up-to-date content for this section of the website. It will be published here shortly.',
+  },
+  listing: {
+    icon: FileText,
+    heading: 'This directory will be updated shortly',
+    body:
+      'We are compiling the full list of records for this section. Entries will appear here as they are confirmed.',
+  },
+}
+
+export default function PagePlaceholder({
+  title,
+  sectionLabel,
+  description,
+  variant = 'form',
+  placeholderTitle,
+  placeholderBody,
+}: Props) {
+  const copy = VARIANT_COPY[variant]
+  const Icon = copy.icon
+
+  return (
+    <>
+      <main className="min-h-screen bg-white">
+
+        {/* Page header band */}
+        <section className="border-b border-black/10 bg-brand-cream">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-10 py-10 sm:py-14">
+
+            {/* Breadcrumb */}
+            <nav
+              className="flex items-center flex-wrap gap-1.5 text-[11px] sm:text-[12px] text-black/45 mb-5"
+              aria-label="Breadcrumb"
+            >
+              <Link href="/" className="inline-flex items-center gap-1 hover:text-brand-ink transition-colors">
+                <Home size={12} strokeWidth={2} /> Home
+              </Link>
+              {sectionLabel && (
+                <>
+                  <ChevronRight size={12} className="text-black/30" aria-hidden="true" />
+                  <span>{sectionLabel}</span>
+                </>
+              )}
+              <ChevronRight size={12} className="text-black/30" aria-hidden="true" />
+              <span className="text-brand-ink font-semibold">{title}</span>
+            </nav>
+
+            <div className="flex items-center gap-3 mb-3">
+              <span className="h-px w-8 bg-brand-yellow" aria-hidden="true" />
+              <span className="text-[10.5px] font-bold uppercase tracking-[0.25em] text-black/45">
+                {sectionLabel ?? 'Ibeju-Lekki LGA'}
+              </span>
+            </div>
+
+            <h1 className="text-[clamp(1.8rem,5vw,2.8rem)] font-extrabold text-brand-ink tracking-tight leading-tight">
+              {title}
+            </h1>
+
+            {description && (
+              <p className="mt-4 max-w-2xl text-[14px] sm:text-[15px] text-black/55 leading-[1.8]">
+                {description}
+              </p>
+            )}
+          </div>
+        </section>
+
+        {/* Placeholder card */}
+        <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-10 py-14 sm:py-20">
+          <div className="border border-black/10 rounded-2xl p-8 sm:p-12 text-center">
+            <div className="w-14 h-14 mx-auto mb-5 rounded-2xl bg-brand-yellow/15 flex items-center justify-center">
+              <Icon size={24} strokeWidth={1.8} className="text-brand-ink" />
+            </div>
+            <h2 className="text-[clamp(1.1rem,3vw,1.5rem)] font-bold text-brand-ink mb-3">
+              {placeholderTitle ?? copy.heading}
+            </h2>
+            <p className="max-w-md mx-auto text-[13.5px] text-black/55 leading-[1.8] mb-8">
+              {placeholderBody ?? copy.body}
+            </p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+              <Link
+                href="/"
+                className="inline-flex items-center gap-2 px-6 py-3.5 bg-brand-yellow text-black text-[13px] font-bold tracking-[0.04em] rounded-full hover:bg-brand-ink hover:text-brand-yellow transition-all duration-200"
+              >
+                Back to Home <ArrowRight size={15} strokeWidth={2.5} />
+              </Link>
+              <Link
+                href="/contact"
+                className="inline-flex items-center gap-2 px-6 py-3.5 border border-black/20 text-brand-ink text-[13px] font-semibold tracking-[0.04em] rounded-full hover:border-brand-yellow hover:bg-brand-yellow/10 transition-all duration-200"
+              >
+                Contact the Council
+              </Link>
+            </div>
+          </div>
+        </section>
+      </main>
+      <Footer />
+    </>
+  )
+}
+===== PUBLIC IMAGE FOLDERS =====
+citrus-garden
+investment
+
+===== DONE =====
+
