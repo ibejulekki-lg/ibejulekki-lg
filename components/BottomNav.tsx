@@ -14,53 +14,64 @@ const TABS: Tab[] = [
   { href: '/programmes/shieeld', label: 'SHIEELD', Icon: ShieldCheck },
 ]
 
-const MENU: { heading: string; links: { label: string; href: string }[] }[] = [
-  {
-    heading: 'Government',
-    links: [
-      { label: 'Overview',            href: '/about' },
-      { label: 'Vision & Mission',    href: '/government/vision' },
-      { label: 'Executive Chairman',  href: '/government/chairman' },
-      { label: 'Executive Council',   href: '/government/executive-council' },
-      { label: 'Legislative Council', href: '/government/legislative-council' },
-      { label: 'Management Team',     href: '/government/management-team' },
-    ],
-  },
-  {
-    heading: 'Programmes',
-    links: [
-      { label: 'SHIEELD Agenda',      href: '/programmes/shieeld' },
-      { label: '2025 Budget Summary', href: '/programmes/budget' },
-      { label: 'Performance Report',  href: '/programmes/performance-report' },
-      // { label: 'Agenda 2029',         href: '/programmes/agenda-2029' },
-    ],
-  },
+/* Mirrors the header navigation, in the same order. If a menu changes in
+   components/Header.tsx, change it here too, or the phone and desktop
+   menus will disagree. */
+const MENU: { heading: string; links: { label: string; href: string; external?: boolean }[] }[] = [
   {
     heading: 'About',
     links: [
+      { label: 'Overview',                   href: '/about' },
       { label: 'Historic Background',        href: '/about/history' },
       { label: 'The People, Arts & Culture', href: '/about/culture' },
       { label: 'Traditional Rulers',         href: '/about/traditional-rulers' },
     ],
   },
   {
-    heading: 'Opportunities',
+    heading: 'Government',
     links: [
-      { label: 'Housing',                href: '/opportunities/housing' },
-      // { label: 'Housing Opportunities',  href: '/opportunities/housing/housing-opportunities' },
-      // { label: 'Citrus Garden',          href: '/opportunities/housing/citrus-garden' },
-      // { label: 'Eleko Isles',             href: '/opportunities/housing/eleko-isles' },
-      { label: 'Tourism',                href: '/opportunities/tourism' },
-      { label: 'Career & Jobs',          href: '/resources/careers' },
+      { label: 'Vision & Mission',          href: '/government/vision' },
+      { label: 'Executive Chairman',        href: '/government/chairman' },
+      { label: 'Executive Council',         href: '/government/executive-council' },
+      { label: 'Legislative Council',       href: '/government/legislative-council' },
+      { label: 'Chief Technical Advisers',  href: '/government/technical-advisers' },
+      { label: 'Management Team',           href: '/government/management-team' },
     ],
   },
   {
-    heading: 'More',
+    heading: 'Programmes',
     links: [
-      { label: 'News & Events',     href: '/news' },
-      { label: 'Revenue Portal',    href: 'https://portal.ibejulekkilga.com' },
-      { label: 'Waste Collection',  href: '/resources/waste' },
-      { label: 'Contact Us',        href: '/contact' },
+      { label: 'SHIEELD Agenda',      href: '/programmes/shieeld' },
+      { label: '2025 Budget',         href: '/programmes/budget' },
+      { label: 'Performance Report',  href: '/programmes/performance-report' },
+    ],
+  },
+  {
+    heading: 'Services',
+    links: [
+      { label: 'Pay Levies',          href: 'https://portal.ibejulekkilga.com', external: true },
+      { label: 'Street Naming',       href: '/resources/street-naming' },
+      { label: 'Birth Certification', href: '/resources/birth-certification' },
+      { label: 'Marriage Registry',   href: '/resources/marriage-registry' },
+      { label: 'Waste Collection',    href: '/resources/waste' },
+    ],
+  },
+  {
+    heading: 'Opportunities',
+    links: [
+      { label: 'Housing',                  href: '/opportunities/housing' },
+      { label: 'Citrus Gardens',           href: '/opportunities/housing/citrus-garden' },
+      { label: 'Eleko Isles',              href: '/opportunities/housing/eleko-isles' },
+      { label: 'Tourism',                  href: '/opportunities/tourism' },
+      { label: 'Investment Opportunities', href: '/opportunities/investment' },
+      { label: 'Career & Jobs',            href: '/resources/careers' },
+    ],
+  },
+  {
+    heading: 'Information',
+    links: [
+      { label: 'News & Events', href: '/news' },
+      { label: 'Contact Us',    href: '/contact' },
     ],
   },
 ]
@@ -117,18 +128,32 @@ export default function BottomNav() {
                 {group.heading}
               </div>
               <ul className="space-y-0.5">
-                {group.links.map((l) => (
-                  <li key={l.href}>
-                    <Link
-                      href={l.href}
-                      onClick={() => setMoreOpen(false)}
-                      className="flex items-center justify-between py-2.5 text-[13.5px] font-medium text-brand-ink/80 transition-colors hover:text-brand-ink"
-                    >
-                      {l.label}
-                      <ChevronRight size={15} className="text-black/25" />
-                    </Link>
-                  </li>
-                ))}
+                {group.links.map((l) => {
+                  const cls =
+                    'flex items-center justify-between py-2.5 text-[13.5px] font-medium text-brand-ink/80 transition-colors hover:text-brand-ink'
+                  const isExternal = l.external || /^https?:\/\//.test(l.href)
+                  return (
+                    <li key={l.href}>
+                      {isExternal ? (
+                        <a
+                          href={l.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={() => setMoreOpen(false)}
+                          className={cls}
+                        >
+                          {l.label}
+                          <ChevronRight size={15} className="text-black/25" />
+                        </a>
+                      ) : (
+                        <Link href={l.href} onClick={() => setMoreOpen(false)} className={cls}>
+                          {l.label}
+                          <ChevronRight size={15} className="text-black/25" />
+                        </Link>
+                      )}
+                    </li>
+                  )
+                })}
               </ul>
             </div>
           ))}

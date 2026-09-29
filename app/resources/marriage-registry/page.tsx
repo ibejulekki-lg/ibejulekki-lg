@@ -2,39 +2,33 @@ import Link from 'next/link'
 import Image from 'next/image'
 import Footer from '@/components/Footer'
 import {
-  Phone, MapPin, Clock, Heart, FileCheck2, Users, ScrollText,
-  BookOpenCheck, BadgeCheck, FileStack, ArrowRight,
+  Phone, MapPin, Clock, Heart, Users, ScrollText,
+  BookOpenCheck, ArrowRight,
 } from 'lucide-react'
 
 export const metadata = {
   title: 'Marriage Registry | Ibeju-Lekki Local Government',
   description:
-    'The Lagos State Marriage Registry at Ibeju-Lekki Local Government: contracting of marriage, church marriage registration, counselling for intending couples, certificates and certified true copies.',
+    'The Marriage Registry at Ibeju-Lekki Local Government: statutory marriages, church marriage registration, premarital counselling and marriage certificates.',
 }
 
 const IMG = '/images/marriage-registry'
 
-/* Taken from the registry's own service board. */
+/* Wording supplied by the council. */
 const SERVICES = [
-  { icon: Heart,        title: 'Contracting of Marriage',
-    note: 'Statutory marriage conducted and registered at the council registry.' },
-  { icon: BookOpenCheck,title: 'Church Marriage Registration',
-    note: 'Registration of marriages solemnised in a licensed place of worship.' },
-  { icon: Users,        title: 'Counselling of Intending Couples',
-    note: 'Guidance for couples ahead of the ceremony.' },
-  { icon: FileCheck2,   title: 'Registration of New and Long Marriages',
-    note: 'Both recent marriages and those contracted years ago.' },
-  { icon: ScrollText,   title: 'Documentation of Marriage',
-    note: 'Preparation and safekeeping of the official marriage record.' },
-  { icon: BadgeCheck,   title: 'Bachelorhood & Spinsterhood Certificate',
-    note: 'Sworn confirmation of single status, often required abroad.' },
-  { icon: FileStack,    title: 'Issuance of Certified True Copy',
-    note: 'Certified replacement copies of a marriage certificate.' },
+  { icon: Heart,         title: 'Statutory marriages',
+    note: 'Conducting and registering marriages in accordance with applicable law.' },
+  { icon: BookOpenCheck, title: 'Church marriages',
+    note: 'Registering church marriages where applicable and issuing the relevant documentation.' },
+  { icon: Users,         title: 'Premarital counselling',
+    note: 'Providing counselling and guidance to intending couples before marriage.' },
+  { icon: ScrollText,    title: 'Marriage certificates',
+    note: 'Issuing official marriage certificates following the completion and registration of the marriage.' },
 ]
 
 const GALLERY = [
   { src: 'ceremony-1.jpg', alt: 'A couple receiving their marriage certificate at the Ibeju-Lekki registry' },
-  { src: 'ceremony-2.jpg', alt: 'Newlyweds with the registrar at the Lagos State Marriage Registry, Ibeju-Lekki' },
+  { src: 'ceremony-2.jpg', alt: 'Newlyweds with the registrar at the Marriage Registry, Ibeju-Lekki' },
   { src: 'ceremony-3.jpg', alt: 'A bride and groom holding their certificate with the registrar' },
   { src: 'ceremony-4.jpg', alt: 'A couple presented with their marriage certificate at the council registry' },
 ]
@@ -68,7 +62,7 @@ export default function Page() {
             <div className="flex items-center gap-3 mb-4">
               <span className="h-px w-8 bg-brand-yellow" aria-hidden="true" />
               <span className="text-[10.5px] font-bold uppercase tracking-[0.25em] text-black/45">
-                Federal Republic of Nigeria &middot; Lagos State
+                Federal Republic of Nigeria
               </span>
             </div>
 
@@ -79,10 +73,9 @@ export default function Page() {
               Where two families become one.
             </p>
             <p className="mt-5 max-w-2xl text-[14.5px] sm:text-[15px] text-black/65 leading-[1.85]">
-              The Lagos State Marriage Registry at Ibeju-Lekki Local Government conducts and
-              registers statutory marriages, registers church marriages, counsels intending
-              couples and issues the certificates that follow. Call ahead to confirm
-              requirements, fees and available dates.
+              The Registry at Ibeju-Lekki Local Government provides marriage-related services,
+              including statutory marriages, church marriages, premarital counselling and the
+              issuing of marriage certificates.
             </p>
 
             <div className="mt-7 flex flex-wrap items-center gap-3">
@@ -167,8 +160,9 @@ export default function Page() {
                 Speak to the registry
               </h2>
               <p className="max-w-2xl text-[14px] text-black/65 leading-[1.85] mb-7">
-                Requirements, fees and available dates are confirmed over the phone. Call
-                either number below before travelling, so you arrive with everything you need.
+                Intending couples should contact the Registry in advance to confirm the
+                applicable requirements, documents, fees, counselling arrangements, and
+                available marriage dates.
               </p>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
