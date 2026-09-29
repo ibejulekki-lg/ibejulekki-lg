@@ -23,7 +23,7 @@ const SECTIONS: { heading: string; paras: string[] }[] = [
       `Hon. Engr. Abdullahi Sesan Olowa, popularly known as "Jaja" and widely celebrated as "Mr. Project", hails from Orimedu Town in Ibeju-Lekki Local Government Area of Lagos State, Nigeria. He began his educational journey at Epe Primary School and proceeded to Ogunmodede College, Epe, for his secondary education.`,
       `Driven by a passion for science, technology, and innovation, he earned a Bachelor of Science (B.Sc.) Degree in Electronics and Computer Engineering from Lagos State University (LASU), Ojo, between 1994 and 2000. He subsequently attended the Access Bank School of Banking, where he acquired specialized training in finance, banking operations, and management.`,
       `Further strengthening his leadership and management capabilities, Hon. Olowa obtained a Master of Business Administration (MBA) from the University of Lagos Business School, equipping him with advanced knowledge in strategic management, corporate leadership, and organizational development.`,
-      `He is a Council for the Regulation of Engineering in Nigeria (COREN) Certified Engineer and a proud member of the Nigerian Society of Engineers (NSE), reflecting his commitment to professional excellence and engineering best practices.`,
+      `He is a COREN-certified engineer and a member of the Nigerian Society of Engineers (NSE), demonstrating his professional standing within Nigeria's engineering community. His professional practice is guided by established engineering standards, technical competence, ethical practice, and a commitment to delivering safe, efficient, and sustainable engineering solutions.`,
     ],
   },
   {
