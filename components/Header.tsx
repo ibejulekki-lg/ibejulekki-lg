@@ -49,7 +49,6 @@ const NAV_ITEMS: NavItem[] = [
     children: [
       { label: 'Pay Levies',          href: 'https://portal.ibejulekkilga.com', external: true },
       { label: 'Street Naming',       href: '/resources/street-naming' },
-      { label: 'Birth Certification', href: '/resources/birth-certification' },
       { label: 'Marriage Registry',    href: '/resources/marriage-registry' },
       { label: 'Waste Collection',    href: '/resources/waste' },
     ],
