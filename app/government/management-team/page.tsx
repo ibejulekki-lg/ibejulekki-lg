@@ -10,14 +10,21 @@ export const metadata = {
 export const revalidate = 60
 
 export default async function Page() {
-  const members = await getManagement()
+  const all = await getManagement()
+
+  /* The roster is ordered, so the first person is the Council Manager.
+     Lifting them out gives the same wide featured card used on the
+     Legislative Council and Traditional Rulers pages. */
+  const [lead, ...rest] = all
   return (
     <TeamPage
       group="Management Team"
       eyebrow="Government · Management"
       title="Management Team"
       intro="The management team is the career civil service that delivers council services day to day, from environment and health to education, budget and revenue."
-      members={members}
+      lead={lead}
+      featureLabel="Council Manager"
+      members={rest}
     />
   )
 }
