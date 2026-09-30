@@ -29,12 +29,7 @@ export default defineType({
   title: 'News & Events',
   type: 'document',
   fields: [
-    /* Legacy articles imported from WordPress often carry long headlines,
-       so the cap is generous and only warns past the point where a card
-       starts to look unbalanced. */
-    defineField({ name:'title', title:'Headline', type:'string',
-      description:'Headlines over about 120 characters get truncated on news cards.',
-      validation:(R)=>R.required().max(200) }),
+    defineField({ name:'title', title:'Headline', type:'string', validation:(R)=>R.required().max(120) }),
     defineField({ name:'slug', title:'Slug', type:'slug', options:{ source:'title', maxLength:96 }, validation:(R)=>R.required() }),
     defineField({
       name:'category', title:'Category', type:'string',
@@ -56,9 +51,7 @@ export default defineType({
     defineField({ name:'featured', title:'Featured Post', type:'boolean', description:'Show as lead story on homepage', initialValue:false }),
     defineField({
       name:'coverImage', title:'Cover Image', type:'image', options:{ hotspot:true },
-      fields:[ defineField({ name:'alt', title:'Alt Text', type:'string',
-        description:'Describe the photograph for screen readers. Please fill this in.',
-        validation:(R)=>R.warning('Add alt text so screen reader users know what this photograph shows.') }) ],
+      fields:[ defineField({ name:'alt', title:'Alt Text', type:'string', validation:(R)=>R.required() }) ],
     }),
     defineField({ name:'summary', title:'Summary', type:'text', rows:3, description:'Max 200 chars - shown on cards', validation:(R)=>R.required().max(200) }),
     defineField({
@@ -92,10 +85,8 @@ export default defineType({
                   { name:'caption', type:'string', title:'Caption' },
                 ],
               }],
-              /* A single photograph is allowed: the import split long sets
-                 into blocks of twelve, which left some blocks holding one. */
-              validation:(R)=>R.min(1).max(12),
-              description:'Up to 12 photos. They appear as a grid in the article.',
+              validation:(R)=>R.min(2).max(12),
+              description:'Add 2 to 12 photos. They appear as a grid in the article.',
             }),
             defineField({ name:'caption', title:'Gallery Caption', type:'string' }),
           ],
