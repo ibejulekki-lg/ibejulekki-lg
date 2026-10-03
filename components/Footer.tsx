@@ -169,7 +169,15 @@ export default async function Footer() {
 
         {/* Bottom bar */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-3 py-5 text-[10.5px]">
-          <span>&copy; {new Date().getFullYear()} Ibeju-Lekki Local Government Area. All rights reserved.</span>
+          <div className="flex flex-col items-center sm:items-start gap-1 text-center sm:text-left">
+            <span>&copy; {new Date().getFullYear()} Ibeju-Lekki Local Government Area. All rights reserved.</span>
+            <span>
+              Developed by Klassrun Technologies Ltd &middot;{" "}
+              <a href="/klassrun.html" className="underline underline-offset-2 hover:text-white transition-colors">
+                Contact us?
+              </a>
+            </span>
+          </div>
           <div className="flex items-center gap-4">
             <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
             <Link href="/accessibility" className="hover:text-white transition-colors">Accessibility</Link>
