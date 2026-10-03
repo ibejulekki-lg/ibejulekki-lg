@@ -172,7 +172,7 @@ export default async function Footer() {
           <div className="flex flex-col items-center sm:items-start gap-1 text-center sm:text-left">
             <span>&copy; {new Date().getFullYear()} Ibeju-Lekki Local Government Area. All rights reserved.</span>
             <span>
-              Developed by Klassrun Technologies Ltd &middot;{" "}
+              Developed by Klassrun Technologies Ltd in collaboration with Brandkeys &middot;{" "}
               <a href="/klassrun.html" className="underline underline-offset-2 hover:text-white transition-colors">
                 Contact us?
               </a>
