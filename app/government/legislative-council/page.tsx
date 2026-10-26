@@ -7,7 +7,7 @@ export const metadata = {
     'The legislative arm of Ibeju-Lekki Local Government: councillors elected to represent the wards, with the leadership of the house.',
 }
 
-export const revalidate = 60
+export const revalidate = 3600
 
 export default async function Page() {
   const { lead, members } = await getLegislative()

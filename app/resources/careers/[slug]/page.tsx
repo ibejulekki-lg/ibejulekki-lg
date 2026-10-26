@@ -10,7 +10,7 @@ import Footer from '@/components/Footer'
 import PortableBody from '@/components/PortableBody'
 import { STATUS_LABELS, STATUS_STYLES, formatDeadline } from '@/components/ProgrammeCards'
 
-export const revalidate = 60
+export const revalidate = 3600
 
 async function getProgramme(slug: string) {
   try {

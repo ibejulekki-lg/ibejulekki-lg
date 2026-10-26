@@ -7,7 +7,7 @@ import Footer from '@/components/Footer'
 import ProgrammeCards from '@/components/ProgrammeCards'
 import { programmesQuery } from '@/lib/queries'
 
-export const revalidate = 60
+export const revalidate = 600
 
 const PER_PAGE = 12
 

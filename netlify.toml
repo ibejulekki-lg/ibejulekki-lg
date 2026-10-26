@@ -206,3 +206,48 @@
   from = "/xmlrpc.php"
   to = "/"
   status = 301
+
+# ============================================================================
+# --- Browser caching for static files in public/
+# Netlify defaults these to max-age=0, so every page view re-requests them.
+# Browsers now keep images and fonts for 7 days and PDFs for 1 day.
+# ============================================================================
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+[[headers]]
+  for = "/leadership/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+[[headers]]
+  for = "/opportunities/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+[[headers]]
+  for = "/shieeld/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+[[headers]]
+  for = "/fonts/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+[[headers]]
+  for = "/performance-report.pdf"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
+
+[[headers]]
+  for = "/shieeld-manifesto.pdf"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
+
+[[headers]]
+  for = "/citrus-gardens-brochure.pdf"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"

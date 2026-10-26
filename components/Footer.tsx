@@ -85,7 +85,7 @@ export default async function Footer() {
 
           {/* Brand column */}
           <div className="sm:col-span-2 lg:col-span-1">
-            <Link href="/" className="flex items-center gap-3 mb-5 group">
+            <Link prefetch={false} href="/" className="flex items-center gap-3 mb-5 group">
               <div className="relative w-10 h-10 flex-shrink-0">
                 <Image src="/ibeju-lekki-logo-sm.webp" alt="Ibeju-Lekki LGA" fill className="object-contain" />
               </div>
@@ -153,7 +153,7 @@ export default async function Footer() {
                         <ExternalLink size={9} />
                       </a>
                     ) : (
-                      <Link
+                      <Link prefetch={false}
                         href={link.href}
                         className="text-[12.5px] hover:text-white hover:translate-x-0.5 transition-all duration-150 inline-block"
                       >
@@ -179,8 +179,8 @@ export default async function Footer() {
             </span>
           </div>
           <div className="flex items-center gap-4">
-            <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
-            <Link href="/accessibility" className="hover:text-white transition-colors">Accessibility</Link>
+            <Link prefetch={false} href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
+            <Link prefetch={false} href="/accessibility" className="hover:text-white transition-colors">Accessibility</Link>
             <a href="https://lagosstate.gov.ng" target="_blank" rel="noopener noreferrer"
               className="flex items-center gap-1 hover:text-white transition-colors">
               Lagos State Govt <ExternalLink size={10} />

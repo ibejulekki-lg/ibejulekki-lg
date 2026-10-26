@@ -5,7 +5,7 @@ import { groq } from 'next-sanity'
 import { Calendar, Tag, ArrowRight, ArrowLeft, Search } from 'lucide-react'
 import Footer from '@/components/Footer'
 
-export const revalidate = 60
+export const revalidate = 600
 
 const PER_PAGE = 12  // posts per page
 

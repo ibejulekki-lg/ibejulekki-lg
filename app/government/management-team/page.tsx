@@ -7,7 +7,7 @@ export const metadata = {
     'The management team of Ibeju-Lekki Local Government: the career civil service that delivers council services day to day.',
 }
 
-export const revalidate = 60
+export const revalidate = 3600
 
 export default async function Page() {
   const all = await getManagement()

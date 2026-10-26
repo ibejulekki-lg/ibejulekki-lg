@@ -7,7 +7,7 @@ export const metadata = {
     'The executive arm of Ibeju-Lekki Local Government: the Executive Chairman, supervisors leading each portfolio, special advisers, and non-cabinet members.',
 }
 
-export const revalidate = 60
+export const revalidate = 3600
 
 export default async function Page() {
   const sections = await getExecutiveSections()

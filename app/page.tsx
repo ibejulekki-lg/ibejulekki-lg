@@ -8,7 +8,7 @@ import NewsSection      from '@/components/NewsSection'
 import SubscribeSection from '@/components/SubscribeSection'
 import Footer           from '@/components/Footer'
 
-export const revalidate = 60
+export const revalidate = 600
 
 export default async function Home() {
   const [news, services, chairman] = await Promise.all([

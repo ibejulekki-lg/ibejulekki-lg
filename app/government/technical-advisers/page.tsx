@@ -1,7 +1,7 @@
 import TeamPage from '@/components/TeamPage'
 import { getAdvisers } from '@/lib/leadership'
 
-export const revalidate = 60
+export const revalidate = 3600
 
 export const metadata = {
   title: 'Chief Technical Advisers | Ibeju-Lekki Local Government',

@@ -10,7 +10,7 @@ import Footer from '@/components/Footer'
 import ShareButton from '@/components/ShareButton'
 import PortableBody from '@/components/PortableBody'
 
-export const revalidate = 60
+export const revalidate = 3600
 
 const CATEGORY_LABELS: Record<string, string> = {
   governance: 'Governance', infrastructure: 'Infrastructure', health: 'Health',
